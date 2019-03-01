@@ -7,7 +7,9 @@
     "docker-build": "docker-compose -f docker-compose.develop.yml build",
     "docker-up": "docker-compose -f docker-compose.develop.yml up",
     "docker-up-d": "docker-compose -f docker-compose.develop.yml up -d",
-    "docker-logs": "docker-compose -f docker-compose.develop.yml logs -f"
+    "docker-logs": "docker-compose -f docker-compose.develop.yml logs -f",
+    "docker-server": "docker-compose -f docker-compose.develop.yml up server",
+    "docker-client": "docker-compose -f docker-compose.develop.yml up client"
   },
   "repository": {
     "type": "git",
