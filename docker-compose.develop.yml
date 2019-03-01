@@ -19,7 +19,7 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./app:/usr/client
-      - /usr/client/node_modules
+      # - /usr/client/node_modules
     ports:
       - 5100:3000
     command: bash -c "npm run dev"
