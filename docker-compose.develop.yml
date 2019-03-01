@@ -1,0 +1,25 @@
+version: '3.4'
+services:
+  server:
+    image: simpleton-server
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./api:/usr/server
+      - /usr/server/node_modules
+    ports:
+      - 9001:9001
+    command: npm run dev
+
+  client:
+    image: simpleton-client
+    build:
+      context: ./app
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./app:/usr/client
+      - /usr/client/node_modules
+    ports:
+      - 5100:3000
+    command: bash -c "npm run dev"
