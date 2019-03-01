@@ -8,6 +8,8 @@ services:
     volumes:
       - ./api:/usr/server
       - /usr/server/node_modules
+    environment:
+      - DATABASE_URL=postgres://postgres:password@postgres/simpleton_db
     ports:
       - 9001:9001
     command: npm run dev
@@ -22,3 +24,9 @@ services:
     ports:
       - 5100:3000
     command: bash -c "npm run dev"
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=simpleton_db

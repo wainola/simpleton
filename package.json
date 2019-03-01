@@ -7,9 +7,12 @@
     "docker-build": "docker-compose -f docker-compose.develop.yml build",
     "docker-up": "docker-compose -f docker-compose.develop.yml up",
     "docker-up-d": "docker-compose -f docker-compose.develop.yml up -d",
+    "docker-up-d": "docker-compose -f docker-compose.develop.yml up -d",
     "docker-logs": "docker-compose -f docker-compose.develop.yml logs -f",
     "docker-server": "docker-compose -f docker-compose.develop.yml up server",
-    "docker-client": "docker-compose -f docker-compose.develop.yml up client"
+    "docker-client": "docker-compose -f docker-compose.develop.yml up client",
+    "docker-ps": "docker-compose -f docker-compose.develop.yml ps",
+    "db": "docker exec -it simpleton_postgres_1 psql -U postgres -d simpleton_db"
   },
   "repository": {
     "type": "git",
