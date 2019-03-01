@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docker-build": "docker-compose -f docker-compose.develop.yml build",
+    "docker-up": "docker-compose -f docker-compose.develop.yml up",
+    "docker-up-d": "docker-compose -f docker-compose.develop.yml up -d",
+    "docker-logs": "docker-compose -f docker-compose.develop.yml logs -f"
   },
   "repository": {
     "type": "git",
