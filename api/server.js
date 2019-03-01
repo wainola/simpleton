@@ -8,6 +8,8 @@ const resolvers = require('./resolvers');
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const server = new ApolloServer({
   typeDefs: schemas,
