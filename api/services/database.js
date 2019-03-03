@@ -1,23 +1,41 @@
 require('dotenv').config();
 const { Client } = require('pg');
 
+const { DATABASE_URL } = process.env;
+
+console.log(DATABASE_URL);
+
 class Database {
   constructor(connectionString) {
-    if (Database.instance) {
+    if (Database.exists) {
       return Database;
     }
-    this.connectionString = connectionString;
     this.conn = new Client({
-      connectionString: this.connectionString
+      connectionString
     });
-    this.conn
-      .connect()
-      .then(() => console.log('Connected to postgres'))
-      .catch(e => console.log('Some error ocurred:', e));
-    Database.instance = true;
-    Database = this;
-    return Database;
+    Database.exists = true;
+    Database.instance = this;
+    return this;
+  }
+
+  async connect() {
+    try {
+      await this.conn.connect();
+      console.log('Success on connection!');
+    } catch (e) {
+      console.log('Error on connecting ', e);
+    }
+  }
+
+  async testConnection() {
+    try {
+      const q = await this.conn.query('SELECT NOW()');
+      const r = await q.rows;
+      console.log('RESULT TEST CONNECTION:', r);
+    } catch (e) {
+      console.log('SOME ERROR ON TESTING THE CONECTION', e);
+    }
   }
 }
 
-module.exports = new Database();
+module.exports = new Database(DATABASE_URL);
