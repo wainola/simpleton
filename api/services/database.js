@@ -36,6 +36,19 @@ class Database {
       console.log('SOME ERROR ON TESTING THE CONECTION', e);
     }
   }
+
+  async queryToExec(query) {
+    try {
+      const q = await this.conn.query(query);
+      const r = await q.rows;
+      if (r.length === 0) {
+        return { sucess: true };
+      }
+      return r;
+    } catch (e) {
+      return { error: true, meta: e };
+    }
+  }
 }
 
 module.exports = new Database(DATABASE_URL);

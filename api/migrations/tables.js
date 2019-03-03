@@ -1,6 +1,11 @@
-const pgcrypto = `CREATE EXTENSION IF NOT EXISTS pgcrypto;`;
+const pgcrypto = {
+  descriptor: 'PGCRYPTO',
+  qyery: `CREATE EXTENSION IF NOT EXISTS pgcrypto;`
+};
 
-const userTable = `
+const userTable = {
+  descriptor: 'USER TABLE',
+  query: `
 CREATE TABLE users (
   id UUID NOT NULL PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
@@ -10,9 +15,12 @@ CREATE TABLE users (
   updatedAt TIMESTAMP default NULL,
   deletedAt TIMESTAMP default NULL
 );
-`;
+`
+};
 
-const requestCause = `
+const requestCause = {
+  descriptor: 'REQUEST_CAUSE TABLE',
+  query: `
 CREATE TABLE request_cause (
   id UUID NOT NULL PRIMARY KEY DEFAULT gen_random_uuid(),
   request TEXT NOT NULL,
@@ -21,22 +29,28 @@ CREATE TABLE request_cause (
   updatedAt TIMESTAMP default NULL,
   deletedAt TIMESTAMP default NULL
 );
-`;
+`
+};
 
-const address = `
+const address = {
+  descriptor: 'ADDRESS TABLE',
+  query: `
 CREATE TABLE address (
-  id UUID NOT NULL PRIMARY KEY DEFULT gen_random_uuid(),
+  id UUID NOT NULL PRIMARY KEY DEFAULT gen_random_uuid(),
   address TEXT NOT NULL,
   lat TEXT NOT NULL,
-  lng TEXT NOT NULL
+  lng TEXT NOT NULL,
   user_id UUID NOT NULL REFERENCES users(id),
   createdAt TIMESTAMP NOT NULL DEFAULT NOW(),
   updatedAt TIMESTAMP default NULL,
   deletedAt TIMESTAMP default NULL
 );
-`;
+`
+};
 
-const adminUser = `
+const adminUser = {
+  descriptor: 'ADMIN_USER TABLE',
+  query: `
 CREATE TABLE admin (
   id UUID NOT NULL PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
@@ -46,6 +60,7 @@ CREATE TABLE admin (
   updatedAt TIMESTAMP default NULL,
   deletedAt TIMESTAMP default NULL
 )
-`;
+`
+};
 
 module.exports = [pgcrypto, userTable, requestCause, address, adminUser];
