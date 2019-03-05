@@ -7,6 +7,7 @@ const Database = require('../services/database');
 
 // FUNCTIONS TO USE AND PROMISIFY
 const readFile = promisify(fs.readFile);
+const unlink = promisify(fs.unlink);
 
 program.description('Migration tool');
 
@@ -200,6 +201,36 @@ program.command('migrate:last').action(() => {
 });
 
 // REMOVE ALL THE MIGRATIONS FILE AND THE INDEX
-program.command('remove:all').action(() => {});
+program.command('remove:all').action(async () => {
+  const urzaIndexExists = fs.existsSync(urzaIndexPath);
+  if (!urzaIndexExists) {
+    console.log('There is no urza index. Exiting');
+    process.exit(1);
+  }
+
+  const registryPath =
+    NODE_ENV !== 'development'
+      ? `${process.cwd()}/api/migrations/registry`
+      : `${process.cwd()}/migrations/registry`;
+
+  readFile(`${registryPath}/urza_index`, 'utf-8')
+    .then(result => {
+      const filenames = result.split('\n');
+      const filenamesWithExtension = filenames.map(item => `${item}.sql`);
+
+      // THIS IS A GOOD PLACE FOR A METHOD THAT RETURNS A PROMISE
+      filenamesWithExtension.forEach(async filename => {
+        try {
+          const result = await unlink(`${registryPath}/${filename}`);
+          console.log('DELETION RESULT', result);
+        } catch (e) {
+          console.log('Some error happened durin the cleaning', e);
+        }
+      });
+    })
+    .catch(e => {
+      console.log('Some error happened!', e);
+    });
+});
 
 program.parse(process.argv);

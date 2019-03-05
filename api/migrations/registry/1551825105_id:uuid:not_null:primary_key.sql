@@ -1,1 +1,0 @@
-CREATE TABLE id:uuid:not_null:primary_key (NAME TEXT NOT NULL ,LASTNAME TEXT NOT NULL);
