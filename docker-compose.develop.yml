@@ -10,6 +10,7 @@ services:
       - /usr/server/node_modules
     environment:
       - DATABASE_URL=postgres://postgres:password@postgres/simpleton_db
+      - NODE_ENV=development
     ports:
       - 9001:9001
     command: npm run dev

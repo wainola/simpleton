@@ -3,8 +3,6 @@ const { Client } = require('pg');
 
 const { DATABASE_URL } = process.env;
 
-console.log(DATABASE_URL);
-
 class Database {
   constructor(connectionString) {
     if (Database.exists) {

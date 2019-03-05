@@ -6,11 +6,16 @@ const Database = require('../services/database');
 
 program.description('Migration tool');
 
-const urzaIndexPath = './api/migrations/registry/urza_index';
+const { NODE_ENV } = process.env;
+
+const urzaIndexPath =
+  NODE_ENV !== 'development'
+    ? `${process.cwd()}/api/migrations/registry/urza_index`
+    : `${process.cwd()}/migrations/registry/urza_index`;
 
 // GET VERSION
 program.command('version').action(() => {
-  console.log('urzar linux version 1.0.0');
+  console.log('Urza linux version 1.0.0');
 });
 
 // CREATE MIGRATIONS
@@ -43,8 +48,13 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
     }
     `;
 
-  fs.writeFile(`./api/migrations/registry/${filename}.js`, textToWrite, err => {
-    if (err) console.log('Some error::', err);
+  const fileDirectory =
+    NODE_ENV !== 'development'
+      ? `${process.cwd()}/api/migrations/registry`
+      : `${process.cwd()}/migrations/registry`;
+
+  fs.writeFile(`${fileDirectory}/${filename}.js`, textToWrite, err => {
+    if (err) console.log('SOME ERROR HAPPENED CREATING THE CURRENT MIGRATION', err);
 
     console.log(`SUCCESS ON CREATING MIGRATION FILE FOR ${tableName.toUpperCase()} TABLE!`);
   });
@@ -77,6 +87,12 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
 // REMOVE LAST MIGRATION
 program.command('remove last').action(() => {});
 
+// GET STATUS OF MIGRATIONS
+program.command('status').action(() => {
+  console.log('cwd', process.cwd());
+  console.log('process.env', process.env);
+});
+
 program.command('migrate').action(() => {
   Database.connect();
   const urzaIndexExists = fs.existsSync(urzaIndexPath);
@@ -85,6 +101,44 @@ program.command('migrate').action(() => {
 
     process.exit(1);
   }
+  Database.testConnection();
+
+  // READ THE MIGRATIONS FILE => READING THE INDEX, APPENDING THE .JS AND CALLING THE READFILE
+  // THIS VAR SHOULD BE ON TOP!!!
+  const registryPath =
+    NODE_ENV !== 'development'
+      ? `${process.cwd()}/api/migrations/registry`
+      : `${process.cwd()}/migrations/registry`;
+
+  fs.readFile(`${registryPath}/urza_index`, 'utf8', (err, data) => {
+    if (err) {
+      console.log('SOME ERROR ON OPENING THE INDEX FILE', err);
+      process.exit(1);
+    }
+
+    console.log(data.split('\n'));
+    const fileNames = data.split('\n');
+
+    fileNames.forEach(filename => {
+      const migrationFile =
+        NODE_ENV !== 'development'
+          ? `${process.cwd()}/migrations/registry/${filename}.js`
+          : `${process.cwd()}/migrations/registry/${filename}.js`;
+
+      fs.readFile(migrationFile, 'utf8', (err, migrationData) => {
+        if (err) {
+          console.log('Error reading the migration file', err);
+          process.exit(1);
+        }
+
+        console.log('migration file', migrationData);
+      });
+      process.exit(1);
+    });
+    // process.exit(1);
+  });
+  // GET THE NUMBER OF FILE THAT ARE CURRENTLY MIGRATIONS
+  // ITERATE OVER THEM AND EXECUTE THE QUERY
 });
 
 program.parse(process.argv);
