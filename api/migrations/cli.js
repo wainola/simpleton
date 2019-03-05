@@ -2,9 +2,13 @@
 const program = require('commander');
 const moment = require('moment');
 const fs = require('fs');
+const Database = require('../services/database');
 
 program.description('Migration tool');
 
+const urzaIndexPath = './api/migrations/registry/urza_index';
+
+// CREATE MIGRATIONS
 program.command('create <tableName> [fields...]').action((tableName, fields) => {
   const mappedFields = fields
     .map(item => item.split(':'))
@@ -16,18 +20,16 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
       return acc;
     }, []);
 
-  const date = moment().unix();
-
-  const filename = `${date}_${tableName}`;
-
-  const urzaIndexPath = './api/migrations/registry/urza_index';
-
   const query = mappedFields.reduce((acc, item, idx, self) => {
     acc += `${item.join(' ')} ${(item[3] === 'PRIMARY KEY' && 'DEFAULT gen_random_uuid()') || ''}${
       self.length - 1 === idx ? '' : ','
     }`;
     return acc;
   }, '');
+
+  const date = moment().unix();
+
+  const filename = `${date}_${tableName}`;
 
   const textToWrite = `
   module.exports = {
@@ -63,6 +65,16 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
   });
 });
 
+// REMOVE LAST MIGRATION
 program.command('remove last').action(() => {});
+
+program.command('migrate').action(() => {
+  Database.connect();
+  const urzaIndexExists = fs.existsSync(urzaIndexPath);
+  if (!urzaIndexExists) {
+    console.log('No migrations to run');
+    process.exit(1);
+  }
+});
 
 program.parse(process.argv);
