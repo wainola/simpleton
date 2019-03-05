@@ -25,6 +25,15 @@ class Database {
     }
   }
 
+  async closeConnection() {
+    try {
+      await this.conn.end();
+      console.log('Connection terminated');
+    } catch (e) {
+      console.log('Error terminating the connection', e);
+    }
+  }
+
   async testConnection() {
     try {
       const q = await this.conn.query('SELECT NOW()');

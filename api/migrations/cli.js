@@ -52,12 +52,14 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
     }
     `;
 
+  const sqlQuery = `CREATE TABLE ${tableName} (${query.trim()});`;
+
   const fileDirectory =
     NODE_ENV !== 'development'
       ? `${process.cwd()}/api/migrations/registry`
       : `${process.cwd()}/migrations/registry`;
 
-  fs.writeFile(`${fileDirectory}/${filename}.js`, textToWrite, err => {
+  fs.writeFile(`${fileDirectory}/${filename}.sql`, sqlQuery, err => {
     if (err) console.log('SOME ERROR HAPPENED CREATING THE CURRENT MIGRATION', err);
 
     console.log(`SUCCESS ON CREATING MIGRATION FILE FOR ${tableName.toUpperCase()} TABLE!`);
@@ -136,6 +138,11 @@ program.command('migrate').action(() => {
         }
       }, Promise.resolve([]));
 
+      results.then(d => console.log(d));
+
+      // TERMINATING THE CONNECTION CAUSE TESTING
+      Database.closeConnection();
+
       return results;
     })
     .then(resultsFromReading => {
@@ -149,6 +156,52 @@ program.command('migrate').action(() => {
     });
   // GET THE NUMBER OF FILE THAT ARE CURRENTLY MIGRATIONS
   // ITERATE OVER THEM AND EXECUTE THE QUERY
+});
+
+program.command('migrate:last').action(() => {
+  Database.connect();
+  const urzaIndexExists = fs.existsSync(urzaIndexPath);
+  if (!urzaIndexExists) {
+    console.log('No migrations to run');
+
+    process.exit(1);
+  }
+
+  // READ THE MIGRATIONS FILE => READING THE INDEX, APPENDING THE .JS AND CALLING THE READFILE
+  // THIS VAR SHOULD BE ON TOP!!!
+  const registryPath =
+    NODE_ENV !== 'development'
+      ? `${process.cwd()}/api/migrations/registry`
+      : `${process.cwd()}/migrations/registry`;
+
+  readFile(`${registryPath}/urza_index`, 'utf8')
+    .then(async dataFile => {
+      const filenames = dataFile.split('\n');
+      const lastMigration = filenames.pop();
+      const filename = `${registryPath}/${lastMigration}.sql`;
+
+      try {
+        const fileContent = await readFile(filename, 'utf8');
+        return fileContent;
+      } catch (e) {
+        console.log('Error reading the last migration file', e);
+      }
+    })
+    .then(async fileContent => {
+      const queryToExec = fileContent;
+
+      try {
+        const results = await Database.queryToExec(queryToExec);
+        return results;
+      } catch (e) {
+        console.log('Some error happened during query execution', e);
+      }
+    })
+    .then(resultsOfInsertion => {
+      console.log('RESULT OF INSERTION', resultsOfInsertion);
+      Database.closeConnection();
+      process.exit(1);
+    });
 });
 
 program.parse(process.argv);
