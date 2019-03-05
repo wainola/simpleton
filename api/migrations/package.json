@@ -10,5 +10,9 @@
   "author": "",
   "license": "ISC",
   "bin": "./cli.js",
-  "preferGlobal": true
+  "preferGlobal": true,
+  "dependencies": {
+    "commander": "^2.19.0",
+    "moment": "^2.24.0"
+  }
 }
