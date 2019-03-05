@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const program = require('commander');
 const moment = require('moment');
 const fs = require('fs');
@@ -33,7 +34,7 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
     }
     `;
 
-  fs.writeFile(`./${filename}.js`, textToWrite, err => {
+  fs.writeFile(`./api/migrations/registry/${filename}.js`, textToWrite, err => {
     if (err) console.log('Some error::', err);
     console.log(`SUCCESS ON CREATING MIGRATION FILE FOR ${tableName.toUpperCase()} TABLE!`);
   });
