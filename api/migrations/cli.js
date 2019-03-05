@@ -45,13 +45,6 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
 
   const filename = `${date}_${tableName}`;
 
-  const textToWrite = `
-  module.exports = {
-      tableDescriptor: '${tableName}',
-      query: \`CREATE TABLE ${tableName} (${query.trim()})\`
-    }
-    `;
-
   const sqlQuery = `CREATE TABLE ${tableName} (${query.trim()});`;
 
   const fileDirectory =
@@ -99,6 +92,7 @@ program.command('status').action(() => {
   console.log('process.env', process.env);
 });
 
+// RUN ALL MIGRATION
 program.command('migrate').action(() => {
   Database.connect();
   const urzaIndexExists = fs.existsSync(urzaIndexPath);
@@ -158,6 +152,7 @@ program.command('migrate').action(() => {
   // ITERATE OVER THEM AND EXECUTE THE QUERY
 });
 
+// RUN THE LATEST MIGRATION
 program.command('migrate:last').action(() => {
   Database.connect();
   const urzaIndexExists = fs.existsSync(urzaIndexPath);
@@ -203,5 +198,8 @@ program.command('migrate:last').action(() => {
       process.exit(1);
     });
 });
+
+// REMOVE ALL THE MIGRATIONS FILE AND THE INDEX
+program.command('remove:all').action(() => {});
 
 program.parse(process.argv);
