@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 const program = require('commander');
 const moment = require('moment');
+const { promisify } = require('util');
 const fs = require('fs');
 const Database = require('../services/database');
+
+// FUNCTIONS TO USE AND PROMISIFY
+const readFile = promisify(fs.readFile);
 
 program.description('Migration tool');
 
@@ -110,33 +114,39 @@ program.command('migrate').action(() => {
       ? `${process.cwd()}/api/migrations/registry`
       : `${process.cwd()}/migrations/registry`;
 
-  fs.readFile(`${registryPath}/urza_index`, 'utf8', (err, data) => {
-    if (err) {
-      console.log('SOME ERROR ON OPENING THE INDEX FILE', err);
-      process.exit(1);
-    }
+  readFile(`${registryPath}/urza_index`, 'utf8')
+    .then(data => {
+      console.log(data.split('\n'));
+      const filenames = data.split('\n');
 
-    console.log(data.split('\n'));
-    const fileNames = data.split('\n');
+      // USING REDUCE TO ADD SERIAL EXECUTION TO THE PROMISES
+      const results = filenames.reduce(async (resolved, filename) => {
+        try {
+          const migrationFile =
+            NODE_ENV !== 'development'
+              ? `${process.cwd()}/migrations/registry/${filename}.js`
+              : `${process.cwd()}/migrations/registry/${filename}.js`;
 
-    fileNames.forEach(filename => {
-      const migrationFile =
-        NODE_ENV !== 'development'
-          ? `${process.cwd()}/migrations/registry/${filename}.js`
-          : `${process.cwd()}/migrations/registry/${filename}.js`;
+          const fileReaded = await readFile(migrationFile, 'utf8');
+          const stringProccesed = fileReaded.replace(/\n/, '');
 
-      fs.readFile(migrationFile, 'utf8', (err, migrationData) => {
-        if (err) {
-          console.log('Error reading the migration file', err);
-          process.exit(1);
+          return resolved.then(dataResolved => [...dataResolved, stringProccesed]);
+        } catch (error) {
+          return [{ error: true, meta: error }];
         }
+      }, Promise.resolve([]));
 
-        console.log('migration file', migrationData);
-      });
+      return results;
+    })
+    .then(resultsFromReading => {
+      const parseToObjects = resultsFromReading.map(item => JSON.parse(JSON.stringify(item)));
+
+      console.log('parsed', parseToObjects);
+    })
+    .catch(err => {
+      console.log('Error on reading the urza index', err);
       process.exit(1);
     });
-    // process.exit(1);
-  });
   // GET THE NUMBER OF FILE THAT ARE CURRENTLY MIGRATIONS
   // ITERATE OVER THEM AND EXECUTE THE QUERY
 });
