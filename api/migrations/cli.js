@@ -8,6 +8,11 @@ program.description('Migration tool');
 
 const urzaIndexPath = './api/migrations/registry/urza_index';
 
+// GET VERSION
+program.command('version').action(() => {
+  console.log('urzar linux version 1.0.0');
+});
+
 // CREATE MIGRATIONS
 program.command('create <tableName> [fields...]').action((tableName, fields) => {
   const mappedFields = fields
