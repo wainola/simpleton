@@ -40,6 +40,7 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
 
   fs.writeFile(`./api/migrations/registry/${filename}.js`, textToWrite, err => {
     if (err) console.log('Some error::', err);
+
     console.log(`SUCCESS ON CREATING MIGRATION FILE FOR ${tableName.toUpperCase()} TABLE!`);
   });
 
@@ -49,7 +50,9 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
   if (!existsUrzaIndex) {
     fs.writeFile(urzaIndexPath, filename, { flag: 'wx' }, err => {
       if (err) console.log('Some error creating the file', err);
+
       console.log('CREATING THE URZA INDEX');
+
       process.exit(1);
     });
   }
@@ -59,6 +62,7 @@ program.command('create <tableName> [fields...]').action((tableName, fields) => 
     if (err) console.log('Some error reading the Urza index', err);
 
     const newData = `${data}\n${filename}`;
+
     fs.writeFile(urzaIndexPath, newData, err => {
       if (err) console.log('Error on writing file', err);
     });
@@ -73,6 +77,7 @@ program.command('migrate').action(() => {
   const urzaIndexExists = fs.existsSync(urzaIndexPath);
   if (!urzaIndexExists) {
     console.log('No migrations to run');
+
     process.exit(1);
   }
 });
