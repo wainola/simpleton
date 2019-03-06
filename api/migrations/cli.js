@@ -25,9 +25,17 @@ const fileDirectory =
     ? `${process.cwd()}/api/migrations/registry`
     : `${process.cwd()}/migrations/registry`;
 
+const urzaIndexExists = fs.existsSync(urzaIndexPath);
+
 // GET VERSION
 program.command('version').action(() => {
   console.log('Urza linux version 1.0.0');
+});
+
+// GET STATUS OF MIGRATIONS
+program.command('status').action(() => {
+  console.log('cwd', process.cwd());
+  console.log('process.env', process.env);
 });
 
 // CREATE MIGRATIONS
@@ -43,11 +51,13 @@ program.command('create <tableName> [fields...]').action(async (tableName, field
   const sqlQuery = await Utils.buildTableQuery(tableName, query);
 
   writeFile(`${fileDirectory}/${filename}.sql`, sqlQuery)
-    .then(result => {
+    .then(() => {
       console.log(`Migration file for ${tableName} created!`);
     })
     .then(async () => {
-      const existsUrzaIndex = fs.existsSync(urzaIndexPath);
+      const existsUrzaIndex = urzaIndexExists;
+
+      // IF URZA INDEX DOESNT EXITS WE CREATED AND WRITE TO THE INDEX
       if (!existsUrzaIndex) {
         try {
           const urzaIndexResult = await writeFile(urzaIndexPath, filename, { flag: 'wx' });
@@ -58,6 +68,7 @@ program.command('create <tableName> [fields...]').action(async (tableName, field
         }
       }
 
+      // IF URZA INDEX ALREADY EXISTS, WE WRITE ON IT
       try {
         const fileR = await readFile(urzaIndexPath, 'utf8')
           .then(data => {
@@ -75,54 +86,37 @@ program.command('create <tableName> [fields...]').action(async (tableName, field
         return error;
       }
     })
-    .then()
     .catch(error => {
       console.error('Error on creating the migration file', error);
     });
 });
 
-// REMOVE LAST MIGRATION
-program.command('remove last').action(() => {});
-
-// GET STATUS OF MIGRATIONS
-program.command('status').action(() => {
-  console.log('cwd', process.cwd());
-  console.log('process.env', process.env);
-});
-
 // RUN ALL MIGRATION
 program.command('migrate').action(() => {
-  Database.connect();
-  const urzaIndexExists = fs.existsSync(urzaIndexPath);
-  if (!urzaIndexExists) {
+  const existsUrzaIndex = urzaIndexExists;
+
+  if (!existsUrzaIndex) {
     console.log('No migrations to run');
 
     process.exit(1);
   }
-  Database.testConnection();
 
   // READ THE MIGRATIONS FILE => READING THE INDEX, APPENDING THE .JS AND CALLING THE READFILE
-  // THIS VAR SHOULD BE ON TOP!!!
-  const registryPath =
-    NODE_ENV !== 'development'
-      ? `${process.cwd()}/api/migrations/registry`
-      : `${process.cwd()}/migrations/registry`;
-
-  readFile(`${registryPath}/urza_index`, 'utf8')
-    .then(data => {
-      console.log(data.split('\n'));
-      const filenames = data.split('\n');
+  readFile(`${fileDirectory}/urza_index`, 'utf8')
+    .then(dataRead => {
+      console.log(dataRead.split('\n'));
+      const filenames = dataRead.split('\n');
 
       // USING REDUCE TO ADD SERIAL EXECUTION TO THE PROMISES
       const results = filenames.reduce(async (resolved, filename) => {
         try {
           const migrationFile =
             NODE_ENV !== 'development'
-              ? `${process.cwd()}/migrations/registry/${filename}.js`
-              : `${process.cwd()}/migrations/registry/${filename}.js`;
+              ? `${process.cwd()}/api/migrations/registry/${filename}.sql`
+              : `${process.cwd()}/migrations/registry/${filename}.sql`;
 
-          const fileReaded = await readFile(migrationFile, 'utf8');
-          const stringProccesed = fileReaded.replace(/\n/, '');
+          const fileRead = await readFile(migrationFile, 'utf8');
+          const stringProccesed = fileRead.replace(/\n/, '');
 
           return resolved.then(dataResolved => [...dataResolved, stringProccesed]);
         } catch (error) {
@@ -130,24 +124,28 @@ program.command('migrate').action(() => {
         }
       }, Promise.resolve([]));
 
-      results.then(d => console.log(d));
-
-      // TERMINATING THE CONNECTION CAUSE TESTING
-      Database.closeConnection();
-
       return results;
     })
-    .then(resultsFromReading => {
-      const parseToObjects = resultsFromReading.map(item => JSON.parse(JSON.stringify(item)));
+    .then(async resultsFromReading => {
+      // HERE WE SEND THE MIGRATIONS TO THE DATABASE
+      const makeConnection = await Database.connect();
 
-      console.log('parsed', parseToObjects);
+      // WE RUN THE MIGRATIONS
+      if (!makeConnection.error) {
+        resultsFromReading.forEach(async query => {
+          try {
+            const queryResult = await Database.queryToExec(query);
+            console.log('query executed', queryResult);
+          } catch (e) {
+            console.log('Error on executing the query', e);
+          }
+        });
+      }
     })
     .catch(err => {
       console.log('Error on reading the urza index', err);
       process.exit(1);
     });
-  // GET THE NUMBER OF FILE THAT ARE CURRENTLY MIGRATIONS
-  // ITERATE OVER THEM AND EXECUTE THE QUERY
 });
 
 // RUN THE LATEST MIGRATION
@@ -196,6 +194,9 @@ program.command('migrate:last').action(() => {
       process.exit(1);
     });
 });
+
+// REMOVE LAST MIGRATION
+program.command('remove last').action(() => {});
 
 // REMOVE ALL THE MIGRATIONS FILE AND THE INDEX
 program.command('remove:all').action(async () => {

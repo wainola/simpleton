@@ -19,18 +19,18 @@ class Database {
   async connect() {
     try {
       await this.conn.connect();
-      console.log('Success on connection!');
+      return { error: false, meta: { connected: true } };
     } catch (e) {
-      console.log('Error on connecting ', e);
+      return { error: true, meta: e };
     }
   }
 
   async closeConnection() {
     try {
       await this.conn.end();
-      console.log('Connection terminated');
+      return { error: false, meta: { connected: false } };
     } catch (e) {
-      console.log('Error terminating the connection', e);
+      return { error: true, meta: e };
     }
   }
 
