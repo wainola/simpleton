@@ -35,8 +35,6 @@ program.command('create <tableName> [fields...]').action(async (tableName, field
   const mappedFields = await Utils.mapFields(fields);
   const query = await Utils.buildQuery(mappedFields);
 
-  console.log('query', query);
-
   const date = moment().unix();
 
   const filename = `${date}_${tableName}`;
@@ -54,6 +52,7 @@ program.command('create <tableName> [fields...]').action(async (tableName, field
           const urzaIndexResult = await writeFile(urzaIndexPath, filename, { flag: 'wx' });
           return urzaIndexResult;
         } catch (error) {
+          console.log('error on writing the non existing urza file');
           return error;
         }
       }
@@ -68,8 +67,6 @@ program.command('create <tableName> [fields...]').action(async (tableName, field
             const writeToUrza = await writeFile(urzaIndexPath, dataWroted);
             return writeToUrza;
           });
-
-        console.log('file wroted', fileR);
 
         return fileR;
       } catch (error) {
