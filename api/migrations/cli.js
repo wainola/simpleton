@@ -33,6 +33,7 @@ program.command('version').action(() => {
 // CREATE MIGRATIONS
 program.command('create <tableName> [fields...]').action(async (tableName, fields) => {
   const mappedFields = await Utils.mapFields(fields);
+
   const query = await Utils.buildQuery(mappedFields);
 
   const date = moment().unix();

@@ -15,6 +15,7 @@ describe('Utils', () => {
       console.log('Some Error happened during the mapping', e);
     }
   });
+
   it('should generated the body of the query after create table statement', async () => {
     try {
       const expectedString =
@@ -28,6 +29,7 @@ describe('Utils', () => {
       console.log('Some error running the buildQuery method', e);
     }
   });
+
   it('should return the query for creating the table', async () => {
     try {
       const expectedQuery = `CREATE TABLE users (ID UUID NOT NULL PRIMARY KEY DEFAULT gen_random_uuid(),NAME TEXT NOT NULL ,LASTNAME TEXT NOT NULL);`;
