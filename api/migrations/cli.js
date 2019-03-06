@@ -228,6 +228,14 @@ program.command('remove:all').action(async () => {
         }
       });
     })
+    .then(async () => {
+      try {
+        const result = await unlink(`${urzaIndexPath}`);
+        console.log('Success deletion of urza index');
+      } catch (e) {
+        console.log('Some error happened', e);
+      }
+    })
     .catch(e => {
       console.log('Some error happened!', e);
     });
