@@ -4,10 +4,12 @@ const moment = require('moment');
 const { promisify } = require('util');
 const fs = require('fs');
 const Database = require('../services/database');
+const Utils = require('./utils');
 
 // FUNCTIONS TO USE AND PROMISIFY
 const readFile = promisify(fs.readFile);
 const unlink = promisify(fs.unlink);
+const writeFile = promisify(fs.writeFile);
 
 program.description('Migration tool');
 
@@ -18,70 +20,67 @@ const urzaIndexPath =
     ? `${process.cwd()}/api/migrations/registry/urza_index`
     : `${process.cwd()}/migrations/registry/urza_index`;
 
+const fileDirectory =
+  NODE_ENV !== 'development'
+    ? `${process.cwd()}/api/migrations/registry`
+    : `${process.cwd()}/migrations/registry`;
+
 // GET VERSION
 program.command('version').action(() => {
   console.log('Urza linux version 1.0.0');
 });
 
 // CREATE MIGRATIONS
-program.command('create <tableName> [fields...]').action((tableName, fields) => {
-  const mappedFields = fields
-    .map(item => item.split(':'))
-    .reduce((acc, item) => {
-      const formated = item.map(elem =>
-        elem.includes('_') ? elem.replace(/_/, ' ').toUpperCase() : elem.toUpperCase()
-      );
-      acc.push(formated);
-      return acc;
-    }, []);
+program.command('create <tableName> [fields...]').action(async (tableName, fields) => {
+  const mappedFields = await Utils.mapFields(fields);
+  const query = await Utils.buildQuery(mappedFields);
 
-  const query = mappedFields.reduce((acc, item, idx, self) => {
-    acc += `${item.join(' ')} ${(item[3] === 'PRIMARY KEY' && 'DEFAULT gen_random_uuid()') || ''}${
-      self.length - 1 === idx ? '' : ','
-    }`;
-    return acc;
-  }, '');
+  console.log('query', query);
 
   const date = moment().unix();
 
   const filename = `${date}_${tableName}`;
 
-  const sqlQuery = `CREATE TABLE ${tableName} (${query.trim()});`;
+  const sqlQuery = await Utils.buildTableQuery(tableName, query);
 
-  const fileDirectory =
-    NODE_ENV !== 'development'
-      ? `${process.cwd()}/api/migrations/registry`
-      : `${process.cwd()}/migrations/registry`;
+  writeFile(`${fileDirectory}/${filename}.sql`, sqlQuery)
+    .then(result => {
+      console.log(`Migration file for ${tableName} created!`);
+    })
+    .then(async () => {
+      const existsUrzaIndex = fs.existsSync(urzaIndexPath);
+      if (!existsUrzaIndex) {
+        try {
+          const urzaIndexResult = await writeFile(urzaIndexPath, filename, { flag: 'wx' });
+          return urzaIndexResult;
+        } catch (error) {
+          return error;
+        }
+      }
 
-  fs.writeFile(`${fileDirectory}/${filename}.sql`, sqlQuery, err => {
-    if (err) console.log('SOME ERROR HAPPENED CREATING THE CURRENT MIGRATION', err);
+      try {
+        const fileR = await readFile(urzaIndexPath, 'utf8')
+          .then(data => {
+            const newDataToWrite = `${data}\n${filename}`;
+            return newDataToWrite;
+          })
+          .then(async dataWroted => {
+            const writeToUrza = await writeFile(urzaIndexPath, dataWroted);
+            return writeToUrza;
+          });
 
-    console.log(`SUCCESS ON CREATING MIGRATION FILE FOR ${tableName.toUpperCase()} TABLE!`);
-  });
+        console.log('file wroted', fileR);
 
-  const existsUrzaIndex = fs.existsSync(urzaIndexPath);
-
-  // CREATING URZA INDEX IF NOT EXISTS;
-  if (!existsUrzaIndex) {
-    fs.writeFile(urzaIndexPath, filename, { flag: 'wx' }, err => {
-      if (err) console.log('Some error creating the file', err);
-
-      console.log('CREATING THE URZA INDEX');
-
-      process.exit(1);
+        return fileR;
+      } catch (error) {
+        console.log('Error writing urza index', error);
+        return error;
+      }
+    })
+    .then()
+    .catch(error => {
+      console.error('Error on creating the migration file', error);
     });
-  }
-
-  // WRITING TO THE URZA INDEX THE CURRENT FILE OF MIGRATIONS
-  fs.readFile(urzaIndexPath, 'utf8', (err, data) => {
-    if (err) console.log('Some error reading the Urza index', err);
-
-    const newData = `${data}\n${filename}`;
-
-    fs.writeFile(urzaIndexPath, newData, err => {
-      if (err) console.log('Error on writing file', err);
-    });
-  });
 });
 
 // REMOVE LAST MIGRATION
