@@ -25,6 +25,12 @@ const fileDirectory =
     ? `${process.cwd()}/api/migrations/registry`
     : `${process.cwd()}/migrations/registry`;
 
+// CHECK IF DIRECTORIES EXISTS. IF NOT, CREATE THEM
+const registryPath =
+  NODE_ENV !== 'development'
+    ? `${process.cwd()}/api/migrations/registry`
+    : `${process.cwd()}/migrations/registry`;
+
 const urzaIndexExists = fs.existsSync(urzaIndexPath);
 
 // GET VERSION
@@ -131,11 +137,13 @@ program.command('migrate').action(() => {
       const makeConnection = await Database.connect();
 
       // WE RUN THE MIGRATIONS
+      //   IF WE USE FOR EACH WE CANNOT RETURN TO USE A THEN
       if (!makeConnection.error) {
         resultsFromReading.forEach(async query => {
           try {
             const queryResult = await Database.queryToExec(query);
             console.log('query executed', queryResult);
+            return queryResult;
           } catch (e) {
             console.log('Error on executing the query', e);
           }
@@ -151,21 +159,13 @@ program.command('migrate').action(() => {
 // RUN THE LATEST MIGRATION
 program.command('migrate:last').action(() => {
   Database.connect();
-  const urzaIndexExists = fs.existsSync(urzaIndexPath);
   if (!urzaIndexExists) {
     console.log('No migrations to run');
 
     process.exit(1);
   }
 
-  // READ THE MIGRATIONS FILE => READING THE INDEX, APPENDING THE .JS AND CALLING THE READFILE
-  // THIS VAR SHOULD BE ON TOP!!!
-  const registryPath =
-    NODE_ENV !== 'development'
-      ? `${process.cwd()}/api/migrations/registry`
-      : `${process.cwd()}/migrations/registry`;
-
-  readFile(`${registryPath}/urza_index`, 'utf8')
+  readFile(`${urzaIndexPath}`, 'utf8')
     .then(async dataFile => {
       const filenames = dataFile.split('\n');
       const lastMigration = filenames.pop();
@@ -176,9 +176,11 @@ program.command('migrate:last').action(() => {
         return fileContent;
       } catch (e) {
         console.log('Error reading the last migration file', e);
+        return e;
       }
     })
     .then(async fileContent => {
+      console.log('fileContent', fileContent);
       const queryToExec = fileContent;
 
       try {
@@ -186,6 +188,7 @@ program.command('migrate:last').action(() => {
         return results;
       } catch (e) {
         console.log('Some error happened during query execution', e);
+        return e;
       }
     })
     .then(resultsOfInsertion => {
@@ -196,7 +199,57 @@ program.command('migrate:last').action(() => {
 });
 
 // REMOVE LAST MIGRATION
-program.command('remove last').action(() => {});
+program.command('remove:last').action(() => {
+  if (!urzaIndexExists) {
+    console.log('No migrations to run');
+
+    process.exit(1);
+  }
+
+  readFile(`${urzaIndexPath}`, 'utf8')
+    .then(async datafile => {
+      const lastMigration = datafile.split('\n').pop();
+
+      const newUrzaIndexContent = datafile
+        .split('\n')
+        .filter(item => item !== lastMigration)
+        .join('\n');
+      console.log('lastMigration', lastMigration);
+      console.log('new urza index content', newUrzaIndexContent);
+
+      try {
+        const writeToIndex = await writeFile(`${urzaIndexPath}`, newUrzaIndexContent);
+        console.log('Urza index updated!');
+      } catch (err) {
+        console.log('Some error on updating the urza file', err);
+      }
+      return lastMigration;
+    })
+    .then(async lastMigration => {
+      const parseTableName = lastMigration.split('_').pop();
+
+      try {
+        Database.connect();
+
+        const query = `DROP TABLE ${parseTableName}`;
+
+        const result = await Database.queryToExec(query);
+
+        return [result, parseTableName];
+      } catch (err) {
+        console.log(`Some error on droping the table ${parseTableName}`, err);
+
+        return err;
+      }
+    })
+    .then(async ([result, parseTableName]) => {
+      console.log('Success on droping the table', parseTableName);
+      process.exit(1);
+    })
+    .catch(err => {
+      console.log('Error when removing the last migration', err);
+    });
+});
 
 // REMOVE ALL THE MIGRATIONS FILE AND THE INDEX
 program.command('remove:all').action(async () => {
