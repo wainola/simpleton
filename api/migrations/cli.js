@@ -259,34 +259,41 @@ program.command('remove:all').action(async () => {
     process.exit(1);
   }
 
-  const registryPath =
-    NODE_ENV !== 'development'
-      ? `${process.cwd()}/api/migrations/registry`
-      : `${process.cwd()}/migrations/registry`;
-
   readFile(`${registryPath}/urza_index`, 'utf-8')
     .then(result => {
       const filenames = result.split('\n');
+      const tableNames = filenames.map(item => item.split('_')[1]);
       const filenamesWithExtension = filenames.map(item => `${item}.sql`);
 
-      // THIS IS A GOOD PLACE FOR A METHOD THAT RETURNS A PROMISE
-      filenamesWithExtension.forEach(async filename => {
-        try {
-          const result = await unlink(`${registryPath}/${filename}`);
-          console.log('DELETION RESULT', result);
-        } catch (e) {
-          console.log('Some error happened durin the cleaning', e);
-        }
+      console.log('tableNames', tableNames);
+      const queryToExec = tableNames.reduce((queryArray, currentTableName) => {
+        queryArray.push(`DROP TABLE ${currentTableName}`);
+        return queryArray;
+      }, []);
+
+      const qExecuted = queryToExec.map(query => {
+        const d = Database.queryToExec(query);
+        return d;
       });
+
+      // // THIS IS A GOOD PLACE FOR A METHOD THAT RETURNS A PROMISE
+      // filenamesWithExtension.forEach(async filename => {
+      //   try {
+      //     const result = await unlink(`${registryPath}/${filename}`);
+      //     console.log('DELETION RESULT', result);
+      //   } catch (e) {
+      //     console.log('Some error happened durin the cleaning', e);
+      //   }
+      // });
     })
-    .then(async () => {
-      try {
-        const result = await unlink(`${urzaIndexPath}`);
-        console.log('Success deletion of urza index');
-      } catch (e) {
-        console.log('Some error happened', e);
-      }
-    })
+    // .then(async () => {
+    //   try {
+    //     const result = await unlink(`${urzaIndexPath}`);
+    //     console.log('Success deletion of urza index');
+    //   } catch (e) {
+    //     console.log('Some error happened', e);
+    //   }
+    // })
     .catch(e => {
       console.log('Some error happened!', e);
     });
