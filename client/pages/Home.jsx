@@ -1,4 +1,8 @@
 import React from 'react';
+import Body from './components/Body';
+import MainContent from './components/MainContent';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 /**
  * HOME MUST HAVE
@@ -10,7 +14,9 @@ import React from 'react';
  */
 
 export default () => (
-  <div>
-    <h1>Home Page</h1>
-  </div>
+  <Body>
+    <Header />
+    <MainContent />
+    <Footer />
+  </Body>
 );
