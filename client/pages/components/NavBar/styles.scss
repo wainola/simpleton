@@ -1,6 +1,13 @@
-div.navWide {
-  background: red;
-  a {
-    color: aquamarine;
+nav.navbar {
+  display: flex;
+
+  div.nav-wide {
+    .menu-item {
+      padding: 0.5rem 0.5rem;
+    }
+  }
+
+  div.nav-narrow {
+    display: none;
   }
 }

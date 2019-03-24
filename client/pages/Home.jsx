@@ -15,10 +15,12 @@ import Navbar from './components/NavBar';
  */
 
 export default () => (
-  <Body>
+  <React.Fragment>
     <Navbar />
-    <Header />
-    <MainContent />
-    <Footer />
-  </Body>
+    <Body>
+      <Header />
+      <MainContent />
+      <Footer />
+    </Body>
+  </React.Fragment>
 );

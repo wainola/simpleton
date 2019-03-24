@@ -21,17 +21,17 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <nav>
-        <div className="navWide">
-          <div className="wideDiv">
+      <nav className="navbar">
+        <div className="nav-wide">
+          <div className="wide-div">
             {this.state.content.map(elem => (
-              <a href="" onClick={evt => this.handleClick(evt)}>
+              <a href="" onClick={evt => this.handleClick(evt)} className="menu-item">
                 {elem.text}
               </a>
             ))}
           </div>
         </div>
-        <div className="navNarrow">
+        <div className="nav-narrow">
           <i className="fa fa-bars fa-2x" />
           <div ref={this.narrowLinks} className="narrowLinks">
             <a href="">Inicio</a>
