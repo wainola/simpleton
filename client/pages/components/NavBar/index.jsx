@@ -5,6 +5,14 @@ export default class NavBar extends Component {
   constructor() {
     super();
     this.narrowLinks = React.createRef();
+    this.state = {
+      content: [
+        { text: 'Inicio' },
+        { text: 'Quiénes somos' },
+        { text: 'Consulte' },
+        { text: 'Contacto' }
+      ]
+    };
   }
 
   handleToggle() {
@@ -16,10 +24,11 @@ export default class NavBar extends Component {
       <nav>
         <div className="navWide">
           <div className="wideDiv">
-            <a href="">Inicio</a>
-            <a href="">Quiénes somos</a>
-            <a href="">Consulte</a>
-            <a href="">Contacto</a>
+            {this.state.content.map(elem => (
+              <a href="" onClick={evt => this.handleClick(evt)}>
+                {elem.text}
+              </a>
+            ))}
           </div>
         </div>
         <div className="navNarrow">
