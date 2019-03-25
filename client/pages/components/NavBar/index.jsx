@@ -33,9 +33,9 @@ export default class NavBar extends Component {
   render() {
     return (
       <Container fluid>
-        <Navbar bg="warning">
-          <Navbar.Toggle artia-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-mavbar-nav">
+        <Navbar collapseOnSelect expand="lg" bg="warning" fixed="top">
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="#">Nosotros</Nav.Link>
               <Nav.Link href="#">Consulte</Nav.Link>
