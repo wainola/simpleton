@@ -4,6 +4,7 @@ import MainContent from './components/MainContent';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Navbar from './components/NavBar';
+import Head from './Head';
 
 /**
  * HOME MUST HAVE
@@ -16,6 +17,7 @@ import Navbar from './components/NavBar';
 
 export default () => (
   <React.Fragment>
+    <Head />
     <Navbar />
     <Body>
       <Header />
