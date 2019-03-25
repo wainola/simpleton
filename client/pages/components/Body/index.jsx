@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Row } from 'react-bootstrap';
 import './style.scss';
 
 export default props => {
@@ -6,12 +7,19 @@ export default props => {
   const { className } = props;
   const [Header, MainContent, Footer] = props.children;
   return (
-    <React.Fragment>
-      <div className={className}>
+    <Container>
+      <Row>
         <div className="col">{Header}</div>
-        <div className="col">{MainContent}</div>
-        <div className="col">{Footer}</div>
-      </div>
-    </React.Fragment>
+      </Row>
+      <Row>
+        <h1>BreadCrumbs</h1>
+      </Row>
+      <Row>
+        <div className={className}>
+          <div className="col">{MainContent}</div>
+          <div className="col">{Footer}</div>
+        </div>
+      </Row>
+    </Container>
   );
 };
