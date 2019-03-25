@@ -17,7 +17,7 @@ import './styles.scss';
  * SOME FOOTER
  */
 
-export default () => (
+export default ({ items }) => (
   <React.Fragment>
     <Head />
     <Container fluid>
@@ -29,7 +29,7 @@ export default () => (
     </Container>
     <Container fluid>
       <Row>
-        <Body className="main-body">
+        <Body className="main-body" items={items}>
           <Header />
           <MainContent />
           <Footer />
