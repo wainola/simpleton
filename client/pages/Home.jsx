@@ -1,8 +1,9 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import Body from './components/Body';
-import MainContent from './components/MainContent';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import MainContent from './components/MainContent/MainContent';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import Navbar from './components/NavBar';
 import Head from './Head';
 
@@ -18,11 +19,21 @@ import Head from './Head';
 export default () => (
   <React.Fragment>
     <Head />
-    <Navbar />
-    <Body>
-      <Header />
-      <MainContent />
-      <Footer />
-    </Body>
+    <Container fluid>
+      <Row noGutters>
+        <Col>
+          <Navbar />
+        </Col>
+      </Row>
+    </Container>
+    <Container>
+      <Row>
+        <Body>
+          <Header />
+          <MainContent />
+          <Footer />
+        </Body>
+      </Row>
+    </Container>
   </React.Fragment>
 );

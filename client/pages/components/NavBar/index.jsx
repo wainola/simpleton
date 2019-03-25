@@ -13,6 +13,16 @@ export default class NavBar extends Component {
         { text: 'Contacto' }
       ]
     };
+    this.handleResize = this.handleResize.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('didMount', window);
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  handleResize(evt) {
+    console.log('handleResize', evt);
   }
 
   handleToggle() {
