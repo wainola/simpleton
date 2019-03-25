@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Breadcrumb } from 'react-bootstrap';
 import './style.scss';
 
 export default props => {
@@ -12,7 +12,13 @@ export default props => {
         <div className="col">{Header}</div>
       </Row>
       <Row>
-        <h1>BreadCrumbs</h1>
+        <Breadcrumb>
+          <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+          <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
+            Library
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Data</Breadcrumb.Item>
+        </Breadcrumb>
       </Row>
       <Row>
         <div className={className}>
