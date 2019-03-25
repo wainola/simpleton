@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/NavBar';
 import Head from './Head';
+import './styles.scss';
 
 /**
  * HOME MUST HAVE
@@ -20,15 +21,15 @@ export default () => (
   <React.Fragment>
     <Head />
     <Container fluid>
-      <Row noGutters>
+      <Row>
         <Col>
           <Navbar />
         </Col>
       </Row>
     </Container>
-    <Container>
+    <Container fluid>
       <Row>
-        <Body>
+        <Body className="main-body">
           <Header />
           <MainContent />
           <Footer />

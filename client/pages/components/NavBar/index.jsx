@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import './styles.scss';
 
 export default class NavBar extends Component {
@@ -31,26 +32,18 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar">
-        <div className="nav-wide">
-          <div className="wide-div">
-            {this.state.content.map(elem => (
-              <a href="" onClick={evt => this.handleClick(evt)} className="menu-item">
-                {elem.text}
-              </a>
-            ))}
-          </div>
-        </div>
-        <div className="nav-narrow">
-          <i className="fa fa-bars fa-2x" />
-          <div ref={this.narrowLinks} className="narrowLinks">
-            <a href="">Inicio</a>
-            <a href="">Quiénes somos</a>
-            <a href="">Consulte</a>
-            <a href="">Contacto</a>
-          </div>
-        </div>
-      </nav>
+      <Container fluid>
+        <Navbar bg="warning">
+          <Navbar.Toggle artia-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-mavbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="#">Nosotros</Nav.Link>
+              <Nav.Link href="#">Consulte</Nav.Link>
+              <Nav.Link href="#">Asesorias</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </Container>
     );
   }
 }
