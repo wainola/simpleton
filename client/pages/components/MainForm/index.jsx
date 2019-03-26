@@ -11,7 +11,7 @@ import {
 } from '../../../Services/validators';
 import './styles.scss';
 
-export default class MainForm extends Component {
+export class MainForm extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -95,3 +95,5 @@ export default class MainForm extends Component {
     );
   }
 }
+
+export default MainForm;
