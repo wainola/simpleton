@@ -112,4 +112,19 @@ describe('<MainForm />', () => {
 
     expect(email).toBe(false);
   });
+
+  it('should test the submit method', () => {
+    const happyValidations = {
+      name: true,
+      lastname: true,
+      email: true,
+      address: true,
+      reason: true,
+      phone: true
+    };
+
+    mountComp.setState({ validations: { ...happyValidations } });
+
+    mountComp.find('form').simulate('submit');
+  });
 });

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Card, Form, Button } from 'react-bootstrap';
 import Input from '../Input';
+import CustomAlert from '../Alert';
 import {
   nameValidator,
   lastNameValidator,
@@ -57,7 +58,17 @@ export class MainForm extends Component {
   }
 
   handleSubmit() {
-    console.log('this.state.validations', this.state.validations);
+    const { validations } = this.state;
+
+    const values = Object.values(validations);
+
+    if (values.length !== 0) {
+      const validData = values.every(e => !!e);
+
+      console.log('true::::', validData, this.state.validations);
+
+      // TODO: THIS IS THE PLACE WHEN WE SEND THE QUERY TO THE GRAPH SERVER
+    }
   }
 
   render() {
