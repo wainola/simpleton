@@ -25,7 +25,6 @@ export class MainForm extends Component {
   }
 
   handleChange(evt) {
-    console.log('evt', evt.target.dataset.descriptor);
     const { descriptor } = evt.target.dataset;
     const { value } = evt.target;
 
@@ -53,7 +52,7 @@ export class MainForm extends Component {
     }
 
     this.setState({
-      ...validations
+      validations
     });
   }
 
@@ -69,7 +68,6 @@ export class MainForm extends Component {
         <Row>
           <Card>
             <Card.Title className="form-title">Contáctenos</Card.Title>
-            <p>PICO!!!</p>
             <Card.Body>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>

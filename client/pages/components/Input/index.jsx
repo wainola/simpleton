@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ title, placeholder, type, handleChange, className, descriptor }) => {
+export const Input = ({ title, placeholder, type, handleChange, className, descriptor }) => {
   return (
     <React.Fragment>
       <h5>{title}</h5>
@@ -14,3 +14,5 @@ export default ({ title, placeholder, type, handleChange, className, descriptor 
     </React.Fragment>
   );
 };
+
+export default Input;

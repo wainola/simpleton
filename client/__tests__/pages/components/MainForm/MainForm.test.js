@@ -1,10 +1,14 @@
 const React = require('react');
-const { shallow, mount, render } = require('enzyme');
+const { shallow, mount } = require('enzyme');
 const { MainForm } = require('../../../../pages/components/MainForm');
+const { Input } = require('../../../../pages/components/Input');
 
 let formFields;
 let mockHandleChange;
 let evt;
+let shallowComp;
+let shallowInputs;
+let mountComp;
 
 describe('<MainForm />', () => {
   beforeEach(() => {
@@ -14,7 +18,7 @@ describe('<MainForm />', () => {
       { descriptor: 'Teléfono', type: 'phone' }
     ];
 
-    mockHandleChange = jest.fn(() => console.log('peos!!'));
+    mockHandleChange = jest.fn();
 
     evt = {
       preventDefault() {},
@@ -25,29 +29,87 @@ describe('<MainForm />', () => {
         value: 'john'
       }
     };
-  });
-  it('Should render without errors', () => {
-    const component = shallow(<MainForm formFields={formFields} />);
 
-    // console.log('comp:::', component);
-    expect(component).toMatchSnapshot();
-  });
-  it('should set the state with all the fields on validation object set to true', () => {
-    const component = mount(<MainForm formFields={formFields} handleChange={mockHandleChange} />);
+    shallowComp = shallow(<MainForm formFields={formFields} />);
 
-    // console.log('comp2:::::', component.html());
-    // component.find('input').forEach(e => console.log('e', e.simulate('change', evt)));
-    // console.log(Array.from(component.find('input')));
-    // const first = Array.from(component.find('input'))[0];
-    // console.log('first', first);
+    mountComp = mount(<MainForm formFields={formFields} />);
 
-    console.log(
-      component
-        .find('input')
-        .first()
-        .simulate('change', evt)
+    shallowInputs = formFields.map((item, idx) =>
+      shallow(
+        <Input
+          key={idx}
+          type={item.type}
+          title={item.descriptor}
+          placeholder={`Ingrese su ${item.descriptor.toLowerCase()}`}
+          handleChange={mockHandleChange}
+          descriptor={item.descriptor}
+        />
+      )
     );
+  });
 
-    // first.simulate('change', evt);
+  it('Should render without errors', () => {
+    expect(shallowComp).toMatchSnapshot();
+  });
+
+  it('should call the mockHandleChange function on the Inputs', () => {
+    shallowInputs.forEach(e => {
+      e.find('input').simulate('change', evt);
+    });
+
+    expect(mockHandleChange).toHaveBeenCalledTimes(3);
+  });
+
+  it('sould test the implementation of handleChange if one name is passed', () => {
+    mountComp
+      .find('input')
+      .first()
+      .simulate('change', evt);
+
+    const { name } = mountComp.state('validations');
+
+    expect(name).toBe(true);
+  });
+
+  it('should test the implementation of the email validator if one email is provided', () => {
+    const emailEvt = {
+      preventDefault() {},
+      target: {
+        dataset: {
+          descriptor: 'email'
+        },
+        value: 'nicolas@mail.com'
+      }
+    };
+
+    mountComp
+      .find('input')
+      .first()
+      .simulate('change', emailEvt);
+
+    const { email } = mountComp.state('validations');
+
+    expect(email).toBe(true);
+  });
+
+  it('should return false if the email have erroneous formating', () => {
+    const wrongEmailEvt = {
+      preventDefault() {},
+      target: {
+        dataset: {
+          descriptor: 'email'
+        },
+        value: 'nicolas@mail.'
+      }
+    };
+
+    mountComp
+      .find('input')
+      .first()
+      .simulate('change', wrongEmailEvt);
+
+    const { email } = mountComp.state('validations');
+
+    expect(email).toBe(false);
   });
 });

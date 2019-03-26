@@ -16,9 +16,6 @@ exports[`<MainForm /> Should render without errors 1`] = `
       >
         Contáctenos
       </CardTitle>
-      <p>
-        PICO!!!
-      </p>
       <CardBody>
         <Form
           as="form"
