@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Container, Row, Card, Form, Button } from 'react-bootstrap';
 import Input from '../Input';
+import {
+  nameValidator,
+  lastNameValidator,
+  emailValidator,
+  addressValidator,
+  queryReasonValidator,
+  phoneValidator
+} from '../../../Services/validators';
 import './styles.scss';
 
 export default class MainForm extends Component {
@@ -12,6 +20,33 @@ export default class MainForm extends Component {
 
   handleChange(evt) {
     console.log('evt', evt.target.dataset.descriptor);
+    const { descriptor } = evt.target.dataset;
+    const { value } = evt.target;
+
+    const validations = {
+      name: undefined,
+      lastname: undefined,
+      email: undefined,
+      address: undefined,
+      reason: undefined,
+      phone: undefined
+    };
+
+    if (descriptor === 'nombre') {
+      validations.name = nameValidator(value);
+    } else if (descriptor === 'apellido') {
+      validations.lastname = lastNameValidator(value);
+    } else if (descriptor === 'email') {
+      validations.email = emailValidator(value);
+    } else if (descriptor === 'dirección') {
+      validations.address = addressValidator(value);
+    } else if (descriptor === 'motivo de consulta') {
+      validations.reason = queryReasonValidator(value);
+    } else if (descriptor === 'teléfono') {
+      validations.phone = phoneValidator(value);
+    }
+
+    console.log('validations', validations);
   }
 
   handleSubmit(evt) {}
