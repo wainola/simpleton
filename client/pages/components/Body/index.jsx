@@ -4,7 +4,6 @@ import Breadcrumb from '../Breadcrumbs';
 import './style.scss';
 
 export default ({ items, children, className }) => {
-  console.log('Body', children);
   const [Header, MainContent, MainForm, Footer] = children;
   return (
     <Container>

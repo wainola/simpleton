@@ -5,8 +5,8 @@ import MainContent from './components/MainContent/MainContent';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/NavBar';
-import Head from './Head';
 import MainForm from './components/MainForm';
+import Head from './Head';
 import './styles.scss';
 
 /**
