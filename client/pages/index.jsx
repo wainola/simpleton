@@ -17,6 +17,13 @@ export default () => {
     }
   ];
 
-  const formFields = ['name', 'lastname', 'email', 'address', 'reason', 'phone'];
+  const formFields = [
+    { descriptor: 'Nombre', type: 'text' },
+    { descriptor: 'Apellido', type: 'text' },
+    { descriptor: 'Email', type: 'email' },
+    { descriptor: 'Dirección', type: 'text' },
+    { descriptor: 'Motivo de consulta', type: 'text' },
+    { descriptor: 'Teléfono', type: 'phone' }
+  ];
   return <Home items={sections} formFields={formFields} />;
 };

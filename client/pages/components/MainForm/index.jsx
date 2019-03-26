@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Card } from 'react-bootstrap';
-import Form from '../Form';
+import { Container, Row, Card, Form, Button } from 'react-bootstrap';
 import Input from '../Input';
 
 export default class MainForm extends Component {
@@ -10,6 +9,7 @@ export default class MainForm extends Component {
 
   render() {
     console.log('mainFormProps', this.props);
+    const { formFields } = this.props;
     return (
       <Container>
         <Row>
@@ -17,7 +17,22 @@ export default class MainForm extends Component {
             <Card.Title>Contáctenos</Card.Title>
             <Card.Body>
               <Form>
-                <Input type="text" title="Nombre" placeholder="ingrese su nombre" evt={undefined} />
+                <Form.Group>
+                  {Array.isArray(formFields) &&
+                    formFields.map((element, idx) => (
+                      <Form.Control
+                        key={idx}
+                        as={Input}
+                        type={element.type}
+                        title={element.descriptor}
+                        placeholder={`Ingrese su ${element.descriptor}`}
+                        evt={undefined}
+                      />
+                    ))}
+                </Form.Group>
+                <Form.Group>
+                  <Button type="success">Enviar!</Button>
+                </Form.Group>
               </Form>
             </Card.Body>
           </Card>
