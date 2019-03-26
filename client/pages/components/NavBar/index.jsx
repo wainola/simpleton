@@ -3,17 +3,9 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import './styles.scss';
 
 export default class NavBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.narrowLinks = React.createRef();
-    this.state = {
-      content: [
-        { text: 'Inicio' },
-        { text: 'Quiénes somos' },
-        { text: 'Consulte' },
-        { text: 'Contacto' }
-      ]
-    };
     this.handleResize = this.handleResize.bind(this);
   }
 
@@ -31,15 +23,14 @@ export default class NavBar extends Component {
   }
 
   render() {
+    const { items } = this.props;
     return (
       <Container fluid>
         <Navbar collapseOnSelect expand="lg" bg="warning" fixed="top">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#">Nosotros</Nav.Link>
-              <Nav.Link href="#">Consulte</Nav.Link>
-              <Nav.Link href="#">Asesorias</Nav.Link>
+              {Array.isArray(items) && items.map((element, idx) => (<Nav.Link key={idx} href={element.url}>{element.text}</Nav.Link>))}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
