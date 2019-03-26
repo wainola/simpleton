@@ -62,7 +62,7 @@ export class MainForm extends Component {
   }
 
   render() {
-    console.log('mainFormProps', this.props);
+    // console.log('mainFormProps', this.props);
     const { formFields } = this.props;
     return (
       <Container className="form-container">
