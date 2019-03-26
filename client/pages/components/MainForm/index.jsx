@@ -11,7 +11,7 @@ export default class MainForm extends Component {
   }
 
   handleChange(evt) {
-    console.log('evt', evt);
+    console.log('evt', evt.target.dataset.descriptor);
   }
 
   handleSubmit(evt) {}
@@ -34,8 +34,9 @@ export default class MainForm extends Component {
                         as={Input}
                         type={element.type}
                         title={element.descriptor}
-                        placeholder={`Ingrese su ${element.descriptor}`}
+                        placeholder={`Ingrese su ${element.descriptor.toLowerCase()}`}
                         handleChange={this.handleChange}
+                        descriptor={element.descriptor}
                       />
                     ))}
                 </Form.Group>
