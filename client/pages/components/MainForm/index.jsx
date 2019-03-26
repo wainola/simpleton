@@ -69,6 +69,7 @@ export class MainForm extends Component {
         <Row>
           <Card>
             <Card.Title className="form-title">Contáctenos</Card.Title>
+            <p>PICO!!!</p>
             <Card.Body>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
