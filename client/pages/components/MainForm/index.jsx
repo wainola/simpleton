@@ -16,6 +16,9 @@ export default class MainForm extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      validations: {}
+    };
   }
 
   handleChange(evt) {
@@ -46,10 +49,14 @@ export default class MainForm extends Component {
       validations.phone = phoneValidator(value);
     }
 
-    console.log('validations', validations);
+    this.setState({
+      ...validations
+    });
   }
 
-  handleSubmit(evt) {}
+  handleSubmit() {
+    console.log('this.state.validations', this.state.validations);
+  }
 
   render() {
     console.log('mainFormProps', this.props);
