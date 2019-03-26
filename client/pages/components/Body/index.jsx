@@ -3,17 +3,16 @@ import { Container, Row } from 'react-bootstrap';
 import Breadcrumb from '../Breadcrumbs';
 import './style.scss';
 
-export default props => {
-  console.log('Body', props);
-  const { className } = props;
-  const [Header, MainContent, Footer] = props.children;
+export default ({ items, children, className }) => {
+  console.log('Body', children);
+  const [Header, MainContent, Footer] = children;
   return (
     <Container>
       <Row>
         <div className="col">{Header}</div>
       </Row>
       <Row>
-        <Breadcrumb items={[]} />
+        <Breadcrumb items={items} />
       </Row>
       <Row>
         <div className={className}>

@@ -23,7 +23,7 @@ export default ({ items }) => (
     <Container fluid>
       <Row>
         <Col>
-          <Navbar />
+          <Navbar items={items} />
         </Col>
       </Row>
     </Container>
