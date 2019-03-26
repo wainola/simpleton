@@ -5,9 +5,7 @@ import './styles.scss';
 export default ({ items }) => (
   <Breadcrumb className="main-breadcrumb">
     {items.map(element => (
-      <Breadcrumb.Item className="breadcrumb-item" href={element.url}>
-        {element.text}
-      </Breadcrumb.Item>
+      <Breadcrumb.Item href={element.url}>{element.text}</Breadcrumb.Item>
     ))}
   </Breadcrumb>
 );
