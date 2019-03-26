@@ -9,7 +9,10 @@ import {
   queryReasonValidator,
   phoneValidator
 } from '../../../Services/validators';
-import './styles.scss';
+
+if (process.env.NODE_ENV !== 'test') {
+  require('./styles.scss');
+}
 
 export class MainForm extends Component {
   constructor(props) {
