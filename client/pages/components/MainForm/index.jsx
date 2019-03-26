@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import { Container, Row, Card, Form, Button } from 'react-bootstrap';
 import Input from '../Input';
+import './styles.scss';
 
 export default class MainForm extends Component {
   constructor(props) {
     super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange(evt) {
+    console.log('evt', evt);
+  }
+
+  handleSubmit(evt) {}
 
   render() {
     console.log('mainFormProps', this.props);
     const { formFields } = this.props;
     return (
-      <Container>
+      <Container className="form-container">
         <Row>
           <Card>
-            <Card.Title>Contáctenos</Card.Title>
+            <Card.Title className="form-title">Contáctenos</Card.Title>
             <Card.Body>
-              <Form>
+              <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                   {Array.isArray(formFields) &&
                     formFields.map((element, idx) => (
@@ -26,12 +35,14 @@ export default class MainForm extends Component {
                         type={element.type}
                         title={element.descriptor}
                         placeholder={`Ingrese su ${element.descriptor}`}
-                        evt={undefined}
+                        handleChange={this.handleChange}
                       />
                     ))}
                 </Form.Group>
                 <Form.Group>
-                  <Button type="success">Enviar!</Button>
+                  <Button variant="success" type="submit">
+                    Enviar!
+                  </Button>
                 </Form.Group>
               </Form>
             </Card.Body>

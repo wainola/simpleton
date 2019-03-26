@@ -6,12 +6,7 @@ export default ({ title, placeholder, type, handleChange, className }) => {
   return (
     <React.Fragment>
       <h5>{title}</h5>
-      <input
-        type={type}
-        placeholder={placeholder}
-        onChange={evt => handleChange(evt)}
-        className={className}
-      />
+      <input type={type} placeholder={placeholder} onChange={handleChange} className={className} />
     </React.Fragment>
   );
 };
