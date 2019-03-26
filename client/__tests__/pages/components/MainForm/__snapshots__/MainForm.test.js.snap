@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MainForm /> Should render without errors 1`] = `
+<Container
+  as="div"
+  className="form-container"
+  fluid={false}
+>
+  <Bootstrap(Row)>
+    <Card
+      as="div"
+      body={false}
+    >
+      <CardTitle
+        className="form-title"
+      >
+        Contáctenos
+      </CardTitle>
+      <p>
+        PICO!!!
+      </p>
+      <CardBody>
+        <Form
+          as="form"
+          inline={false}
+          onSubmit={[Function]}
+        >
+          <FormGroup
+            as="div"
+          >
+            <FormControl
+              as={[Function]}
+              descriptor="Nombre"
+              handleChange={[Function]}
+              key="0"
+              placeholder="Ingrese su nombre"
+              title="Nombre"
+              type="text"
+            />
+            <FormControl
+              as={[Function]}
+              descriptor="Email"
+              handleChange={[Function]}
+              key="1"
+              placeholder="Ingrese su email"
+              title="Email"
+              type="email"
+            />
+            <FormControl
+              as={[Function]}
+              descriptor="Teléfono"
+              handleChange={[Function]}
+              key="2"
+              placeholder="Ingrese su teléfono"
+              title="Teléfono"
+              type="phone"
+            />
+          </FormGroup>
+          <FormGroup
+            as="div"
+          >
+            <Button
+              active={false}
+              disabled={false}
+              type="submit"
+              variant="success"
+            >
+              Enviar!
+            </Button>
+          </FormGroup>
+        </Form>
+      </CardBody>
+    </Card>
+  </Bootstrap(Row)>
+</Container>
+`;

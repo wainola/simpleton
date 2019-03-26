@@ -7,7 +7,9 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watchAll"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:covegare": "jest --coverage --colors"
   },
   "author": "Nicolás Riquelme Guzmán <nrriquelme@gmail.com>",
   "license": "MIT",
@@ -21,6 +23,21 @@
     "react-dom": "^16.8.3"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^24.5.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "enzyme-to-json": "^3.3.5",
     "jest": "^24.5.0"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupFiles": [
+      "./setupTests.js"
+    ]
   }
 }

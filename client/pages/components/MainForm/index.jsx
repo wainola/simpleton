@@ -9,9 +9,12 @@ import {
   queryReasonValidator,
   phoneValidator
 } from '../../../Services/validators';
-import './styles.scss';
 
-export default class MainForm extends Component {
+if (process.env.NODE_ENV !== 'test') {
+  require('./styles.scss');
+}
+
+export class MainForm extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,6 +69,7 @@ export default class MainForm extends Component {
         <Row>
           <Card>
             <Card.Title className="form-title">Contáctenos</Card.Title>
+            <p>PICO!!!</p>
             <Card.Body>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
@@ -95,3 +99,5 @@ export default class MainForm extends Component {
     );
   }
 }
+
+export default MainForm;
