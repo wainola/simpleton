@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/NavBar';
 import Head from './Head';
+import MainForm from './components/MainForm';
 import './styles.scss';
 
 /**
@@ -17,7 +18,7 @@ import './styles.scss';
  * SOME FOOTER
  */
 
-export default ({ items }) => (
+export default ({ items, formFields }) => (
   <React.Fragment>
     <Head />
     <Container fluid>
@@ -32,6 +33,7 @@ export default ({ items }) => (
         <Body className="main-body" items={items}>
           <Header />
           <MainContent />
+          <MainForm formFields={formFields} />
           <Footer />
         </Body>
       </Row>

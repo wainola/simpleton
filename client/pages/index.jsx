@@ -16,5 +16,7 @@ export default () => {
       text: 'Asesorías'
     }
   ];
-  return <Home items={sections} />;
+
+  const formFields = ['name', 'lastname', 'email', 'address', 'reason', 'phone'];
+  return <Home items={sections} formFields={formFields} />;
 };

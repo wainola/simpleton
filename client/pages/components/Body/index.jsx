@@ -5,7 +5,7 @@ import './style.scss';
 
 export default ({ items, children, className }) => {
   console.log('Body', children);
-  const [Header, MainContent, Footer] = children;
+  const [Header, MainContent, MainForm, Footer] = children;
   return (
     <Container>
       <Row>
@@ -14,12 +14,9 @@ export default ({ items, children, className }) => {
       <Row>
         <Breadcrumb items={items} />
       </Row>
-      <Row>
-        <div className={className}>
-          <div className="col">{MainContent}</div>
-          <div className="col">{Footer}</div>
-        </div>
-      </Row>
+      <Row className={className}>{MainContent}</Row>
+      <Row className={className}>{MainForm}</Row>
+      <Row className={className}>{Footer}</Row>
     </Container>
   );
 };
