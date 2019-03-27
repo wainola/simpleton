@@ -17,6 +17,7 @@ export const Input = ({
   if (value !== undefined) {
     value = validData.value;
   }
+
   return (
     <React.Fragment>
       <h5>{title}</h5>
