@@ -10,8 +10,13 @@ export const Input = ({
   CustomAlert,
   validData
 }) => {
-  // const booleanValidation = Object.values(validData)[0];
   console.log('validData', validData);
+
+  let value;
+
+  if (value !== undefined) {
+    value = validData.value;
+  }
   return (
     <React.Fragment>
       <h5>{title}</h5>
@@ -22,7 +27,7 @@ export const Input = ({
         className={className}
         data-descriptor={descriptor.toLowerCase()}
       />
-      {/* {!booleanValidation && <CustomAlert validation={booleanValidation} />} */}
+      {value !== undefined && value !== true && <CustomAlert validation={{ value, descriptor }} />}
     </React.Fragment>
   );
 };
