@@ -21,7 +21,39 @@ export class MainForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      validations: {}
+      validations: [
+        {
+          descriptor: 'Nombre',
+          value: undefined,
+          num: 0
+        },
+        {
+          descriptor: 'Apellido',
+          value: undefined,
+          num: 1
+        },
+        {
+          descriptor: 'Email',
+          value: undefined,
+          num: 2
+        },
+        {
+          descriptor: 'Dirección',
+          value: undefined,
+          num: 3
+        },
+        {
+          descriptor: 'Motivo de consulta',
+          value: undefined,
+          num: 4
+        },
+        {
+          descriptor: 'Teléfono',
+          value: undefined,
+          num: 5
+        }
+      ],
+      triggerAlert: []
     };
   }
 
@@ -29,27 +61,20 @@ export class MainForm extends Component {
     const { descriptor } = evt.target.dataset;
     const { value } = evt.target;
 
-    const validations = {
-      name: undefined,
-      lastname: undefined,
-      email: undefined,
-      address: undefined,
-      reason: undefined,
-      phone: undefined
-    };
+    const { validations } = this.state;
 
     if (descriptor === 'nombre') {
-      validations.name = nameValidator(value);
+      validations[0].value = nameValidator(value);
     } else if (descriptor === 'apellido') {
-      validations.lastname = lastNameValidator(value);
+      validations[1].value = lastNameValidator(value);
     } else if (descriptor === 'email') {
-      validations.email = emailValidator(value);
+      validations[2].value = emailValidator(value);
     } else if (descriptor === 'dirección') {
-      validations.address = addressValidator(value);
+      validations[3].value = addressValidator(value);
     } else if (descriptor === 'motivo de consulta') {
-      validations.reason = queryReasonValidator(value);
+      validations[4].value = queryReasonValidator(value);
     } else if (descriptor === 'teléfono') {
-      validations.phone = phoneValidator(value);
+      validations[5].value = phoneValidator(value);
     }
 
     this.setState({
@@ -57,23 +82,43 @@ export class MainForm extends Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(evt) {
+    evt.preventDefault();
     const { validations } = this.state;
 
-    const values = Object.values(validations);
+    console.log(validations);
 
-    if (values.length !== 0) {
-      const validData = values.every(e => !!e);
+    const validData = validations.every(e => !!e.value);
 
-      console.log('true::::', validData, this.state.validations);
+    console.log('validData', validData);
 
-      // TODO: THIS IS THE PLACE WHEN WE SEND THE QUERY TO THE GRAPH SERVER
+    if (!validData) {
+      const falsies = validations.filter(e => !e.value);
+
+      this.setState({ triggerAlert: [...falsies] }, () =>
+        console.log('this.state', this.state.triggerAlert)
+      );
+
+      console.log('falsies', falsies);
     }
+
+    // if (values.length !== 0) {
+    //   const validData = values.every(e => !!e);
+
+    //   console.log('true::::', validData, this.state.validations);
+
+    //   // TODO: THIS IS THE PLACE WHEN WE SEND THE QUERY TO THE GRAPH SERVER
+    // }
   }
 
   render() {
     // console.log('mainFormProps', this.props);
     const { formFields } = this.props;
+
+    console.log('formFields', formFields);
+
+    const { triggerAlert } = this.state;
+
     return (
       <Container className="form-container">
         <Row>
@@ -83,17 +128,27 @@ export class MainForm extends Component {
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                   {Array.isArray(formFields) &&
-                    formFields.map((element, idx) => (
-                      <Form.Control
-                        key={idx}
-                        as={Input}
-                        type={element.type}
-                        title={element.descriptor}
-                        placeholder={`Ingrese su ${element.descriptor.toLowerCase()}`}
-                        handleChange={this.handleChange}
-                        descriptor={element.descriptor}
-                      />
-                    ))}
+                    formFields.map((element, idx) => {
+                      let item;
+
+                      if (triggerAlert.length !== 0) {
+                        item = triggerAlert.filter(e => e.descriptor === element.descriptor);
+                      }
+
+                      return (
+                        <Form.Control
+                          key={idx}
+                          as={Input}
+                          type={element.type}
+                          title={element.descriptor}
+                          placeholder={`Ingrese su ${element.descriptor.toLowerCase()}`}
+                          handleChange={this.handleChange}
+                          descriptor={element.descriptor}
+                          CustomAlert={CustomAlert}
+                          validData={item}
+                        />
+                      );
+                    })}
                 </Form.Group>
                 <Form.Group>
                   <Button variant="success" type="submit">

@@ -26,6 +26,7 @@ exports[`<MainForm /> Should render without errors 1`] = `
             as="div"
           >
             <FormControl
+              CustomAlert={[Function]}
               as={[Function]}
               descriptor="Nombre"
               handleChange={[Function]}
@@ -33,8 +34,15 @@ exports[`<MainForm /> Should render without errors 1`] = `
               placeholder="Ingrese su nombre"
               title="Nombre"
               type="text"
+              validData={
+                Object {
+                  "name": false,
+                  "num": 0,
+                }
+              }
             />
             <FormControl
+              CustomAlert={[Function]}
               as={[Function]}
               descriptor="Email"
               handleChange={[Function]}
@@ -42,8 +50,15 @@ exports[`<MainForm /> Should render without errors 1`] = `
               placeholder="Ingrese su email"
               title="Email"
               type="email"
+              validData={
+                Object {
+                  "lastname": false,
+                  "num": 1,
+                }
+              }
             />
             <FormControl
+              CustomAlert={[Function]}
               as={[Function]}
               descriptor="Teléfono"
               handleChange={[Function]}
@@ -51,6 +66,12 @@ exports[`<MainForm /> Should render without errors 1`] = `
               placeholder="Ingrese su teléfono"
               title="Teléfono"
               type="phone"
+              validData={
+                Object {
+                  "email": false,
+                  "num": 2,
+                }
+              }
             />
           </FormGroup>
           <FormGroup

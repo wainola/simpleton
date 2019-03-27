@@ -1,6 +1,17 @@
 import React from 'react';
 
-export const Input = ({ title, placeholder, type, handleChange, className, descriptor }) => {
+export const Input = ({
+  title,
+  placeholder,
+  type,
+  handleChange,
+  className,
+  descriptor,
+  CustomAlert,
+  validData
+}) => {
+  // const booleanValidation = Object.values(validData)[0];
+  console.log('validData', validData);
   return (
     <React.Fragment>
       <h5>{title}</h5>
@@ -11,6 +22,7 @@ export const Input = ({ title, placeholder, type, handleChange, className, descr
         className={className}
         data-descriptor={descriptor.toLowerCase()}
       />
+      {/* {!booleanValidation && <CustomAlert validation={booleanValidation} />} */}
     </React.Fragment>
   );
 };

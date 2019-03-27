@@ -66,7 +66,9 @@ describe('<MainForm />', () => {
       .first()
       .simulate('change', evt);
 
-    const { name } = mountComp.state('validations');
+    console.log(mountComp.state('validations'));
+
+    const { name } = mountComp.state('validations')[0];
 
     expect(name).toBe(true);
   });
@@ -87,7 +89,7 @@ describe('<MainForm />', () => {
       .first()
       .simulate('change', emailEvt);
 
-    const { email } = mountComp.state('validations');
+    const { email } = mountComp.state('validations')[2];
 
     expect(email).toBe(true);
   });
@@ -108,7 +110,7 @@ describe('<MainForm />', () => {
       .first()
       .simulate('change', wrongEmailEvt);
 
-    const { email } = mountComp.state('validations');
+    const { email } = mountComp.state('validations')[2];
 
     expect(email).toBe(false);
   });
