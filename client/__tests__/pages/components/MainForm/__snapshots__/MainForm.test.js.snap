@@ -25,53 +25,47 @@ exports[`<MainForm /> Should render without errors 1`] = `
           <FormGroup
             as="div"
           >
-            <FormControl
-              CustomAlert={[Function]}
-              as={[Function]}
-              descriptor="Nombre"
-              handleChange={[Function]}
-              key="0"
-              placeholder="Ingrese su nombre"
+            <Input
+              name="nombre"
+              onChange={[Function]}
+              placeholder="ingrese su nombre"
               title="Nombre"
               type="text"
-              validData={
-                Object {
-                  "name": false,
-                  "num": 0,
-                }
-              }
             />
-            <FormControl
-              CustomAlert={[Function]}
-              as={[Function]}
-              descriptor="Email"
-              handleChange={[Function]}
-              key="1"
-              placeholder="Ingrese su email"
-              title="Email"
+            <Input
+              name="apellido"
+              onChange={[Function]}
+              placeholder="ingrese su su apellido"
+              title="Apellido"
+              type="text"
+            />
+            <Input
+              name="email"
+              onChange={[Function]}
+              placeholder="ingrese su correo electrónico"
+              title="Correo electónico"
               type="email"
-              validData={
-                Object {
-                  "lastname": false,
-                  "num": 1,
-                }
-              }
             />
-            <FormControl
-              CustomAlert={[Function]}
-              as={[Function]}
-              descriptor="Teléfono"
-              handleChange={[Function]}
-              key="2"
-              placeholder="Ingrese su teléfono"
+            <Input
+              name="telefono"
+              onChange={[Function]}
+              placeholder="ingrese su número de teléfono"
               title="Teléfono"
               type="phone"
-              validData={
-                Object {
-                  "email": false,
-                  "num": 2,
-                }
-              }
+            />
+            <Input
+              name="razon"
+              onChange={[Function]}
+              placeholder="ingrese el motivo de su consulta"
+              title="Motivo de consulta"
+              type="textarea"
+            />
+            <Input
+              name="direccion"
+              onChange={[Function]}
+              placeholder="ingrese su dirección"
+              title="Dirección"
+              type="adddress"
             />
           </FormGroup>
           <FormGroup
