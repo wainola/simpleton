@@ -7,32 +7,52 @@ let formFields;
 let evt;
 let shallowComp;
 let mountComp;
+let dataToPut;
 
 describe('<MainForm />', () => {
   beforeEach(() => {
-    formFields = [
-      { type: 'text', name: 'nombre', placeholder: 'nombre', title: 'Nombre' },
-      { type: 'text', name: 'apellido', placeholder: 'apellido', title: 'Apellido' },
-      { type: 'email', name: 'email', placeholder: 'email', title: 'Email' },
-      { type: 'phone', name: 'telefono', placeholder: 'telefono', title: 'Telefono' },
-      { type: 'address', name: 'direccion', placeholder: 'direccion', title: 'Direccion' },
-      { type: 'textarea', name: 'razon', placeholder: 'razon', title: 'Razon' }
-    ];
-
     evt = {
-      preventDefault: function() {},
+      preventDefault() {},
       target: {
         name: undefined,
         value: undefined
       }
     };
 
-    shallowComp = shallow(<MainForm formFields={formFields} />);
+    dataToPut = [
+      { name: 'nombre', value: 'nicolas' },
+      { name: 'apellido', value: 'riquelme' },
+      { name: 'email', value: 'nicolas@mail.com' },
+      { name: 'telefono', value: '123456789' },
+      { name: 'razon', value: 'quiero hacer mil consultas papa!!!' },
+      { name: 'direccon', value: 'los pajaritos 123' }
+    ];
 
-    mountComp = mount(<MainForm formFields={formFields} />);
+    shallowComp = shallow(<MainForm />);
+
+    mountComp = mount(<MainForm />);
   });
 
-  it('Should render without errors', () => {
+  it('should render without errors', () => {
     expect(shallowComp).toMatchSnapshot();
+  });
+
+  it('shoudl set the state onChange event', () => {
+    mountComp.find('input').forEach((item, idx) => {
+      const evtToSend = {
+        ...evt,
+        target: {
+          name: dataToPut[idx].name,
+          value: dataToPut[idx].value
+        }
+      };
+
+      item.simulate('change', evtToSend);
+    });
+
+    const { fields } = mountComp.state();
+    const keys = Object.keys(fields);
+
+    expect(keys).toHaveLength(6);
   });
 });

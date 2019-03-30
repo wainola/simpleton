@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MainForm /> Should render without errors 1`] = `
+exports[`<MainForm /> should render without errors 1`] = `
 <Container
   as="div"
   className="form-container"
@@ -17,70 +17,10 @@ exports[`<MainForm /> Should render without errors 1`] = `
         Contáctenos
       </CardTitle>
       <CardBody>
-        <Form
-          as="form"
-          inline={false}
-          onSubmit={[Function]}
-        >
-          <FormGroup
-            as="div"
-          >
-            <Input
-              name="nombre"
-              onChange={[Function]}
-              placeholder="ingrese su nombre"
-              title="Nombre"
-              type="text"
-            />
-            <Input
-              name="apellido"
-              onChange={[Function]}
-              placeholder="ingrese su su apellido"
-              title="Apellido"
-              type="text"
-            />
-            <Input
-              name="email"
-              onChange={[Function]}
-              placeholder="ingrese su correo electrónico"
-              title="Correo electónico"
-              type="email"
-            />
-            <Input
-              name="telefono"
-              onChange={[Function]}
-              placeholder="ingrese su número de teléfono"
-              title="Teléfono"
-              type="phone"
-            />
-            <Input
-              name="razon"
-              onChange={[Function]}
-              placeholder="ingrese el motivo de su consulta"
-              title="Motivo de consulta"
-              type="textarea"
-            />
-            <Input
-              name="direccion"
-              onChange={[Function]}
-              placeholder="ingrese su dirección"
-              title="Dirección"
-              type="adddress"
-            />
-          </FormGroup>
-          <FormGroup
-            as="div"
-          >
-            <Button
-              active={false}
-              disabled={false}
-              type="submit"
-              variant="success"
-            >
-              Enviar!
-            </Button>
-          </FormGroup>
-        </Form>
+        <CustomForm
+          handleChange={[Function]}
+          handleSubmit={[Function]}
+        />
       </CardBody>
     </Card>
   </Bootstrap(Row)>

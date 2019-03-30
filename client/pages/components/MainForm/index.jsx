@@ -61,42 +61,42 @@ export const CustomForm = ({ handleChange, handleSubmit }) => (
         name="nombre"
         placeholder="ingrese su nombre"
         title="Nombre"
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <Input
         type="text"
         name="apellido"
         placeholder="ingrese su su apellido"
         title="Apellido"
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <Input
         type="email"
         name="email"
         placeholder="ingrese su correo electrónico"
         title="Correo electónico"
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <Input
         type="phone"
         name="telefono"
         placeholder="ingrese su número de teléfono"
         title="Teléfono"
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <Input
         type="textarea"
         name="razon"
         placeholder="ingrese el motivo de su consulta"
         title="Motivo de consulta"
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <Input
         type="adddress"
         name="direccion"
         placeholder="ingrese su dirección"
         title="Dirección"
-        onChange={handleChange}
+        handleChange={handleChange}
       />
     </Form.Group>
     <Form.Group>
