@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> should render without errors 1`] = `
+<Input
+  placeholder="ingrese su nombre"
+  title="Nombre"
+  type="text"
+>
+  <span
+    className="input-title"
+  >
+    Nombre
+  </span>
+  <input
+    placeholder="ingrese su nombre"
+    type="text"
+  />
+</Input>
+`;
