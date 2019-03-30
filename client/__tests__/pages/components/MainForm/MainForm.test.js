@@ -77,7 +77,7 @@ describe('<MainForm />', () => {
 
     const { invalidData } = mountComp.state();
 
-    expect(invalidData).toHaveLength(0);
+    expect(Object.values(invalidData)).toHaveLength(0);
   });
 
   it.only('should submit and validate the data and then trigger the alerts if the data has errors', () => {
@@ -100,5 +100,7 @@ describe('<MainForm />', () => {
     mountComp.find('form').simulate('submit', submitEvent);
 
     const { invalidData } = mountComp.state();
+
+    expect(Object.values(invalidData)).toHaveLength(1);
   });
 });

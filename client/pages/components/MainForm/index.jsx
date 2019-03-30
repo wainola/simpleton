@@ -16,12 +16,12 @@ export class MainForm extends Component {
     this.triggerAlert = this.triggerAlert.bind(this);
     this.state = {
       fields: {},
-      invalidData: []
+      invalidData: {}
     };
   }
 
   triggerAlert() {
-    console.log('tiggerAlert');
+    console.log('tiggerAlert', this.state.invalidData);
   }
 
   handleChange(evt) {
@@ -45,10 +45,12 @@ export class MainForm extends Component {
     const validData = validations(fields).reduce((acc, item) => {
       const valid = !item.isValid && item;
       if (valid) {
-        acc.push(item);
+        acc[item.key] = item.isValid;
       }
       return acc;
-    }, []);
+    }, {});
+
+    console.log(validData);
 
     if (validData.length !== 0) {
       this.setState(
@@ -61,13 +63,20 @@ export class MainForm extends Component {
   }
 
   render() {
+    const { invalidData } = this.state;
+    console.log(invalidData.nombre !== undefined);
     return (
       <Container className="form-container">
         <Row>
           <Card>
             <Card.Title className="form-title">Contáctenos</Card.Title>
             <Card.Body>
-              <CustomForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+              <CustomForm
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                CustomAlert={CustomAlert}
+                invalidData={invalidData}
+              />
             </Card.Body>
           </Card>
         </Row>
@@ -76,7 +85,7 @@ export class MainForm extends Component {
   }
 }
 
-export const CustomForm = ({ handleChange, handleSubmit }) => (
+export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, invalidData }) => (
   <Form onSubmit={handleSubmit}>
     <Form.Group>
       <Input
@@ -86,6 +95,7 @@ export const CustomForm = ({ handleChange, handleSubmit }) => (
         title="Nombre"
         handleChange={handleChange}
       />
+      {/* {!!invalidData.nombre && <CustomAlert />} */}
       <Input
         type="text"
         name="apellido"
@@ -93,6 +103,7 @@ export const CustomForm = ({ handleChange, handleSubmit }) => (
         title="Apellido"
         handleChange={handleChange}
       />
+      {/* {invalidData.apellido !== undefined && <CustomAlert />} */}
       <Input
         type="email"
         name="email"
@@ -100,6 +111,7 @@ export const CustomForm = ({ handleChange, handleSubmit }) => (
         title="Correo electónico"
         handleChange={handleChange}
       />
+      {/* {invalidData.email !== undefined && <CustomAlert />} */}
       <Input
         type="phone"
         name="telefono"
@@ -107,6 +119,7 @@ export const CustomForm = ({ handleChange, handleSubmit }) => (
         title="Teléfono"
         handleChange={handleChange}
       />
+      {/* {invalidData.telefono !== undefined && <CustomAlert />} */}
       <Input
         type="textarea"
         name="razon"
@@ -114,6 +127,7 @@ export const CustomForm = ({ handleChange, handleSubmit }) => (
         title="Motivo de consulta"
         handleChange={handleChange}
       />
+      {/* {invalidData.razon !== undefined && <CustomAlert />} */}
       <Input
         type="adddress"
         name="direccion"
@@ -121,6 +135,7 @@ export const CustomForm = ({ handleChange, handleSubmit }) => (
         title="Dirección"
         handleChange={handleChange}
       />
+      {/* {invalidData.direccion !== undefined && <CustomAlert />} */}
     </Form.Group>
     <Form.Group>
       <Button variant="success" type="submit">
