@@ -55,4 +55,50 @@ describe('<MainForm />', () => {
 
     expect(keys).toHaveLength(6);
   });
+
+  it('should submit and validate the data', () => {
+    const submitEvent = {
+      preventDefault() {}
+    };
+
+    mountComp.find('input').forEach((item, idx) => {
+      const evtToSend = {
+        ...evt,
+        target: {
+          name: dataToPut[idx].name,
+          value: item.props().name !== 'telefono' ? dataToPut[idx].value : '+56983102345'
+        }
+      };
+
+      item.simulate('change', evtToSend);
+    });
+
+    mountComp.find('form').simulate('submit', submitEvent);
+
+    const { invalidData } = mountComp.state();
+
+    expect(invalidData).toHaveLength(0);
+  });
+
+  it.only('should submit and validate the data and then trigger the alerts if the data has errors', () => {
+    const submitEvent = {
+      preventDefault() {}
+    };
+
+    mountComp.find('input').forEach((item, idx) => {
+      const evtToSend = {
+        ...evt,
+        target: {
+          name: dataToPut[idx].name,
+          value: dataToPut[idx].value
+        }
+      };
+
+      item.simulate('change', evtToSend);
+    });
+
+    mountComp.find('form').simulate('submit', submitEvent);
+
+    const { invalidData } = mountComp.state();
+  });
 });

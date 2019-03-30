@@ -13,9 +13,15 @@ export class MainForm extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.triggerAlert = this.triggerAlert.bind(this);
     this.state = {
-      fields: {}
+      fields: {},
+      invalidData: []
     };
+  }
+
+  triggerAlert() {
+    console.log('tiggerAlert');
   }
 
   handleChange(evt) {
@@ -32,9 +38,26 @@ export class MainForm extends Component {
   }
 
   handleSubmit(evt) {
+    evt.preventDefault();
+
     const { fields } = this.state;
 
-    const dataValidated = validations(fields);
+    const validData = validations(fields).reduce((acc, item) => {
+      const valid = !item.isValid && item;
+      if (valid) {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
+
+    if (validData.length !== 0) {
+      this.setState(
+        {
+          invalidData: validData
+        },
+        () => this.triggerAlert()
+      );
+    }
   }
 
   render() {
