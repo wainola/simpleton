@@ -16,12 +16,20 @@ export class MainForm extends Component {
     this.triggerAlert = this.triggerAlert.bind(this);
     this.state = {
       fields: {},
-      invalidData: {}
+      validFields: {
+        nombre: true,
+        apellido: true,
+        email: true,
+        telefono: true,
+        razon: true,
+        direccion: true
+      }
     };
   }
 
   triggerAlert() {
-    console.log('tiggerAlert', this.state.invalidData);
+    // console.log('tiggerAlert', this.state.invalidData);
+    // console.log('fields', this.state.fields);
   }
 
   handleChange(evt) {
@@ -50,21 +58,38 @@ export class MainForm extends Component {
       return acc;
     }, {});
 
-    console.log(validData);
+    console.log('validData', validData);
 
-    if (validData.length !== 0) {
-      this.setState(
-        {
-          invalidData: validData
-        },
-        () => this.triggerAlert()
-      );
+    // if (validData.length !== 0) {
+    //   this.setState(
+    //     {
+    //       validFields: {
+    //         ...this.state.validFields,
+    //         [Object.keys(validData)[0]]: Object.values(validData)[0]
+    //       }
+    //     },
+    //     () => console.log('validFields', this.state.validFields)
+    //   );
+    // }
+
+    const entries = Object.entries(validData);
+
+    console.log('entries', entries);
+    for (let i = 0; i < entries.length; i++) {
+      console.log(entries[i][0]);
+      this.setState({
+        ...this.state,
+        validFields: {
+          ...this.state.validFields,
+          [entries[i][0]]: entries[i][1]
+        }
+      });
     }
   }
 
   render() {
-    const { invalidData } = this.state;
-    console.log(invalidData.nombre !== undefined);
+    const { validFields } = this.state;
+    console.log('render this.state', this.state.validFields);
     return (
       <Container className="form-container">
         <Row>
@@ -75,7 +100,7 @@ export class MainForm extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 CustomAlert={CustomAlert}
-                invalidData={invalidData}
+                validFields={validFields}
               />
             </Card.Body>
           </Card>
@@ -85,7 +110,7 @@ export class MainForm extends Component {
   }
 }
 
-export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, invalidData }) => (
+export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validFields }) => (
   <Form onSubmit={handleSubmit}>
     <Form.Group>
       <Input

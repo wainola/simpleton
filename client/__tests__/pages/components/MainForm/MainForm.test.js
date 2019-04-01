@@ -85,12 +85,25 @@ describe('<MainForm />', () => {
       preventDefault() {}
     };
 
+    const invalidDataMock = [
+      { name: 'nombre', value: 'ni' },
+      { name: 'apellido', value: 'ri' },
+      { name: 'email', value: 'nicolas@mail' },
+      { name: 'telefono', value: '+56982345678' },
+      {
+        name: 'razon',
+        value:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente odit pariatur consectetur optio quo!'
+      },
+      { name: 'direccion', value: 'la direccion 1234' }
+    ];
+
     mountComp.find('input').forEach((item, idx) => {
       const evtToSend = {
         ...evt,
         target: {
-          name: dataToPut[idx].name,
-          value: dataToPut[idx].value
+          name: invalidDataMock[idx].name,
+          value: invalidDataMock[idx].value
         }
       };
 
@@ -100,6 +113,8 @@ describe('<MainForm />', () => {
     mountComp.find('form').simulate('submit', submitEvent);
 
     const { invalidData } = mountComp.state();
+
+    // console.log('invalidData', invalidData);
 
     expect(Object.values(invalidData)).toHaveLength(1);
   });
