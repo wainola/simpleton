@@ -73,18 +73,20 @@ export class MainForm extends Component {
     // }
 
     const entries = Object.entries(validData);
+    const validFields = Object.entries(this.state.validFields);
 
     console.log('entries', entries);
-    for (let i = 0; i < entries.length; i++) {
-      console.log(entries[i][0]);
-      this.setState({
-        ...this.state,
-        validFields: {
-          ...this.state.validFields,
-          [entries[i][0]]: entries[i][1]
-        }
-      });
+
+    console.log('validFieldsBefore', validFields);
+
+    for (let i = 0; i < validFields.length; i++) {
+      console.log('i:::', i);
+      if (entries[i][0] !== undefined && entries[i][0] && validFields[i][0]) {
+        console.log(validFields[i][1]);
+      }
     }
+
+    console.log('validFieldsAfter', validFields);
   }
 
   render() {
