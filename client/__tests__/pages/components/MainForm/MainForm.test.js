@@ -112,10 +112,15 @@ describe('<MainForm />', () => {
 
     mountComp.find('form').simulate('submit', submitEvent);
 
-    const { invalidData } = mountComp.state();
+    const { validFields } = mountComp.state();
+    const { nombre, apellido, email } = validFields;
 
-    // console.log('invalidData', invalidData);
+    expect(nombre).toBe(false);
+    expect(apellido).toBe(false);
+    expect(email).toBe(false);
 
-    expect(Object.values(invalidData)).toHaveLength(1);
+    // console.log('invalidData', validFields);
+
+    // expect(Object.values(invalidData)).toHaveLength(1);
   });
 });

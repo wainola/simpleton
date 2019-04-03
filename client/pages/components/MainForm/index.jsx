@@ -58,40 +58,16 @@ export class MainForm extends Component {
       return acc;
     }, {});
 
-    console.log('validData', validData);
-
-    // if (validData.length !== 0) {
-    //   this.setState(
-    //     {
-    //       validFields: {
-    //         ...this.state.validFields,
-    //         [Object.keys(validData)[0]]: Object.values(validData)[0]
-    //       }
-    //     },
-    //     () => console.log('validFields', this.state.validFields)
-    //   );
-    // }
-
-    const entries = Object.entries(validData);
-    const validFields = Object.entries(this.state.validFields);
-
-    console.log('entries', entries);
-
-    console.log('validFieldsBefore', validFields);
-
-    for (let i = 0; i < validFields.length; i++) {
-      console.log('i:::', i);
-      if (entries[i][0] !== undefined && entries[i][0] && validFields[i][0]) {
-        console.log(validFields[i][1]);
+    this.setState({
+      ...this.state,
+      validFields: {
+        ...this.state.validFields,
+        ...validData
       }
-    }
-
-    console.log('validFieldsAfter', validFields);
+    });
   }
 
   render() {
-    const { validFields } = this.state;
-    console.log('render this.state', this.state.validFields);
     return (
       <Container className="form-container">
         <Row>
@@ -102,7 +78,7 @@ export class MainForm extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 CustomAlert={CustomAlert}
-                validFields={validFields}
+                validFields={this.state.validFields}
               />
             </Card.Body>
           </Card>
@@ -112,64 +88,66 @@ export class MainForm extends Component {
   }
 }
 
-export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validFields }) => (
-  <Form onSubmit={handleSubmit}>
-    <Form.Group>
-      <Input
-        type="text"
-        name="nombre"
-        placeholder="ingrese su nombre"
-        title="Nombre"
-        handleChange={handleChange}
-      />
-      {/* {!!invalidData.nombre && <CustomAlert />} */}
-      <Input
-        type="text"
-        name="apellido"
-        placeholder="ingrese su su apellido"
-        title="Apellido"
-        handleChange={handleChange}
-      />
-      {/* {invalidData.apellido !== undefined && <CustomAlert />} */}
-      <Input
-        type="email"
-        name="email"
-        placeholder="ingrese su correo electrónico"
-        title="Correo electónico"
-        handleChange={handleChange}
-      />
-      {/* {invalidData.email !== undefined && <CustomAlert />} */}
-      <Input
-        type="phone"
-        name="telefono"
-        placeholder="ingrese su número de teléfono"
-        title="Teléfono"
-        handleChange={handleChange}
-      />
-      {/* {invalidData.telefono !== undefined && <CustomAlert />} */}
-      <Input
-        type="textarea"
-        name="razon"
-        placeholder="ingrese el motivo de su consulta"
-        title="Motivo de consulta"
-        handleChange={handleChange}
-      />
-      {/* {invalidData.razon !== undefined && <CustomAlert />} */}
-      <Input
-        type="adddress"
-        name="direccion"
-        placeholder="ingrese su dirección"
-        title="Dirección"
-        handleChange={handleChange}
-      />
-      {/* {invalidData.direccion !== undefined && <CustomAlert />} */}
-    </Form.Group>
-    <Form.Group>
-      <Button variant="success" type="submit">
-        Enviar!
-      </Button>
-    </Form.Group>
-  </Form>
-);
+export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validFields }) => {
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group>
+        <Input
+          type="text"
+          name="nombre"
+          placeholder="ingrese su nombre"
+          title="Nombre"
+          handleChange={handleChange}
+        />
+        {!!validFields.nombre && <CustomAlert />}
+        <Input
+          type="text"
+          name="apellido"
+          placeholder="ingrese su su apellido"
+          title="Apellido"
+          handleChange={handleChange}
+        />
+        {!!validFields.apellido !== undefined && <CustomAlert />}
+        <Input
+          type="email"
+          name="email"
+          placeholder="ingrese su correo electrónico"
+          title="Correo electónico"
+          handleChange={handleChange}
+        />
+        {!!validFields.email !== undefined && <CustomAlert />}
+        <Input
+          type="phone"
+          name="telefono"
+          placeholder="ingrese su número de teléfono"
+          title="Teléfono"
+          handleChange={handleChange}
+        />
+        {!!validFields.telefono !== undefined && <CustomAlert />}
+        <Input
+          type="textarea"
+          name="razon"
+          placeholder="ingrese el motivo de su consulta"
+          title="Motivo de consulta"
+          handleChange={handleChange}
+        />
+        {!!validFields.razon !== undefined && <CustomAlert />}
+        <Input
+          type="adddress"
+          name="direccion"
+          placeholder="ingrese su dirección"
+          title="Dirección"
+          handleChange={handleChange}
+        />
+        {!!validFields.direccion !== undefined && <CustomAlert />}
+      </Form.Group>
+      <Form.Group>
+        <Button variant="success" type="submit">
+          Enviar!
+        </Button>
+      </Form.Group>
+    </Form>
+  );
+};
 
 export default MainForm;
