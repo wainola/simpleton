@@ -1,39 +1,31 @@
-const nameValidator = name => {
-  console.log('nameValidator');
-  return typeof name === 'string' && name.length > 3;
+const validations = fields => {
+  const data = Object.entries(fields).filter(e => e[0] !== 'email');
+
+  const { email } = fields;
+
+  const validEmail = emailValidation(email);
+
+  const validData = validateOtherData(data);
+
+  return [...validData, validEmail];
 };
 
-const lastNameValidator = lastname => {
-  console.log('lastNameValidator');
-  return typeof lastname === 'string' && lastname.length > 3;
+const emailValidation = email => {
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  return { key: 'email', isValid: emailRegex.test(email) };
 };
 
-const emailValidator = email => {
-  console.log('emailValidator');
-  const validator = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-  return validator.test(email);
-};
+const validateOtherData = data =>
+  data.map(item => {
+    if (item[0] === 'nombre' || item[0] === 'apellido') {
+      return { key: item[0], isValid: item[1].length > 3 };
+    }
 
-const addressValidator = address => {
-  console.log('addressValidator');
-  return typeof address === 'string' && address.length > 10;
-};
+    if (item[0] === 'telefono') {
+      return { key: item[0], isValid: item[1].length >= 12 };
+    }
+    return { key: item[0], isValid: item[1].length > 10 };
+  });
 
-const queryReasonValidator = reason => {
-  console.log('queryReasonValidator');
-  return typeof reason === 'string' && reason.length > 20;
-};
-
-const phoneValidator = phone => {
-  console.log('phoneValidator');
-  return typeof phone === 'string';
-};
-
-export {
-  nameValidator,
-  lastNameValidator,
-  emailValidator,
-  addressValidator,
-  queryReasonValidator,
-  phoneValidator
-};
+export default validations;

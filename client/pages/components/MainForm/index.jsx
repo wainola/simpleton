@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Card, Form, Button } from 'react-bootstrap';
 import Input from '../Input';
 import CustomAlert from '../Alert';
-import {
-  nameValidator,
-  lastNameValidator,
-  emailValidator,
-  addressValidator,
-  queryReasonValidator,
-  phoneValidator
-} from '../../../Services/validators';
+import validations from '../../../Services/validators';
 
 if (process.env.NODE_ENV !== 'test') {
   require('./styles.scss');
@@ -21,141 +14,66 @@ export class MainForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      validations: [
-        {
-          descriptor: 'Nombre',
-          value: undefined,
-          num: 0
-        },
-        {
-          descriptor: 'Apellido',
-          value: undefined,
-          num: 1
-        },
-        {
-          descriptor: 'Email',
-          value: undefined,
-          num: 2
-        },
-        {
-          descriptor: 'Dirección',
-          value: undefined,
-          num: 3
-        },
-        {
-          descriptor: 'Motivo de consulta',
-          value: undefined,
-          num: 4
-        },
-        {
-          descriptor: 'Teléfono',
-          value: undefined,
-          num: 5
-        }
-      ],
-      triggerAlert: []
+      fields: {},
+      validFields: {
+        nombre: true,
+        apellido: true,
+        email: true,
+        telefono: true,
+        razon: true,
+        direccion: true
+      }
     };
   }
 
   handleChange(evt) {
-    const { descriptor } = evt.target.dataset;
-    const { value } = evt.target;
+    evt.preventDefault();
 
-    const { validations } = this.state;
-
-    if (descriptor === 'nombre') {
-      validations[0].value = nameValidator(value);
-    } else if (descriptor === 'apellido') {
-      validations[1].value = lastNameValidator(value);
-    } else if (descriptor === 'email') {
-      validations[2].value = emailValidator(value);
-    } else if (descriptor === 'dirección') {
-      validations[3].value = addressValidator(value);
-    } else if (descriptor === 'motivo de consulta') {
-      validations[4].value = queryReasonValidator(value);
-    } else if (descriptor === 'teléfono') {
-      validations[5].value = phoneValidator(value);
-    }
+    const { name, value } = evt.target;
 
     this.setState({
-      validations
+      fields: {
+        ...this.state.fields,
+        [name]: value
+      }
     });
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    const { validations } = this.state;
 
-    console.log(validations);
+    const { fields } = this.state;
 
-    const validData = validations.every(e => !!e.value);
+    const validData = validations(fields).reduce((acc, item) => {
+      const valid = !item.isValid && item;
+      if (valid) {
+        acc[item.key] = item.isValid;
+      }
+      return acc;
+    }, {});
 
-    console.log('validData', validData);
-
-    if (!validData) {
-      const falsies = validations.filter(e => !e.value);
-
-      this.setState({ triggerAlert: [...falsies] }, () =>
-        console.log('this.state', this.state.triggerAlert)
-      );
-
-      console.log('falsies', falsies);
-    }
-
-    // if (values.length !== 0) {
-    //   const validData = values.every(e => !!e);
-
-    //   console.log('true::::', validData, this.state.validations);
-
-    //   // TODO: THIS IS THE PLACE WHEN WE SEND THE QUERY TO THE GRAPH SERVER
-    // }
+    this.setState({
+      ...this.state,
+      validFields: {
+        ...this.state.validFields,
+        ...validData
+      }
+    });
   }
 
   render() {
-    // console.log('mainFormProps', this.props);
-    const { formFields } = this.props;
-
-    console.log('formFields', formFields);
-
-    const { triggerAlert } = this.state;
-
     return (
       <Container className="form-container">
         <Row>
           <Card>
             <Card.Title className="form-title">Contáctenos</Card.Title>
             <Card.Body>
-              <Form onSubmit={this.handleSubmit}>
-                <Form.Group>
-                  {Array.isArray(formFields) &&
-                    formFields.map((element, idx) => {
-                      let item;
-
-                      if (triggerAlert.length !== 0) {
-                        item = triggerAlert.filter(e => e.descriptor === element.descriptor);
-                      }
-
-                      return (
-                        <Form.Control
-                          key={idx}
-                          as={Input}
-                          type={element.type}
-                          title={element.descriptor}
-                          placeholder={`Ingrese su ${element.descriptor.toLowerCase()}`}
-                          handleChange={this.handleChange}
-                          descriptor={element.descriptor}
-                          CustomAlert={CustomAlert}
-                          validData={item}
-                        />
-                      );
-                    })}
-                </Form.Group>
-                <Form.Group>
-                  <Button variant="success" type="submit">
-                    Enviar!
-                  </Button>
-                </Form.Group>
-              </Form>
+              <CustomForm
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                CustomAlert={CustomAlert}
+                validFields={this.state.validFields}
+              />
             </Card.Body>
           </Card>
         </Row>
@@ -163,5 +81,67 @@ export class MainForm extends Component {
     );
   }
 }
+
+export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validFields }) => {
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group>
+        <Input
+          type="text"
+          name="nombre"
+          placeholder="ingrese su nombre"
+          title="Nombre"
+          handleChange={handleChange}
+        />
+        {!validFields.nombre && <CustomAlert descriptor="nombre" />}
+        <Input
+          type="text"
+          name="apellido"
+          placeholder="ingrese su su apellido"
+          title="Apellido"
+          handleChange={handleChange}
+        />
+        {!validFields.apellido && <CustomAlert descriptor="apellido" />}
+        <Input
+          type="email"
+          name="email"
+          placeholder="ingrese su correo electrónico"
+          title="Correo electónico"
+          handleChange={handleChange}
+        />
+        {!validFields.email && <CustomAlert descriptor="email" />}
+        <Input
+          type="phone"
+          name="telefono"
+          placeholder="ingrese su número de teléfono"
+          title="Teléfono"
+          handleChange={handleChange}
+        />
+        {!validFields.telefono && <CustomAlert descriptor="teléfono" />}
+        <Input
+          type="textarea"
+          name="razon"
+          placeholder="ingrese el motivo de su consulta"
+          title="Motivo de consulta"
+          handleChange={handleChange}
+        />
+        {!validFields.razon && <CustomAlert descriptor="motivo de consulta" />}
+        <Input
+          type="adddress"
+          name="direccion"
+          placeholder="ingrese su dirección"
+          title="Dirección"
+          handleChange={handleChange}
+        />
+        {!validFields.direccion && <CustomAlert descriptor="dirección" />}
+      </Form.Group>
+      <Form.Group>
+        <Button variant="success" type="submit">
+          Enviar!
+        </Button>
+      </Form.Group>
+    </Form>
+  );
+};
 
 export default MainForm;

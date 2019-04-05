@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CustomForm /> should render without errors 1`] = `
+<CustomForm
+  CustomAlert={[Function]}
+  handleChange={[Function]}
+  handleSubmit={[Function]}
+  validFields={
+    Object {
+      "apellido": true,
+      "direccion": true,
+      "email": true,
+      "nombre": true,
+      "razon": true,
+      "telefono": true,
+    }
+  }
+>
+  <Form
+    as="form"
+    inline={false}
+    onSubmit={[Function]}
+  >
+    <form
+      className=""
+      onSubmit={[Function]}
+    >
+      <FormGroup
+        as="div"
+      >
+        <div
+          className="form-group"
+        >
+          <Input
+            handleChange={[Function]}
+            name="nombre"
+            placeholder="ingrese su nombre"
+            title="Nombre"
+            type="text"
+          >
+            <span
+              className="input-title"
+            >
+              Nombre
+            </span>
+            <input
+              name="nombre"
+              onChange={[Function]}
+              placeholder="ingrese su nombre"
+              type="text"
+            />
+          </Input>
+          <Input
+            handleChange={[Function]}
+            name="apellido"
+            placeholder="ingrese su su apellido"
+            title="Apellido"
+            type="text"
+          >
+            <span
+              className="input-title"
+            >
+              Apellido
+            </span>
+            <input
+              name="apellido"
+              onChange={[Function]}
+              placeholder="ingrese su su apellido"
+              type="text"
+            />
+          </Input>
+          <Input
+            handleChange={[Function]}
+            name="email"
+            placeholder="ingrese su correo electrónico"
+            title="Correo electónico"
+            type="email"
+          >
+            <span
+              className="input-title"
+            >
+              Correo electónico
+            </span>
+            <input
+              name="email"
+              onChange={[Function]}
+              placeholder="ingrese su correo electrónico"
+              type="email"
+            />
+          </Input>
+          <Input
+            handleChange={[Function]}
+            name="telefono"
+            placeholder="ingrese su número de teléfono"
+            title="Teléfono"
+            type="phone"
+          >
+            <span
+              className="input-title"
+            >
+              Teléfono
+            </span>
+            <input
+              name="telefono"
+              onChange={[Function]}
+              placeholder="ingrese su número de teléfono"
+              type="phone"
+            />
+          </Input>
+          <Input
+            handleChange={[Function]}
+            name="razon"
+            placeholder="ingrese el motivo de su consulta"
+            title="Motivo de consulta"
+            type="textarea"
+          >
+            <span
+              className="input-title"
+            >
+              Motivo de consulta
+            </span>
+            <input
+              name="razon"
+              onChange={[Function]}
+              placeholder="ingrese el motivo de su consulta"
+              type="textarea"
+            />
+          </Input>
+          <Input
+            handleChange={[Function]}
+            name="direccion"
+            placeholder="ingrese su dirección"
+            title="Dirección"
+            type="adddress"
+          >
+            <span
+              className="input-title"
+            >
+              Dirección
+            </span>
+            <input
+              name="direccion"
+              onChange={[Function]}
+              placeholder="ingrese su dirección"
+              type="adddress"
+            />
+          </Input>
+        </div>
+      </FormGroup>
+      <FormGroup
+        as="div"
+      >
+        <div
+          className="form-group"
+        >
+          <Button
+            active={false}
+            disabled={false}
+            type="submit"
+            variant="success"
+          >
+            <button
+              className="btn btn-success"
+              disabled={false}
+              type="submit"
+            >
+              Enviar!
+            </button>
+          </Button>
+        </div>
+      </FormGroup>
+    </form>
+  </Form>
+</CustomForm>
+`;

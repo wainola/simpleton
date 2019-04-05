@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Body from './components/Body';
-import MainContent from './components/MainContent/MainContent';
+import MainContent from './components/MainContent';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/NavBar';
@@ -33,7 +33,7 @@ export default ({ items, formFields }) => (
         <Body className="main-body" items={items}>
           <Header />
           <MainContent />
-          <MainForm formFields={formFields} />
+          <MainForm />
           <Footer />
         </Body>
       </Row>
