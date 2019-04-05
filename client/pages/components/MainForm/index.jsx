@@ -13,7 +13,6 @@ export class MainForm extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.triggerAlert = this.triggerAlert.bind(this);
     this.state = {
       fields: {},
       validFields: {
@@ -25,11 +24,6 @@ export class MainForm extends Component {
         direccion: true
       }
     };
-  }
-
-  triggerAlert() {
-    // console.log('tiggerAlert', this.state.invalidData);
-    // console.log('fields', this.state.fields);
   }
 
   handleChange(evt) {
@@ -99,7 +93,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
           title="Nombre"
           handleChange={handleChange}
         />
-        {!!validFields.nombre && <CustomAlert />}
+        {!validFields.nombre && <CustomAlert descriptor="nombre" />}
         <Input
           type="text"
           name="apellido"
@@ -107,7 +101,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
           title="Apellido"
           handleChange={handleChange}
         />
-        {!!validFields.apellido !== undefined && <CustomAlert />}
+        {!validFields.apellido && <CustomAlert descriptor="apellido" />}
         <Input
           type="email"
           name="email"
@@ -115,7 +109,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
           title="Correo electónico"
           handleChange={handleChange}
         />
-        {!!validFields.email !== undefined && <CustomAlert />}
+        {!validFields.email && <CustomAlert descriptor="email" />}
         <Input
           type="phone"
           name="telefono"
@@ -123,7 +117,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
           title="Teléfono"
           handleChange={handleChange}
         />
-        {!!validFields.telefono !== undefined && <CustomAlert />}
+        {!validFields.telefono && <CustomAlert descriptor="teléfono" />}
         <Input
           type="textarea"
           name="razon"
@@ -131,7 +125,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
           title="Motivo de consulta"
           handleChange={handleChange}
         />
-        {!!validFields.razon !== undefined && <CustomAlert />}
+        {!validFields.razon && <CustomAlert descriptor="motivo de consulta" />}
         <Input
           type="adddress"
           name="direccion"
@@ -139,7 +133,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
           title="Dirección"
           handleChange={handleChange}
         />
-        {!!validFields.direccion !== undefined && <CustomAlert />}
+        {!validFields.direccion && <CustomAlert descriptor="dirección" />}
       </Form.Group>
       <Form.Group>
         <Button variant="success" type="submit">

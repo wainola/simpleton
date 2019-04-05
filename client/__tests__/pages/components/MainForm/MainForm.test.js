@@ -118,9 +118,6 @@ describe('<MainForm />', () => {
     expect(nombre).toBe(false);
     expect(apellido).toBe(false);
     expect(email).toBe(false);
-
-    // console.log('invalidData', validFields);
-
-    // expect(Object.values(invalidData)).toHaveLength(1);
+    expect(mountComp.find('Alert')).toHaveLength(3);
   });
 });

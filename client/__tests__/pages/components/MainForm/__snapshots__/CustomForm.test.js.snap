@@ -50,46 +50,6 @@ exports[`<CustomForm /> should render without errors 1`] = `
               type="text"
             />
           </Input>
-          <CustomAlert>
-            <Alert
-              closeLabel="Close alert"
-              show={true}
-              transition={[Function]}
-              variant="danger"
-            >
-              <Fade
-                appear={false}
-                in={true}
-                mountOnEnter={false}
-                timeout={300}
-                unmountOnExit={true}
-              >
-                <Transition
-                  addEndListener={[Function]}
-                  appear={false}
-                  enter={true}
-                  exit={true}
-                  in={true}
-                  mountOnEnter={false}
-                  onEnter={[Function]}
-                  onEntered={[Function]}
-                  onEntering={[Function]}
-                  onExit={[Function]}
-                  onExited={[Function]}
-                  onExiting={[Function]}
-                  timeout={300}
-                  unmountOnExit={true}
-                >
-                  <div
-                    className="fade alert alert-danger show"
-                    role="alert"
-                  >
-                    Problemas con sus datos
-                  </div>
-                </Transition>
-              </Fade>
-            </Alert>
-          </CustomAlert>
           <Input
             handleChange={[Function]}
             name="apellido"
@@ -109,46 +69,6 @@ exports[`<CustomForm /> should render without errors 1`] = `
               type="text"
             />
           </Input>
-          <CustomAlert>
-            <Alert
-              closeLabel="Close alert"
-              show={true}
-              transition={[Function]}
-              variant="danger"
-            >
-              <Fade
-                appear={false}
-                in={true}
-                mountOnEnter={false}
-                timeout={300}
-                unmountOnExit={true}
-              >
-                <Transition
-                  addEndListener={[Function]}
-                  appear={false}
-                  enter={true}
-                  exit={true}
-                  in={true}
-                  mountOnEnter={false}
-                  onEnter={[Function]}
-                  onEntered={[Function]}
-                  onEntering={[Function]}
-                  onExit={[Function]}
-                  onExited={[Function]}
-                  onExiting={[Function]}
-                  timeout={300}
-                  unmountOnExit={true}
-                >
-                  <div
-                    className="fade alert alert-danger show"
-                    role="alert"
-                  >
-                    Problemas con sus datos
-                  </div>
-                </Transition>
-              </Fade>
-            </Alert>
-          </CustomAlert>
           <Input
             handleChange={[Function]}
             name="email"
@@ -168,46 +88,6 @@ exports[`<CustomForm /> should render without errors 1`] = `
               type="email"
             />
           </Input>
-          <CustomAlert>
-            <Alert
-              closeLabel="Close alert"
-              show={true}
-              transition={[Function]}
-              variant="danger"
-            >
-              <Fade
-                appear={false}
-                in={true}
-                mountOnEnter={false}
-                timeout={300}
-                unmountOnExit={true}
-              >
-                <Transition
-                  addEndListener={[Function]}
-                  appear={false}
-                  enter={true}
-                  exit={true}
-                  in={true}
-                  mountOnEnter={false}
-                  onEnter={[Function]}
-                  onEntered={[Function]}
-                  onEntering={[Function]}
-                  onExit={[Function]}
-                  onExited={[Function]}
-                  onExiting={[Function]}
-                  timeout={300}
-                  unmountOnExit={true}
-                >
-                  <div
-                    className="fade alert alert-danger show"
-                    role="alert"
-                  >
-                    Problemas con sus datos
-                  </div>
-                </Transition>
-              </Fade>
-            </Alert>
-          </CustomAlert>
           <Input
             handleChange={[Function]}
             name="telefono"
@@ -227,46 +107,6 @@ exports[`<CustomForm /> should render without errors 1`] = `
               type="phone"
             />
           </Input>
-          <CustomAlert>
-            <Alert
-              closeLabel="Close alert"
-              show={true}
-              transition={[Function]}
-              variant="danger"
-            >
-              <Fade
-                appear={false}
-                in={true}
-                mountOnEnter={false}
-                timeout={300}
-                unmountOnExit={true}
-              >
-                <Transition
-                  addEndListener={[Function]}
-                  appear={false}
-                  enter={true}
-                  exit={true}
-                  in={true}
-                  mountOnEnter={false}
-                  onEnter={[Function]}
-                  onEntered={[Function]}
-                  onEntering={[Function]}
-                  onExit={[Function]}
-                  onExited={[Function]}
-                  onExiting={[Function]}
-                  timeout={300}
-                  unmountOnExit={true}
-                >
-                  <div
-                    className="fade alert alert-danger show"
-                    role="alert"
-                  >
-                    Problemas con sus datos
-                  </div>
-                </Transition>
-              </Fade>
-            </Alert>
-          </CustomAlert>
           <Input
             handleChange={[Function]}
             name="razon"
@@ -286,46 +126,6 @@ exports[`<CustomForm /> should render without errors 1`] = `
               type="textarea"
             />
           </Input>
-          <CustomAlert>
-            <Alert
-              closeLabel="Close alert"
-              show={true}
-              transition={[Function]}
-              variant="danger"
-            >
-              <Fade
-                appear={false}
-                in={true}
-                mountOnEnter={false}
-                timeout={300}
-                unmountOnExit={true}
-              >
-                <Transition
-                  addEndListener={[Function]}
-                  appear={false}
-                  enter={true}
-                  exit={true}
-                  in={true}
-                  mountOnEnter={false}
-                  onEnter={[Function]}
-                  onEntered={[Function]}
-                  onEntering={[Function]}
-                  onExit={[Function]}
-                  onExited={[Function]}
-                  onExiting={[Function]}
-                  timeout={300}
-                  unmountOnExit={true}
-                >
-                  <div
-                    className="fade alert alert-danger show"
-                    role="alert"
-                  >
-                    Problemas con sus datos
-                  </div>
-                </Transition>
-              </Fade>
-            </Alert>
-          </CustomAlert>
           <Input
             handleChange={[Function]}
             name="direccion"
@@ -345,46 +145,6 @@ exports[`<CustomForm /> should render without errors 1`] = `
               type="adddress"
             />
           </Input>
-          <CustomAlert>
-            <Alert
-              closeLabel="Close alert"
-              show={true}
-              transition={[Function]}
-              variant="danger"
-            >
-              <Fade
-                appear={false}
-                in={true}
-                mountOnEnter={false}
-                timeout={300}
-                unmountOnExit={true}
-              >
-                <Transition
-                  addEndListener={[Function]}
-                  appear={false}
-                  enter={true}
-                  exit={true}
-                  in={true}
-                  mountOnEnter={false}
-                  onEnter={[Function]}
-                  onEntered={[Function]}
-                  onEntering={[Function]}
-                  onExit={[Function]}
-                  onExited={[Function]}
-                  onExiting={[Function]}
-                  timeout={300}
-                  unmountOnExit={true}
-                >
-                  <div
-                    className="fade alert alert-danger show"
-                    role="alert"
-                  >
-                    Problemas con sus datos
-                  </div>
-                </Transition>
-              </Fade>
-            </Alert>
-          </CustomAlert>
         </div>
       </FormGroup>
       <FormGroup
