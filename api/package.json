@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "db": "nodemon ./migrations/index.js"
+    "db": "nodemon ./migrations/index.js",
+    "migrations": "node ./db/index.js"
   },
   "author": "Nicolás Riquelme Guzmán <nrriquelme@gmail.com>",
   "license": "MIT",
