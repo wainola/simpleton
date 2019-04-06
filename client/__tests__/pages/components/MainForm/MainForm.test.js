@@ -4,129 +4,120 @@ const { MainForm } = require('../../../../pages/components/MainForm');
 const { Input } = require('../../../../pages/components/Input');
 
 let formFields;
-let mockHandleChange;
 let evt;
 let shallowComp;
-let shallowInputs;
 let mountComp;
+let dataToPut;
 
 describe('<MainForm />', () => {
   beforeEach(() => {
-    formFields = [
-      { descriptor: 'Nombre', type: 'text' },
-      { descriptor: 'Email', type: 'email' },
-      { descriptor: 'Teléfono', type: 'phone' }
-    ];
-
-    mockHandleChange = jest.fn();
-
     evt = {
       preventDefault() {},
       target: {
-        dataset: {
-          descriptor: 'nombre'
-        },
-        value: 'john'
+        name: undefined,
+        value: undefined
       }
     };
 
-    shallowComp = shallow(<MainForm formFields={formFields} />);
+    dataToPut = [
+      { name: 'nombre', value: 'nicolas' },
+      { name: 'apellido', value: 'riquelme' },
+      { name: 'email', value: 'nicolas@mail.com' },
+      { name: 'telefono', value: '123456789' },
+      { name: 'razon', value: 'quiero hacer mil consultas papa!!!' },
+      { name: 'direccon', value: 'los pajaritos 123' }
+    ];
 
-    mountComp = mount(<MainForm formFields={formFields} />);
+    shallowComp = shallow(<MainForm />);
 
-    shallowInputs = formFields.map((item, idx) =>
-      shallow(
-        <Input
-          key={idx}
-          type={item.type}
-          title={item.descriptor}
-          placeholder={`Ingrese su ${item.descriptor.toLowerCase()}`}
-          handleChange={mockHandleChange}
-          descriptor={item.descriptor}
-        />
-      )
-    );
+    mountComp = mount(<MainForm />);
   });
 
-  it('Should render without errors', () => {
+  it('should render without errors', () => {
     expect(shallowComp).toMatchSnapshot();
   });
 
-  it('should call the mockHandleChange function on the Inputs', () => {
-    shallowInputs.forEach(e => {
-      e.find('input').simulate('change', evt);
+  it('shoudl set the state onChange event', () => {
+    mountComp.find('input').forEach((item, idx) => {
+      const evtToSend = {
+        ...evt,
+        target: {
+          name: dataToPut[idx].name,
+          value: dataToPut[idx].value
+        }
+      };
+
+      item.simulate('change', evtToSend);
     });
 
-    expect(mockHandleChange).toHaveBeenCalledTimes(3);
+    const { fields } = mountComp.state();
+    const keys = Object.keys(fields);
+
+    expect(keys).toHaveLength(6);
   });
 
-  it('sould test the implementation of handleChange if one name is passed', () => {
-    mountComp
-      .find('input')
-      .first()
-      .simulate('change', evt);
-
-    console.log(mountComp.state('validations'));
-
-    const { name } = mountComp.state('validations')[0];
-
-    expect(name).toBe(true);
-  });
-
-  it('should test the implementation of the email validator if one email is provided', () => {
-    const emailEvt = {
-      preventDefault() {},
-      target: {
-        dataset: {
-          descriptor: 'email'
-        },
-        value: 'nicolas@mail.com'
-      }
+  it('should submit and validate the data', () => {
+    const submitEvent = {
+      preventDefault() {}
     };
 
-    mountComp
-      .find('input')
-      .first()
-      .simulate('change', emailEvt);
+    mountComp.find('input').forEach((item, idx) => {
+      const evtToSend = {
+        ...evt,
+        target: {
+          name: dataToPut[idx].name,
+          value: item.props().name !== 'telefono' ? dataToPut[idx].value : '+56983102345'
+        }
+      };
 
-    const { email } = mountComp.state('validations')[2];
+      item.simulate('change', evtToSend);
+    });
 
-    expect(email).toBe(true);
+    mountComp.find('form').simulate('submit', submitEvent);
+
+    const { invalidData } = mountComp.state();
+
+    expect(Object.values(invalidData)).toHaveLength(0);
   });
 
-  it('should return false if the email have erroneous formating', () => {
-    const wrongEmailEvt = {
-      preventDefault() {},
-      target: {
-        dataset: {
-          descriptor: 'email'
-        },
-        value: 'nicolas@mail.'
-      }
+  it.only('should submit and validate the data and then trigger the alerts if the data has errors', () => {
+    const submitEvent = {
+      preventDefault() {}
     };
 
-    mountComp
-      .find('input')
-      .first()
-      .simulate('change', wrongEmailEvt);
+    const invalidDataMock = [
+      { name: 'nombre', value: 'ni' },
+      { name: 'apellido', value: 'ri' },
+      { name: 'email', value: 'nicolas@mail' },
+      { name: 'telefono', value: '+56982345678' },
+      {
+        name: 'razon',
+        value:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente odit pariatur consectetur optio quo!'
+      },
+      { name: 'direccion', value: 'la direccion 1234' }
+    ];
 
-    const { email } = mountComp.state('validations')[2];
+    mountComp.find('input').forEach((item, idx) => {
+      const evtToSend = {
+        ...evt,
+        target: {
+          name: invalidDataMock[idx].name,
+          value: invalidDataMock[idx].value
+        }
+      };
 
+      item.simulate('change', evtToSend);
+    });
+
+    mountComp.find('form').simulate('submit', submitEvent);
+
+    const { validFields } = mountComp.state();
+    const { nombre, apellido, email } = validFields;
+
+    expect(nombre).toBe(false);
+    expect(apellido).toBe(false);
     expect(email).toBe(false);
-  });
-
-  it('should test the submit method', () => {
-    const happyValidations = {
-      name: true,
-      lastname: true,
-      email: true,
-      address: true,
-      reason: true,
-      phone: true
-    };
-
-    mountComp.setState({ validations: { ...happyValidations } });
-
-    mountComp.find('form').simulate('submit');
+    expect(mountComp.find('Alert')).toHaveLength(3);
   });
 });

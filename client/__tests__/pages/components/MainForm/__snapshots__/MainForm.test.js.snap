@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MainForm /> Should render without errors 1`] = `
+exports[`<MainForm /> should render without errors 1`] = `
 <Container
   as="div"
   className="form-container"
@@ -17,76 +17,10 @@ exports[`<MainForm /> Should render without errors 1`] = `
         Contáctenos
       </CardTitle>
       <CardBody>
-        <Form
-          as="form"
-          inline={false}
-          onSubmit={[Function]}
-        >
-          <FormGroup
-            as="div"
-          >
-            <FormControl
-              CustomAlert={[Function]}
-              as={[Function]}
-              descriptor="Nombre"
-              handleChange={[Function]}
-              key="0"
-              placeholder="Ingrese su nombre"
-              title="Nombre"
-              type="text"
-              validData={
-                Object {
-                  "name": false,
-                  "num": 0,
-                }
-              }
-            />
-            <FormControl
-              CustomAlert={[Function]}
-              as={[Function]}
-              descriptor="Email"
-              handleChange={[Function]}
-              key="1"
-              placeholder="Ingrese su email"
-              title="Email"
-              type="email"
-              validData={
-                Object {
-                  "lastname": false,
-                  "num": 1,
-                }
-              }
-            />
-            <FormControl
-              CustomAlert={[Function]}
-              as={[Function]}
-              descriptor="Teléfono"
-              handleChange={[Function]}
-              key="2"
-              placeholder="Ingrese su teléfono"
-              title="Teléfono"
-              type="phone"
-              validData={
-                Object {
-                  "email": false,
-                  "num": 2,
-                }
-              }
-            />
-          </FormGroup>
-          <FormGroup
-            as="div"
-          >
-            <Button
-              active={false}
-              disabled={false}
-              type="submit"
-              variant="success"
-            >
-              Enviar!
-            </Button>
-          </FormGroup>
-        </Form>
+        <CustomForm
+          handleChange={[Function]}
+          handleSubmit={[Function]}
+        />
       </CardBody>
     </Card>
   </Bootstrap(Row)>
