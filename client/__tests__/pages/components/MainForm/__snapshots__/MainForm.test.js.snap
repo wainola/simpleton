@@ -18,8 +18,19 @@ exports[`<MainForm /> should render without errors 1`] = `
       </CardTitle>
       <CardBody>
         <CustomForm
+          CustomAlert={[Function]}
           handleChange={[Function]}
           handleSubmit={[Function]}
+          validFields={
+            Object {
+              "apellido": true,
+              "direccion": true,
+              "email": true,
+              "nombre": true,
+              "razon": true,
+              "telefono": true,
+            }
+          }
         />
       </CardBody>
     </Card>
