@@ -80,7 +80,7 @@ describe('<MainForm />', () => {
     expect(Object.values(invalidData)).toHaveLength(0);
   });
 
-  it.only('should submit and validate the data and then trigger the alerts if the data has errors', () => {
+  it('should submit and validate the data and then trigger the alerts if the data has errors', () => {
     const submitEvent = {
       preventDefault() {}
     };
