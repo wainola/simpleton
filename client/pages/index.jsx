@@ -1,5 +1,6 @@
 import React from 'react';
 import Home from './Home';
+import Firebase, { FirebaseContext } from './components/Firebase';
 
 export default () => {
   const sections = [
@@ -16,14 +17,9 @@ export default () => {
       text: 'Asesorías'
     }
   ];
-
-  const formFields = [
-    { descriptor: 'Nombre', type: 'text' },
-    { descriptor: 'Apellido', type: 'text' },
-    { descriptor: 'Email', type: 'email' },
-    { descriptor: 'Dirección', type: 'text' },
-    { descriptor: 'Motivo de consulta', type: 'text' },
-    { descriptor: 'Teléfono', type: 'phone' }
-  ];
-  return <Home items={sections} formFields={formFields} />;
+  return (
+    <FirebaseContext.Provider value={Firebase}>
+      <Home items={sections} />
+    </FirebaseContext.Provider>
+  );
 };
