@@ -9,6 +9,12 @@ import MainForm from './components/MainForm';
 import Head from './Head';
 import './styles.scss';
 
+import getConfig from 'next/config';
+
+const { API_KEY } = getConfig();
+
+console.log('GET CONFIG', getConfig());
+
 /**
  * HOME MUST HAVE
  * SOME NAVBAR
