@@ -3,6 +3,7 @@ import { Container, Row, Card, Form, Button } from 'react-bootstrap';
 import Input from '../Input';
 import CustomAlert from '../Alert';
 import validations from '../../../Services/validators';
+import { withFirebase } from '../Firebase';
 
 if (process.env.NODE_ENV !== 'test') {
   require('./styles.scss');
@@ -62,6 +63,7 @@ export class MainForm extends Component {
   }
 
   render() {
+    console.log('this.props main form', this.props);
     return (
       <Container className="form-container">
         <Row>
@@ -144,4 +146,4 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
   );
 };
 
-export default MainForm;
+export default withFirebase(MainForm);
