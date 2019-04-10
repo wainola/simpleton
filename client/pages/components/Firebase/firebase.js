@@ -32,6 +32,10 @@ class Firebase {
     return this.db.ref(`/clients/${uid}`);
   }
 
+  setUsers(uid) {
+    return this.db.ref(`/users/${uid}`);
+  }
+
   getClients() {
     return this.db.ref('clients');
   }

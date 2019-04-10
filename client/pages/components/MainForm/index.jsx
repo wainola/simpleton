@@ -119,6 +119,7 @@ export class MainForm extends Component {
 
   render() {
     const { showModal } = this.state;
+    console.log('showModal', showModal);
     return (
       <Container className="form-container">
         <Row>
