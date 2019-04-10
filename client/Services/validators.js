@@ -23,7 +23,7 @@ const validateOtherData = data =>
     }
 
     if (item[0] === 'telefono') {
-      return { key: item[0], isValid: item[1].length >= 12 };
+      return { key: item[0], isValid: item[1].length >= 9 };
     }
     return { key: item[0], isValid: item[1].length > 10 };
   });

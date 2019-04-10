@@ -1,9 +1,16 @@
 import React from 'react';
+import { Form } from 'react-bootstrap';
 
 export const Input = ({ type, title, name, placeholder, handleChange = undefined }) => (
   <React.Fragment>
-    <span className="input-title">{title}</span>
-    <input type={type} name={name} placeholder={placeholder} onChange={handleChange} />
+    <Form.Label>{title}</Form.Label>
+    <Form.Control
+      as="input"
+      onChange={handleChange}
+      type={type}
+      placeholder={placeholder}
+      name={name}
+    />
   </React.Fragment>
 );
 

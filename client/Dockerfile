@@ -3,5 +3,4 @@ WORKDIR /usr/client
 COPY package*.json /usr/client/
 
 RUN npm install --silent
-EXPOSE 3000
 COPY . .

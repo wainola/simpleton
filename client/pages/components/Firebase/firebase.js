@@ -10,7 +10,7 @@ const {
   PROJECT_ID,
   STORAGE_BUCKET,
   MESSAGING_SENDER_ID
-} = getConfig();
+} = getConfig().publicRuntimeConfig;
 
 const config = {
   apiKey: API_KEY,
@@ -28,9 +28,13 @@ class Firebase {
     this.db = app.database();
   }
 
-  clients() {
+  setClient(uid) {
     return this.db.ref(`/clients/${uid}`);
+  }
+
+  getClients() {
+    return this.db.ref('clients');
   }
 }
 
-export default new Firebase();
+export default Firebase;

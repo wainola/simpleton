@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Row, Card, Form, Button } from 'react-bootstrap';
+import { v4 } from 'uuid';
 import Input from '../Input';
 import CustomAlert from '../Alert';
+import CustomModal from '../Modal';
 import validations from '../../../Services/validators';
 import { withFirebase } from '../Firebase';
 
@@ -14,6 +16,9 @@ export class MainForm extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.cleanForm = this.cleanForm.bind(this);
+    this.triggerModal = this.triggerModal.bind(this);
+    this.handleModalDispatch = this.handleModalDispatch.bind(this);
     this.state = {
       fields: {},
       validFields: {
@@ -23,8 +28,16 @@ export class MainForm extends Component {
         telefono: true,
         razon: true,
         direccion: true
-      }
+      },
+      showModal: false
     };
+    this.firebase = undefined;
+    this.form = React.createRef();
+  }
+
+  componentDidMount() {
+    const { firebase: Firebase } = this.props;
+    this.firebase = new Firebase();
   }
 
   handleChange(evt) {
@@ -37,6 +50,22 @@ export class MainForm extends Component {
         ...this.state.fields,
         [name]: value
       }
+    });
+  }
+
+  cleanForm() {
+    this.form.current.reset();
+  }
+
+  async triggerModal() {
+    return this.setState({
+      showModal: !this.state.showModal
+    });
+  }
+
+  handleModalDispatch() {
+    this.setState({
+      showModal: !this.state.showModal
     });
   }
 
@@ -53,17 +82,43 @@ export class MainForm extends Component {
       return acc;
     }, {});
 
-    this.setState({
-      ...this.state,
-      validFields: {
-        ...this.state.validFields,
-        ...validData
+    this.setState(
+      {
+        validFields: {
+          ...this.state.validFields,
+          ...validData
+        }
+      },
+      () => {
+        // THIS IS FUCKING HIDEOUS!!
+        const fieldValues = Object.values(this.state.validFields);
+        const truthines = fieldValues.every(Boolean);
+
+        if (!truthines) {
+          // SOME MODAL OR MESSAGE
+        }
+
+        const { nombre, apellido, email, telefono, razon, direccion } = this.state.fields;
+
+        this.firebase
+          .setClient(v4())
+          .set({
+            nombre,
+            apellido,
+            email,
+            telefono,
+            razon,
+            direccion
+          })
+          .then(async () => {
+            return this.triggerModal().then(() => this.cleanForm());
+          });
       }
-    });
+    );
   }
 
   render() {
-    console.log('this.props main form', this.props);
+    const { showModal } = this.state;
     return (
       <Container className="form-container">
         <Row>
@@ -75,6 +130,12 @@ export class MainForm extends Component {
                 handleSubmit={this.handleSubmit}
                 CustomAlert={CustomAlert}
                 validFields={this.state.validFields}
+                reference={this.form}
+              />
+              <CustomModal
+                show={showModal}
+                message="Datos guardados con exito"
+                handleClick={this.handleModalDispatch}
               />
             </Card.Body>
           </Card>
@@ -84,11 +145,12 @@ export class MainForm extends Component {
   }
 }
 
-export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validFields }) => {
+export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validFields, reference }) => {
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
+    <Form onSubmit={handleSubmit} ref={reference}>
+      <Form.Group className="form-group">
         <Input
+          className="form-control"
           type="text"
           name="nombre"
           placeholder="ingrese su nombre"
@@ -97,6 +159,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
         />
         {!validFields.nombre && <CustomAlert descriptor="nombre" />}
         <Input
+          className="form-control"
           type="text"
           name="apellido"
           placeholder="ingrese su su apellido"
@@ -105,6 +168,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
         />
         {!validFields.apellido && <CustomAlert descriptor="apellido" />}
         <Input
+          className="form-control"
           type="email"
           name="email"
           placeholder="ingrese su correo electrónico"
@@ -113,7 +177,8 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
         />
         {!validFields.email && <CustomAlert descriptor="email" />}
         <Input
-          type="phone"
+          className="form-control"
+          type="text"
           name="telefono"
           placeholder="ingrese su número de teléfono"
           title="Teléfono"
@@ -121,6 +186,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
         />
         {!validFields.telefono && <CustomAlert descriptor="teléfono" />}
         <Input
+          className="form-control"
           type="textarea"
           name="razon"
           placeholder="ingrese el motivo de su consulta"
@@ -129,6 +195,7 @@ export const CustomForm = ({ handleChange, handleSubmit, CustomAlert, validField
         />
         {!validFields.razon && <CustomAlert descriptor="motivo de consulta" />}
         <Input
+          className="form-control"
           type="adddress"
           name="direccion"
           placeholder="ingrese su dirección"
