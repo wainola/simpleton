@@ -28,6 +28,16 @@ class Firebase {
     this.db = app.database();
   }
 
+  signInAnonymously() {
+    return this.auth.signInAnonymously();
+  }
+
+  getAuthStateChange() {
+    return this.auth.onAuthStateChanged(user => {
+      window.user = user;
+    });
+  }
+
   setClient(uid) {
     return this.db.ref(`/clients/${uid}`);
   }

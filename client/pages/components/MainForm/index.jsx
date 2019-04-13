@@ -38,6 +38,11 @@ export class MainForm extends Component {
   componentDidMount() {
     const { firebase: Firebase } = this.props;
     this.firebase = new Firebase();
+
+    this.firebase.signInAnonymously().catch(err => console.log('error:', err));
+
+    // ATTACH THE ANON USER TO THE WINDOW OBJECT
+    this.firebase.getAuthStateChange();
   }
 
   handleChange(evt) {
@@ -82,39 +87,46 @@ export class MainForm extends Component {
       return acc;
     }, {});
 
-    this.setState(
-      {
-        validFields: {
-          ...this.state.validFields,
-          ...validData
+    if (Object.values(validData).length !== 0) {
+      return this.setState(
+        {
+          validFields: {
+            ...this.state.validFields,
+            ...validData
+          }
+        },
+        () => {
+          // HERE TRIGGER ACTIONS RELATED TO INVALID DATA FIELDS
         }
-      },
-      () => {
-        // THIS IS FUCKING HIDEOUS!!
-        const fieldValues = Object.values(this.state.validFields);
-        const truthines = fieldValues.every(Boolean);
+      );
+    }
 
-        if (!truthines) {
-          // SOME MODAL OR MESSAGE
-        }
+    // ELSE THE DATA IS VALID WE CAN CONTINUE
 
-        const { nombre, apellido, email, telefono, razon, direccion } = this.state.fields;
+    // THIS IS FUCKING HIDEOUS!!
+    const fieldValues = Object.values(this.state.fields);
+    const truthines = fieldValues.every(Boolean);
 
-        this.firebase
-          .setClient(v4())
-          .set({
-            nombre,
-            apellido,
-            email,
-            telefono,
-            razon,
-            direccion
-          })
-          .then(async () => {
-            return this.triggerModal().then(() => this.cleanForm());
-          });
-      }
-    );
+    if (truthines) {
+      const { nombre, apellido, email, telefono, razon, direccion } = this.state.fields;
+
+      const { user } = window;
+      const { uid } = user;
+
+      this.firebase
+        .setClient(uid)
+        .set({
+          nombre,
+          apellido,
+          email,
+          telefono,
+          razon,
+          direccion
+        })
+        .then(async () => {
+          return this.triggerModal().then(() => this.cleanForm());
+        });
+    }
   }
 
   render() {
