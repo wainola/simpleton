@@ -102,7 +102,6 @@ export class MainForm extends Component {
     }
 
     // ELSE THE DATA IS VALID WE CAN CONTINUE
-
     // THIS IS FUCKING HIDEOUS!!
     const fieldValues = Object.values(this.state.fields);
     const truthines = fieldValues.every(Boolean);

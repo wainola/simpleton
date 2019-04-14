@@ -40,9 +40,11 @@ export default ({ items, formFields }) => (
           <Header />
           <MainContent />
           <MainForm />
-          <Footer />
         </Body>
       </Row>
+    </Container>
+    <Container fluid className="footer">
+      <Footer />
     </Container>
   </React.Fragment>
 );

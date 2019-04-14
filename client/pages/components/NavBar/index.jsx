@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import './styles.scss';
 
 export default class NavBar extends Component {
@@ -24,21 +24,19 @@ export default class NavBar extends Component {
   render() {
     const { items } = this.props;
     return (
-      <Container fluid>
-        <Navbar collapseOnSelect expand="lg" bg="warning" fixed="top">
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              {Array.isArray(items) &&
-                items.map((element, idx) => (
-                  <Nav.Link key={idx} href={element.url}>
-                    {element.text}
-                  </Nav.Link>
-                ))}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-      </Container>
+      <Navbar collapseOnSelect expand="lg" fixed="top" className="main-navbar">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            {Array.isArray(items) &&
+              items.map((element, idx) => (
+                <Nav.Link key={idx} href={element.url}>
+                  {element.text}
+                </Nav.Link>
+              ))}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }
