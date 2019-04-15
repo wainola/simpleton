@@ -15,15 +15,6 @@ const { API_KEY } = getConfig();
 
 console.log('GET CONFIG', getConfig());
 
-/**
- * HOME MUST HAVE
- * SOME NAVBAR
- * SOME MENU
- * SOME FORM
- * SOME DESCRIPTION WITH HARD CODED TEXT
- * SOME FOOTER
- */
-
 export default ({ items, formFields }) => (
   <React.Fragment>
     <Head />
@@ -38,13 +29,9 @@ export default ({ items, formFields }) => (
       <Row>
         <Body className="main-body" items={items}>
           <Header />
-          <MainContent />
           <MainForm />
         </Body>
       </Row>
-    </Container>
-    <Container fluid className="footer">
-      <Footer />
     </Container>
   </React.Fragment>
 );
