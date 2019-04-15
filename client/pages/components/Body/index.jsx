@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Row } from 'react-bootstrap';
-import Breadcrumb from '../Breadcrumbs';
+import { Container, Row, Tabs, Tab } from 'react-bootstrap';
 import './style.scss';
 
 export default ({ items, children, className }) => {
@@ -10,12 +9,7 @@ export default ({ items, children, className }) => {
       <Row>
         <div className="col">{Header}</div>
       </Row>
-      <Row>
-        <Breadcrumb items={items} />
-      </Row>
-      <Row className={className}>{MainContent}</Row>
-      <Row className={className}>{MainForm}</Row>
-      <Row className={className}>{Footer}</Row>
+      <Row>{MainContent}</Row>
     </Container>
   );
 };

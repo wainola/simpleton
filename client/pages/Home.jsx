@@ -20,9 +20,7 @@ export default ({ items, formFields }) => (
     <Head />
     <Container fluid>
       <Row>
-        <Col>
-          <Navbar items={items} />
-        </Col>
+        <Col>{/* <Navbar items={items} /> */}</Col>
       </Row>
     </Container>
     <Container fluid>
