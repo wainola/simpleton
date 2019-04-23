@@ -1,11 +1,9 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Body from './components/Body';
-import MainContent from './components/MainContent';
 import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
-import Navbar from './components/NavBar';
 import MainForm from './components/MainForm';
+import Description from './components/Description';
 import Head from './Head';
 import './styles.scss';
 
@@ -19,16 +17,16 @@ export default ({ items, formFields }) => (
   <React.Fragment>
     <Head />
     <Container fluid>
+      <Header />
+    </Container>
+    <Container>
       <Row>
-        <Col>{/* <Navbar items={items} /> */}</Col>
+        <Description />
       </Row>
     </Container>
     <Container fluid>
       <Row>
-        <Body className="main-body" items={items}>
-          <Header />
-          <MainForm />
-        </Body>
+        <MainForm />
       </Row>
     </Container>
   </React.Fragment>

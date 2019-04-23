@@ -10,6 +10,7 @@ export default () => (
         content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
       />
       <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossOrigin="anonymous" />
+      <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
     </Head>
   </React.Fragment>
 );
