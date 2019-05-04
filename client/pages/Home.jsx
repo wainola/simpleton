@@ -36,7 +36,7 @@ export default () => {
       <Head />
       <div className="wrap">
         <div className="deck scene" ref={getNode}>
-          <div className="text centered" title="Natalia Scheuer" />
+          <div className="text centered" title="Natalia Scheuer Abogada" />
         </div>
         <div className="surprise">
           <div className="row">
