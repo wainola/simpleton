@@ -1,53 +1,67 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import Body from './components/Body';
-import Header from './components/Header/Header';
-import MainForm from './components/MainForm';
-import Description from './components/Description';
-import Navbar from './components/NavBar';
+import React, { useState, useEffect } from 'react';
+import { Container, Col } from 'react-bootstrap';
+import getConfig from 'next/config';
 import Head from './Head';
 import './styles.scss';
-
-import getConfig from 'next/config';
 
 const { API_KEY } = getConfig();
 
 console.log('GET CONFIG', getConfig());
 
-export default ({ items, formFields }) => (
-  <React.Fragment>
-    <Head />
-    {/* <Container>
-      <Row>
-        <Navbar />
-      </Row>
-    </Container> */}
-    <Container fluid>
-      <Header />
-    </Container>
-    <Container fluid>
-      <Row>
-        <MainForm />
-      </Row>
-    </Container>
-    <Container>
-      <Row>
-        <Description />
-      </Row>
-    </Container>
-  </React.Fragment>
-);
+export default () => {
+  const [sceneNode, setSceneNode] = useState(null);
 
+  function handleScrollDown(evt) {
+    const scrollDown = evt.deltaY > 0 && true;
 
-DIVORCIOS
-DIVORCIO MUTUO ACUERDO
-DIVORCIOS UNILATERALES
+    if (scrollDown) {
+      sceneNode.classList.add('is-over');
+    } else {
+      sceneNode.classList.remove('is-over');
+    }
+  }
+  useEffect(() => {
+    console.log('useEffect', sceneNode);
 
-SEPARACION JUDIFICIAL
-LUQUIDACION DE SOCIEDAD CONYUGAL
+    if (document !== 'undefined') {
+      document.addEventListener('wheel', handleScrollDown);
+    }
 
-REGULACION DE ALIMENTOS
-RELACION DIRECTA Y REGULAR
-CUIDADO PERSONAL
+    return () => document.removeEventListener('wheel', handleScrollDown);
+  }, [sceneNode]);
 
-TRANSACCIONES
+  const getNode = node => setSceneNode(node);
+  return (
+    <React.Fragment>
+      <Head />
+      <div className="wrap">
+        <div className="deck scene" ref={getNode}>
+          <div className="text centered" title="Natalia Scheuer" />
+        </div>
+        <div className="surprise">
+          <div className="row">
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
+              <h2>Left</h2>
+            </div>
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+              <h2>Rigth</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+};
+
+// DIVORCIOS
+// DIVORCIO MUTUO ACUERDO
+// DIVORCIOS UNILATERALES
+
+// SEPARACION JUDIFICIAL
+// LUQUIDACION DE SOCIEDAD CONYUGAL
+
+// REGULACION DE ALIMENTOS
+// RELACION DIRECTA Y REGULAR
+// CUIDADO PERSONAL
+
+// TRANSACCIONES
