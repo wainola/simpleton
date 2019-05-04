@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Col } from 'react-bootstrap';
 import getConfig from 'next/config';
 import Head from './Head';
+import Accordion from './components/Accordion';
 import './styles.scss';
 
 const { API_KEY } = getConfig();
@@ -10,14 +10,17 @@ console.log('GET CONFIG', getConfig());
 
 export default () => {
   const [sceneNode, setSceneNode] = useState(null);
+  const [surpriseNode, setSurprise] = useState(null);
 
   function handleScrollDown(evt) {
     const scrollDown = evt.deltaY > 0 && true;
 
     if (scrollDown) {
       sceneNode.classList.add('is-over');
+      setTimeout(() => surpriseNode.classList.add('is-open'), 1000);
     } else {
       sceneNode.classList.remove('is-over');
+      surpriseNode.classList.remove('is-open');
     }
   }
   useEffect(() => {
@@ -31,6 +34,8 @@ export default () => {
   }, [sceneNode]);
 
   const getNode = node => setSceneNode(node);
+
+  const setSurpriseNode = node => setSurprise(node);
   return (
     <React.Fragment>
       <Head />
@@ -38,10 +43,10 @@ export default () => {
         <div className="deck scene" ref={getNode}>
           <div className="text centered" title="Natalia Scheuer Abogada" />
         </div>
-        <div className="surprise">
+        <div className="surprise" ref={setSurpriseNode}>
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
-              <h2>Left</h2>
+              <Accordion />
             </div>
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
               <h2>Rigth</h2>
