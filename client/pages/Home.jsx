@@ -1,62 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import getConfig from 'next/config';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import Head from './Head';
-import Accordion from './components/Accordion';
-import './styles.scss';
+import Services from './Services';
+import Contact from './Contact';
 
-const { API_KEY } = getConfig();
-
-console.log('GET CONFIG', getConfig());
-
-export default () => {
-  const [sceneNode, setSceneNode] = useState(null);
-  const [surpriseNode, setSurprise] = useState(null);
-
-  function handleScrollDown(evt) {
-    const scrollDown = evt.deltaY > 0 && true;
-
-    if (scrollDown) {
-      sceneNode.classList.add('is-over');
-      setTimeout(() => surpriseNode.classList.add('is-open'), 1000);
-    } else {
-      sceneNode.classList.remove('is-over');
-      surpriseNode.classList.remove('is-open');
-    }
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary
   }
-  useEffect(() => {
-    console.log('useEffect', sceneNode);
+});
 
-    if (document !== 'undefined') {
-      document.addEventListener('wheel', handleScrollDown);
-    }
-
-    return () => document.removeEventListener('wheel', handleScrollDown);
-  }, [sceneNode]);
-
-  const getNode = node => setSceneNode(node);
-
-  const setSurpriseNode = node => setSurprise(node);
+const Home = props => {
+  const { classes } = props;
   return (
     <React.Fragment>
       <Head />
-      <div className="wrap">
-        <div className="deck scene" ref={getNode}>
-          <div className="text centered" title="Natalia Scheuer Abogada" />
-        </div>
-        <div className="surprise" ref={setSurpriseNode}>
-          <div className="row">
-            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
-              <Accordion />
-            </div>
-            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
-              <h2>Rigth</h2>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Typography component="h2" variant="h2" gutterBottom color="primary">
+              Natalia Scheuer Abogada
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={6}>
+          <Paper className={classes.paper}>
+            <Typography component="h4" variant="h4" gutterBottom>
+              Servicios
+            </Typography>
+            <Services />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={6}>
+          <Paper className={classes.paper}>
+            <Typography component="h4" variant="h4" gutterBottom>
+              Contacto
+            </Typography>
+            <Contact />
+          </Paper>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };
+
+export default withStyles(styles)(Home);
 
 // DIVORCIOS
 // DIVORCIO MUTUO ACUERDO

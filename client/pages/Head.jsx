@@ -9,8 +9,9 @@ export default () => (
         name="viewport"
         content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
       />
-      <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossOrigin="anonymous" />
-      <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </Head>
   </React.Fragment>
 );
