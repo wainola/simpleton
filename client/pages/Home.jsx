@@ -1,11 +1,13 @@
 import React from 'react';
+import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Head from './Head';
 import Services from './Services';
-import Contact from './Contact';
+import Contact from './contact';
 
 const styles = theme => ({
   root: {
@@ -44,7 +46,9 @@ const Home = props => {
             <Typography component="h4" variant="h4" gutterBottom>
               Contacto
             </Typography>
-            <Contact />
+            <Link href="/contact">
+              <Button color="primary">Contacto</Button>
+            </Link>
           </Paper>
         </Grid>
       </Grid>
