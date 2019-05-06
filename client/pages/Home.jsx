@@ -1,53 +1,87 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import Body from './components/Body';
-import Header from './components/Header/Header';
-import MainForm from './components/MainForm';
-import Description from './components/Description';
-import Navbar from './components/NavBar';
+import { withStyles } from '@material-ui/core/styles';
+import {
+  Typography,
+  Paper,
+  Grid,
+  BottomNavigation,
+  BottomNavigationAction
+} from '@material-ui/core';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Head from './Head';
-import './styles.scss';
+import Services from './components/Services';
+import Contact from './components/Contact';
 
-import getConfig from 'next/config';
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary
+  }
+});
 
-const { API_KEY } = getConfig();
+const Home = props => {
+  const { classes } = props;
 
-console.log('GET CONFIG', getConfig());
+  console.log('props home', props);
+  return (
+    <React.Fragment>
+      <Head />
+      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Typography component="h2" variant="h2" gutterBottom color="primary">
+              Natalia Scheuer Abogada
+            </Typography>
+          </Paper>
+        </Grid>
+        {/* DISPLAY THIS ON BOTTOM ON NAV IF ON MOBILE */}
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <BottomNavigation showLabels>
+              <BottomNavigationAction label="Servicios" icon={<RestoreIcon />} />
+              <BottomNavigationAction label="Contacto" icon={<FavoriteIcon />} />
+              <BottomNavigationAction label="Acerca de" icon={<LocationOnIcon />} />
+            </BottomNavigation>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={6}>
+          <Paper className={classes.paper}>
+            <Typography component="h4" variant="h4" gutterBottom>
+              Servicios
+            </Typography>
+            <Services />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={6}>
+          <Paper className={classes.paper}>
+            <Typography component="h4" variant="h4" gutterBottom>
+              Contacto
+            </Typography>
+            <Contact />
+          </Paper>
+        </Grid>
+      </Grid>
+    </React.Fragment>
+  );
+};
 
-export default ({ items, formFields }) => (
-  <React.Fragment>
-    <Head />
-    {/* <Container>
-      <Row>
-        <Navbar />
-      </Row>
-    </Container> */}
-    <Container fluid>
-      <Header />
-    </Container>
-    <Container fluid>
-      <Row>
-        <MainForm />
-      </Row>
-    </Container>
-    <Container>
-      <Row>
-        <Description />
-      </Row>
-    </Container>
-  </React.Fragment>
-);
+export default withStyles(styles)(Home);
 
+// DIVORCIOS
+// DIVORCIO MUTUO ACUERDO
+// DIVORCIOS UNILATERALES
 
-DIVORCIOS
-DIVORCIO MUTUO ACUERDO
-DIVORCIOS UNILATERALES
+// SEPARACION JUDIFICIAL
+// LUQUIDACION DE SOCIEDAD CONYUGAL
 
-SEPARACION JUDIFICIAL
-LUQUIDACION DE SOCIEDAD CONYUGAL
+// REGULACION DE ALIMENTOS
+// RELACION DIRECTA Y REGULAR
+// CUIDADO PERSONAL
 
-REGULACION DE ALIMENTOS
-RELACION DIRECTA Y REGULAR
-CUIDADO PERSONAL
-
-TRANSACCIONES
+// TRANSACCIONES
