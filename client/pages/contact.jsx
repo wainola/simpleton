@@ -33,24 +33,23 @@ function Contact(props) {
 
   const { classes } = props;
 
+  console.log('props', props);
+
   return (
     <div>
       <Grid container>
         <Grid item xs={12} sm={12} md={12} lg={12}>
-          <Paper className={classes.paper}>
-            <Typography component="h4" variant="h4" gutterBottom>
-              Formulario de contacto
-            </Typography>
-            <FormControl className={classes.formFields}>
-              <TextField id="input-with-icon-textfield" label="Nombre" />
-            </FormControl>
-            <FormControl className={classes.formFields}>
-              <TextField id="input-with-icon-textfield" label="Nombre" />
-            </FormControl>
-            <FormControl className={classes.formFields}>
-              <TextField id="input-with-icon-textfield" label="Nombre" />
-            </FormControl>
-          </Paper>
+          <FormControl className={classes.formFields}>
+            <TextField id="input-with-icon-textfield" label="Nombre" />
+          </FormControl>
+          <br />
+          <FormControl className={classes.formFields}>
+            <TextField id="input-with-icon-textfield" label="Nombre" />
+          </FormControl>
+          <br />
+          <FormControl className={classes.formFields}>
+            <TextField id="input-with-icon-textfield" label="Nombre" />
+          </FormControl>
         </Grid>
       </Grid>
     </div>

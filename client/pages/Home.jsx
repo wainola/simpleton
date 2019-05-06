@@ -22,6 +22,8 @@ const styles = theme => ({
 
 const Home = props => {
   const { classes } = props;
+
+  console.log('props home', props);
   return (
     <React.Fragment>
       <Head />
@@ -47,6 +49,7 @@ const Home = props => {
               Contacto
             </Typography>
             {/* PUT THE FORM HERE AND STOP WEBIAR! */}
+            <Contact />
           </Paper>
         </Grid>
       </Grid>
