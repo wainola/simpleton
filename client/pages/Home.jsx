@@ -1,13 +1,18 @@
 import React from 'react';
-import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import {
+  Typography,
+  Paper,
+  Grid,
+  BottomNavigation,
+  BottomNavigationAction
+} from '@material-ui/core';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Head from './Head';
-import Services from './Services';
-import Contact from './contact';
+import Services from './components/Services';
+import Contact from './components/Contact';
 
 const styles = theme => ({
   root: {
@@ -35,6 +40,16 @@ const Home = props => {
             </Typography>
           </Paper>
         </Grid>
+        {/* DISPLAY THIS ON BOTTOM ON NAV IF ON MOBILE */}
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <BottomNavigation showLabels>
+              <BottomNavigationAction label="Servicios" icon={<RestoreIcon />} />
+              <BottomNavigationAction label="Contacto" icon={<FavoriteIcon />} />
+              <BottomNavigationAction label="Acerca de" icon={<LocationOnIcon />} />
+            </BottomNavigation>
+          </Paper>
+        </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <Paper className={classes.paper}>
             <Typography component="h4" variant="h4" gutterBottom>
@@ -48,7 +63,6 @@ const Home = props => {
             <Typography component="h4" variant="h4" gutterBottom>
               Contacto
             </Typography>
-            {/* PUT THE FORM HERE AND STOP WEBIAR! */}
             <Contact />
           </Paper>
         </Grid>
