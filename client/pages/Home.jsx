@@ -46,9 +46,7 @@ const Home = props => {
             <Typography component="h4" variant="h4" gutterBottom>
               Contacto
             </Typography>
-            <Link href="/contact">
-              <Button color="primary">Contacto</Button>
-            </Link>
+            {/* PUT THE FORM HERE AND STOP WEBIAR! */}
           </Paper>
         </Grid>
       </Grid>
