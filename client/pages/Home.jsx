@@ -24,6 +24,10 @@ const styles = theme => ({
     color: theme.palette.text.secondary
   },
   mainTitleContainer: {
+    height: '70%',
+    display: 'flex',
+    'align-items': 'center',
+    'justify-content': 'center',
     textAlign: 'center',
     padding: theme.spacing.unit * 2,
     background: '#C93756',
@@ -32,7 +36,7 @@ const styles = theme => ({
   },
   mainTitle: {
     color: 'white',
-    'font-size': '1.5rem'
+    'font-size': '20px'
   },
   navigationMenu: {
     position: 'fixed',
@@ -41,13 +45,19 @@ const styles = theme => ({
     bottom: '0',
     left: '0',
     padding: '0 !important'
+  },
+  contactContainer: {
+    'margin-bottom': '15%'
+  },
+  contactTitle: {
+    'font-size': '1.5rem',
+    'text-transform': 'uppercase'
   }
 });
 
 const Home = props => {
   const { classes } = props;
 
-  console.log('props home', props);
   return (
     <React.Fragment>
       <Head />
@@ -59,10 +69,13 @@ const Home = props => {
             </Typography>
           </Paper>
         </Grid>
-        {/* CHECK IF WE ARE ON MOBILE DEVICES */}
+        {/* CHECK IF WE ARE ON MOBILE DEVICES
+            IF WE ARE ON THE BOTTOM DISMISS. SCROLL UP AND APPEARS
+         */}
         <Grid item xs={12} className={classes.navigationMenu}>
           <Paper>
             <BottomNavigation showLabels>
+              {/* USER ṔROGRAMATIC NAV WITH NEXT ROUTER TO HANDLE THE CLICK */}
               <BottomNavigationAction label="Servicios" icon={<RestoreIcon />} />
               <BottomNavigationAction label="Contacto" icon={<FavoriteIcon />} />
               <BottomNavigationAction label="Acerca de" icon={<LocationOnIcon />} />
@@ -72,9 +85,9 @@ const Home = props => {
         <Grid item xs={12} md={6} lg={6}>
           <Services />
         </Grid>
-        <Grid item xs={12} md={6} lg={6}>
+        <Grid item xs={12} md={6} lg={6} className={classes.contactContainer}>
           <Paper className={classes.paper}>
-            <Typography component="h4" variant="h4" gutterBottom>
+            <Typography component="h4" variant="h4" gutterBottom className={classes.contactTitle}>
               Contacto
             </Typography>
             <Contact />
