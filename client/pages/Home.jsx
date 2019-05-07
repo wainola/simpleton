@@ -22,6 +22,25 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
     color: theme.palette.text.secondary
+  },
+  mainTitleContainer: {
+    textAlign: 'center',
+    padding: theme.spacing.unit * 2,
+    background: '#C93756',
+    color: 'white',
+    'text-transform': 'uppercase'
+  },
+  mainTitle: {
+    color: 'white',
+    'font-size': '1.5rem'
+  },
+  navigationMenu: {
+    position: 'fixed',
+    width: '100%',
+    'z-index': '10',
+    bottom: '0',
+    left: '0',
+    padding: '0 !important'
   }
 });
 
@@ -34,19 +53,21 @@ const Home = props => {
       <Head />
       <Grid container spacing={24}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography component="h4" variant="h4" gutterBottom color="black">
+          <Paper className={classes.mainTitleContainer}>
+            <Typography component="h4" variant="h4" gutterBottom className={classes.mainTitle}>
               Natalia Scheuer Abogada
             </Typography>
           </Paper>
         </Grid>
-        {/* DISPLAY THIS ON BOTTOM ON NAV IF ON MOBILE */}
-        <Grid item xs={12}>
-          <BottomNavigation showLabels>
-            <BottomNavigationAction label="Servicios" icon={<RestoreIcon />} />
-            <BottomNavigationAction label="Contacto" icon={<FavoriteIcon />} />
-            <BottomNavigationAction label="Acerca de" icon={<LocationOnIcon />} />
-          </BottomNavigation>
+        {/* CHECK IF WE ARE ON MOBILE DEVICES */}
+        <Grid item xs={12} className={classes.navigationMenu}>
+          <Paper>
+            <BottomNavigation showLabels>
+              <BottomNavigationAction label="Servicios" icon={<RestoreIcon />} />
+              <BottomNavigationAction label="Contacto" icon={<FavoriteIcon />} />
+              <BottomNavigationAction label="Acerca de" icon={<LocationOnIcon />} />
+            </BottomNavigation>
+          </Paper>
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <Services />
