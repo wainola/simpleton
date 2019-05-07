@@ -35,28 +35,21 @@ const Home = props => {
       <Grid container spacing={24}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Typography component="h2" variant="h2" gutterBottom color="primary">
+            <Typography component="h4" variant="h4" gutterBottom color="black">
               Natalia Scheuer Abogada
             </Typography>
           </Paper>
         </Grid>
         {/* DISPLAY THIS ON BOTTOM ON NAV IF ON MOBILE */}
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <BottomNavigation showLabels>
-              <BottomNavigationAction label="Servicios" icon={<RestoreIcon />} />
-              <BottomNavigationAction label="Contacto" icon={<FavoriteIcon />} />
-              <BottomNavigationAction label="Acerca de" icon={<LocationOnIcon />} />
-            </BottomNavigation>
-          </Paper>
+          <BottomNavigation showLabels>
+            <BottomNavigationAction label="Servicios" icon={<RestoreIcon />} />
+            <BottomNavigationAction label="Contacto" icon={<FavoriteIcon />} />
+            <BottomNavigationAction label="Acerca de" icon={<LocationOnIcon />} />
+          </BottomNavigation>
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
-          <Paper className={classes.paper}>
-            <Typography component="h4" variant="h4" gutterBottom>
-              Servicios
-            </Typography>
-            <Services />
-          </Paper>
+          <Services />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <Paper className={classes.paper}>
