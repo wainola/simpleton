@@ -1,18 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Typography,
-  Paper,
-  Grid,
-  BottomNavigation,
-  BottomNavigationAction
-} from '@material-ui/core';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { Typography, Paper, Grid } from '@material-ui/core';
+
 import Head from './Head';
+import BottomNavigation from './components/BottomNavigation';
 import Services from './components/Services';
 import Contact from './components/Contact';
+import checkIfMobile from '../Services/checkIfMobile';
 
 const styles = theme => ({
   root: {
@@ -38,7 +32,7 @@ const styles = theme => ({
     color: 'white',
     'font-size': '20px'
   },
-  navigationMenu: {
+  navigationMenuMobile: {
     position: 'fixed',
     width: '100%',
     'z-index': '10',
@@ -58,6 +52,12 @@ const styles = theme => ({
 const Home = props => {
   const { classes } = props;
 
+  let ifMobile;
+
+  if (process.browser) {
+    ifMobile = checkIfMobile();
+  }
+
   return (
     <React.Fragment>
       <Head />
@@ -72,15 +72,8 @@ const Home = props => {
         {/* CHECK IF WE ARE ON MOBILE DEVICES
             IF WE ARE ON THE BOTTOM DISMISS. SCROLL UP AND APPEARS
          */}
-        <Grid item xs={12} className={classes.navigationMenu}>
-          <Paper>
-            <BottomNavigation showLabels>
-              {/* USER ṔROGRAMATIC NAV WITH NEXT ROUTER TO HANDLE THE CLICK */}
-              <BottomNavigationAction label="Servicios" icon={<RestoreIcon />} />
-              <BottomNavigationAction label="Contacto" icon={<FavoriteIcon />} />
-              <BottomNavigationAction label="Acerca de" icon={<LocationOnIcon />} />
-            </BottomNavigation>
-          </Paper>
+        <Grid item xs={12} className={ifMobile ? classes.navigationMenuMobile : ''}>
+          <BottomNavigation />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <Services />
