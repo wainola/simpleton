@@ -85,6 +85,9 @@ const Home = props => {
           />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
+        <Typography component="h4" variant="h4" gutterBottom className={classes.contactTitle}>
+              Contacto
+
           <Services />
         </Grid>
         <Grid item xs={12} md={6} lg={6} className={classes.contactContainer}>
