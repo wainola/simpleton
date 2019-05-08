@@ -1,6 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Paper, Grid } from '@material-ui/core';
+import FaceIcon from '@material-ui/icons/Face';
+import MessageIcon from '@material-ui/icons/Message';
+import WorkIcon from '@material-ui/icons/Work';
 
 import Head from './Head';
 import BottomNavigation from './components/BottomNavigation';
@@ -73,7 +76,13 @@ const Home = props => {
             IF WE ARE ON THE BOTTOM DISMISS. SCROLL UP AND APPEARS
          */}
         <Grid item xs={12} className={ifMobile ? classes.navigationMenuMobile : ''}>
-          <BottomNavigation />
+          <BottomNavigation
+            routes={[
+              { label: 'Servicios', route: '/services', icon: WorkIcon },
+              { label: 'Contacto', route: '/contact', icon: MessageIcon },
+              { label: 'Acerca de', route: '/about', icon: FaceIcon }
+            ]}
+          />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <Services />
