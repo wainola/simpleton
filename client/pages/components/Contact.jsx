@@ -2,6 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, FormControl, TextField, Button } from '@material-ui/core';
 
+import LoadComplete from './LoadComplete';
+
 const styles = theme => ({
   paper: {
     textAlign: 'center',
@@ -16,11 +18,17 @@ const styles = theme => ({
     'flex-direction': 'column',
     'justify-content': 'center',
     'align-items': 'center'
+  },
+  inlineFields: {
+    display: 'flex',
+    'flex-direction': 'row',
+    'align-items': 'flex-end'
   }
 });
 
 function Contact(props) {
   const [open, setOpen] = React.useState(false);
+  const [isComplete, setComplete] = React.useState(false);
 
   function handleClickOpen() {
     setOpen(true);
@@ -28,6 +36,11 @@ function Contact(props) {
 
   function handleClose() {
     setOpen(false);
+  }
+
+  function handleBlur() {
+    console.log('handleBlur');
+    setComplete(!isComplete);
   }
 
   const { classes } = props;
@@ -39,7 +52,10 @@ function Contact(props) {
       <Grid container>
         <Grid item xs={12} sm={12} md={12} lg={12} className={classes.formContainer}>
           <FormControl className={classes.formFields}>
-            <TextField id="input-with-icon-textfield" label="Nombre" />
+            <div className={classes.inlineFields}>
+              <LoadComplete isComplete={isComplete} />
+              <TextField id="input-with-icon-textfield" label="Nombre" onBlur={handleBlur} />
+            </div>
           </FormControl>
           <FormControl className={classes.formFields}>
             <TextField id="input-with-icon-textfield" label="Apellido" />
