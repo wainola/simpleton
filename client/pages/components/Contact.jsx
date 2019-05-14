@@ -58,19 +58,34 @@ function Contact(props) {
             </div>
           </FormControl>
           <FormControl className={classes.formFields}>
-            <TextField id="input-with-icon-textfield" label="Apellido" />
+            <div className={classes.inlineFields}>
+              <LoadComplete isComplete={isComplete} />
+              <TextField id="input-with-icon-textfield" label="Apellido" />
+            </div>
           </FormControl>
           <FormControl className={classes.formFields}>
-            <TextField id="input-with-icon-textfield" label="Email" />
+            <div className={classes.inlineFields}>
+              <LoadComplete isComplete={isComplete} />
+              <TextField id="input-with-icon-textfield" label="Email" />
+            </div>
           </FormControl>
           <FormControl className={classes.formFields}>
-            <TextField id="input-with-icon-textfield" label="Teléfono" />
+            <div className={classes.inlineFields}>
+              <LoadComplete isComplete={isComplete} />
+              <TextField id="input-with-icon-textfield" label="Teléfono" />
+            </div>
           </FormControl>
           <FormControl className={classes.formFields}>
-            <TextField id="input-with-icon-textfield" label="Motivo de consulta" />
+            <div className={classes.inlineFields}>
+              <LoadComplete isComplete={isComplete} />
+              <TextField id="input-with-icon-textfield" label="Motivo de consulta" />
+            </div>
           </FormControl>
           <FormControl className={classes.formFields}>
-            <TextField id="input-with-icon-textfield" label="Dirección" />
+            <div className={classes.inlineFields}>
+              <LoadComplete isComplete={isComplete} />
+              <TextField id="input-with-icon-textfield" label="Dirección" />
+            </div>
           </FormControl>
           <FormControl className={classes.formFields}>
             <Button color="primary">Guardar</Button>
