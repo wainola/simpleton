@@ -28,6 +28,15 @@ const styles = theme => ({
 
 function Contact(props) {
   const [open, setOpen] = React.useState(false);
+  const [formChecked, setFormChecked] = React.useState({
+    nombre: false,
+    apellido: false,
+    email: false,
+    telefono: false,
+    razon: false,
+    direccion: false
+  });
+  const [allChecked, setAllChecked] = React.useState(false);
   const [isComplete, setComplete] = React.useState(false);
 
   function handleClickOpen() {
@@ -38,9 +47,26 @@ function Contact(props) {
     setOpen(false);
   }
 
-  function handleBlur() {
-    console.log('handleBlur');
-    setComplete(!isComplete);
+  function handleBlur(evt) {
+    console.log('handleBlur', evt.target);
+    if (evt.target.name !== 'direccion') {
+      return setFormChecked({
+        ...formChecked,
+        [evt.target.name]: !formChecked[evt.target.name]
+      });
+    }
+
+    setFormChecked({
+      ...formChecked,
+      [evt.target.name]: !formChecked[evt.target.name]
+    });
+  }
+
+  function handleFocus(evt) {
+    return setFormChecked({
+      ...formChecked,
+      [evt.target.name]: !formChecked[evt.target.name]
+    });
   }
 
   const { classes } = props;
@@ -53,38 +79,74 @@ function Contact(props) {
         <Grid item xs={12} sm={12} md={12} lg={12} className={classes.formContainer}>
           <FormControl className={classes.formFields}>
             <div className={classes.inlineFields}>
-              <LoadComplete isComplete={isComplete} />
-              <TextField id="input-with-icon-textfield" label="Nombre" onBlur={handleBlur} />
+              <LoadComplete isComplete={formChecked.nombre} name="nombre" />
+              <TextField
+                id="input-with-icon-textfield"
+                label="Nombre"
+                onBlur={!formChecked.nombre ? handleBlur : () => {}}
+                onFocus={handleFocus}
+                name="nombre"
+              />
             </div>
           </FormControl>
           <FormControl className={classes.formFields}>
             <div className={classes.inlineFields}>
-              <LoadComplete isComplete={isComplete} />
-              <TextField id="input-with-icon-textfield" label="Apellido" />
+              <LoadComplete isComplete={formChecked.apellido} name="apellido" />
+              <TextField
+                id="input-with-icon-textfield"
+                label="Apellido"
+                name="apellido"
+                onBlur={!formChecked.apellido ? handleBlur : () => {}}
+                onFocus={handleFocus}
+              />
             </div>
           </FormControl>
           <FormControl className={classes.formFields}>
             <div className={classes.inlineFields}>
-              <LoadComplete isComplete={isComplete} />
-              <TextField id="input-with-icon-textfield" label="Email" />
+              <LoadComplete isComplete={formChecked.email} name="email" />
+              <TextField
+                id="input-with-icon-textfield"
+                label="Email"
+                name="email"
+                onBlur={!formChecked.email ? handleBlur : () => {}}
+                onFocus={handleFocus}
+              />
             </div>
           </FormControl>
           <FormControl className={classes.formFields}>
             <div className={classes.inlineFields}>
-              <LoadComplete isComplete={isComplete} />
-              <TextField id="input-with-icon-textfield" label="Teléfono" />
+              <LoadComplete isComplete={formChecked.telefono} name="telefono" />
+              <TextField
+                id="input-with-icon-textfield"
+                label="Teléfono"
+                name="telefono"
+                onBlur={!formChecked.telefono ? handleBlur : () => {}}
+                onFocus={handleFocus}
+              />
             </div>
           </FormControl>
           <FormControl className={classes.formFields}>
             <div className={classes.inlineFields}>
-              <LoadComplete isComplete={isComplete} />
-              <TextField id="input-with-icon-textfield" label="Motivo de consulta" />
+              <LoadComplete isComplete={formChecked.razon} name="razon" />
+              <TextField
+                id="input-with-icon-textfield"
+                label="Motivo de consulta"
+                name="razon"
+                onBlur={!formChecked.razon ? handleBlur : () => {}}
+                onFocus={handleFocus}
+              />
             </div>
           </FormControl>
           <FormControl className={classes.formFields}>
             <div className={classes.inlineFields}>
-              <LoadComplete isComplete={isComplete} />
-              <TextField id="input-with-icon-textfield" label="Dirección" />
+              <LoadComplete isComplete={formChecked.direccion} name="direccion" />
+              <TextField
+                id="input-with-icon-textfield"
+                label="Dirección"
+                name="direccion"
+                onBlur={!formChecked.direccion ? handleBlur : () => {}}
+                onFocus={handleFocus}
+              />
             </div>
           </FormControl>
           <FormControl className={classes.formFields}>
