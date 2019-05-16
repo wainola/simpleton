@@ -11,6 +11,10 @@ import Services from './components/Services';
 import Contact from './components/Contact';
 import checkIfMobile from '../Services/checkIfMobile';
 
+if (process.browser) {
+  require('./styles.scss');
+}
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -91,10 +95,12 @@ const Home = props => {
           />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
-          <Typography component="h4" variant="h4" gutterBottom className={classes.serviceTitle}>
-            Áreas
-          </Typography>
-          <Services />
+          <Paper className={classes.paper}>
+            <Typography component="h4" variant="h4" gutterBottom className={classes.serviceTitle}>
+              Áreas
+            </Typography>
+            <Services />
+          </Paper>
         </Grid>
         <Grid item xs={12} md={6} lg={6} className={classes.contactContainer}>
           <Paper className={classes.paper}>
