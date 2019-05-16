@@ -11,9 +11,7 @@ import Services from './components/Services';
 import Contact from './components/Contact';
 import checkIfMobile from '../Services/checkIfMobile';
 
-if (process.browser) {
-  require('./styles.scss');
-}
+require('./styles.scss');
 
 const styles = theme => ({
   root: {
