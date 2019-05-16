@@ -1,0 +1,67 @@
+{
+  "modules": {
+    "byIdentifier": {
+      "multi private-next-pages/about.jsx": 0,
+      "multi private-next-pages/components/BottomNavigation.jsx": 1,
+      "multi private-next-pages/components/Contact.jsx": 2,
+      "multi private-next-pages/components/LoadComplete/index.jsx": 3,
+      "multi private-next-pages/components/Services.jsx": 4,
+      "multi private-next-pages/contact.jsx": 5,
+      "multi private-next-pages/Head.jsx": 6,
+      "multi private-next-pages/Home.jsx": 7,
+      "multi private-next-pages/index.jsx": 8,
+      "multi private-next-pages/services.jsx": 9,
+      "multi next/dist/pages/_app": 10,
+      "multi next/dist/pages/_error": 11,
+      "multi next/dist/pages/_document": 12
+    },
+    "usedIds": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5,
+      "6": 6,
+      "7": 7,
+      "8": 8,
+      "9": 9,
+      "10": 10,
+      "11": 11,
+      "12": 12
+    }
+  },
+  "chunks": {
+    "byName": {
+      "static/0lwRSFvhWxK84U2H284ua/pages/Head.js": 0,
+      "static/0lwRSFvhWxK84U2H284ua/pages/Home.js": 1,
+      "static/0lwRSFvhWxK84U2H284ua/pages/_app.js": 2,
+      "static/0lwRSFvhWxK84U2H284ua/pages/_document.js": 3,
+      "static/0lwRSFvhWxK84U2H284ua/pages/_error.js": 4,
+      "static/0lwRSFvhWxK84U2H284ua/pages/about.js": 5,
+      "static/0lwRSFvhWxK84U2H284ua/pages/components/BottomNavigation.js": 6,
+      "static/0lwRSFvhWxK84U2H284ua/pages/components/Contact.js": 7,
+      "static/0lwRSFvhWxK84U2H284ua/pages/components/LoadComplete.js": 8,
+      "static/0lwRSFvhWxK84U2H284ua/pages/components/Services.js": 9,
+      "static/0lwRSFvhWxK84U2H284ua/pages/contact.js": 10,
+      "static/0lwRSFvhWxK84U2H284ua/pages/index.js": 11,
+      "static/0lwRSFvhWxK84U2H284ua/pages/services.js": 12
+    },
+    "bySource": {},
+    "usedIds": [
+      0,
+      1,
+      10,
+      11,
+      12,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  }
+}
