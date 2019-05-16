@@ -97,7 +97,7 @@ const Home = props => {
         <Grid item xs={12} md={6} lg={6}>
           <Paper className={classes.paper}>
             <Typography component="h4" variant="h4" gutterBottom className={classes.serviceTitle}>
-              Áreas
+              Servicios
             </Typography>
             <Services />
           </Paper>

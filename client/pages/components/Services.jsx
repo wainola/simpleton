@@ -5,6 +5,9 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PeopleIcon from '@material-ui/icons/People';
+import MoodIcon from '@material-ui/icons/Mood';
+import WorkCase from '@material-ui/icons/WorkOutline';
 
 const styles = theme => ({
   root: {
@@ -12,7 +15,12 @@ const styles = theme => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(20),
-    fontWeight: theme.typography.fontWeightRegular
+    fontWeight: theme.typography.fontWeightRegular,
+    display: 'flex'
+  },
+  headline: {
+    'margin-left': '10px',
+    'margin-top': '-1px'
   }
 });
 
@@ -22,7 +30,13 @@ function SimpleExpansionPanel(props) {
     <div className={classes.root}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Divorcios</Typography>
+          <Typography className={classes.heading}>
+            <span>
+              <PeopleIcon />
+            </span>
+
+            <span className={classes.headline}>Divorcios</span>
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
@@ -33,7 +47,12 @@ function SimpleExpansionPanel(props) {
       </ExpansionPanel>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Separación judicial</Typography>
+          <Typography className={classes.heading}>
+            <span>
+              <MoodIcon />
+            </span>
+            <span className={classes.headline}>Separación judicial</span>
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
@@ -44,7 +63,12 @@ function SimpleExpansionPanel(props) {
       </ExpansionPanel>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Otros</Typography>
+          <Typography className={classes.heading}>
+            <span>
+              <WorkCase />
+            </span>
+            <span className={classes.headline}>Otros</span>
+          </Typography>
         </ExpansionPanelSummary>
       </ExpansionPanel>
     </div>
