@@ -6,33 +6,5 @@
       "file": "static/chunks/0.js",
       "publicPath": "static/chunks/0.js"
     }
-  ],
-  "./styles.scss": [
-    {
-      "id": "./pages/components/LoadComplete/styles.scss",
-      "name": "./pages/components/LoadComplete/styles.scss",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./pages/styles.scss",
-      "name": "./pages/styles.scss",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    }
-  ],
-  "undefined": [
-    {
-      "id": 2,
-      "name": null,
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": 3,
-      "name": null,
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    }
   ]
 }
