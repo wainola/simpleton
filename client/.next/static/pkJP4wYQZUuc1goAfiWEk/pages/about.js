@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{STsu:function(n,u,e){(window.__NEXT_P=window.__NEXT_P||[]).push(["/about",function(){var n=e("vBwC");return{page:n.default||n}}])},vBwC:function(n,u,e){"use strict";e.r(u);var t=e("q1tI"),w=e.n(t);u.default=function(){return w.a.createElement("h1",null,"Acerca de")}}},[["STsu",1,0]]]);

@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[25],{FEbK:function(n,t,e){(window.__NEXT_P=window.__NEXT_P||[]).push(["/contact",function(){var n=e("hAIN");return{page:n.default||n}}])},hAIN:function(n,t,e){"use strict";e.r(t);var o=e("q1tI"),u=e.n(o);t.default=function(){return u.a.createElement("h1",null,"Contact")}}},[["FEbK",1,0]]]);

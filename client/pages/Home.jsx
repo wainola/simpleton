@@ -1,3 +1,4 @@
+/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Paper, Grid } from '@material-ui/core';
@@ -9,7 +10,6 @@ import Head from './Head';
 import BottomNavigation from './components/BottomNavigation';
 import Services from './components/Services';
 import Contact from './components/Contact';
-import checkIfMobile from '../Services/checkIfMobile';
 
 require('./styles.scss');
 
@@ -60,58 +60,55 @@ const styles = theme => ({
   }
 });
 
-const Home = props => {
-  const { classes } = props;
+class Home extends React.Component {
+  render() {
+    const { classes } = this.props;
+    const { ifMobile } = this.props;
 
-  let ifMobile;
-
-  if (process.browser) {
-    ifMobile = checkIfMobile();
+    return (
+      <React.Fragment>
+        <Head />
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Paper className={classes.mainTitleContainer}>
+              <Typography component="h4" variant="h4" gutterBottom className={classes.mainTitle}>
+                Natalia Scheuer Abogada
+              </Typography>
+            </Paper>
+          </Grid>
+          {/* CHECK IF WE ARE ON MOBILE DEVICES
+              IF WE ARE ON THE BOTTOM DISMISS. SCROLL UP AND APPEARS
+           */}
+          <Grid item xs={12} className={ifMobile ? classes.navigationMenuMobile : ''}>
+            <BottomNavigation
+              routes={[
+                { label: 'Servicios', route: '/services', icon: WorkIcon },
+                { label: 'Contacto', route: '/contact', icon: MessageIcon },
+                { label: 'Acerca de', route: '/about', icon: FaceIcon }
+              ]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={6}>
+            <Paper className={classes.paper}>
+              <Typography component="h4" variant="h4" gutterBottom className={classes.serviceTitle}>
+                Servicios
+              </Typography>
+              <Services />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={6} className={classes.contactContainer}>
+            <Paper className={classes.paper}>
+              <Typography component="h4" variant="h4" gutterBottom className={classes.contactTitle}>
+                Contacto
+              </Typography>
+              <Contact />
+            </Paper>
+          </Grid>
+        </Grid>
+      </React.Fragment>
+    );
   }
-
-  return (
-    <React.Fragment>
-      <Head />
-      <Grid container spacing={24}>
-        <Grid item xs={12}>
-          <Paper className={classes.mainTitleContainer}>
-            <Typography component="h4" variant="h4" gutterBottom className={classes.mainTitle}>
-              Natalia Scheuer Abogada
-            </Typography>
-          </Paper>
-        </Grid>
-        {/* CHECK IF WE ARE ON MOBILE DEVICES
-            IF WE ARE ON THE BOTTOM DISMISS. SCROLL UP AND APPEARS
-         */}
-        <Grid item xs={12} className={ifMobile ? classes.navigationMenuMobile : ''}>
-          <BottomNavigation
-            routes={[
-              { label: 'Servicios', route: '/services', icon: WorkIcon },
-              { label: 'Contacto', route: '/contact', icon: MessageIcon },
-              { label: 'Acerca de', route: '/about', icon: FaceIcon }
-            ]}
-          />
-        </Grid>
-        <Grid item xs={12} md={6} lg={6}>
-          <Paper className={classes.paper}>
-            <Typography component="h4" variant="h4" gutterBottom className={classes.serviceTitle}>
-              Servicios
-            </Typography>
-            <Services />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6} lg={6} className={classes.contactContainer}>
-          <Paper className={classes.paper}>
-            <Typography component="h4" variant="h4" gutterBottom className={classes.contactTitle}>
-              Contacto
-            </Typography>
-            <Contact />
-          </Paper>
-        </Grid>
-      </Grid>
-    </React.Fragment>
-  );
-};
+}
 
 export default withStyles(styles)(Home);
 
