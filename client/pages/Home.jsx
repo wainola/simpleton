@@ -11,7 +11,9 @@ import BottomNavigation from './components/BottomNavigation';
 import Services from './components/Services';
 import Contact from './components/Contact';
 
-require('./styles.scss');
+if (process.browser) {
+  require('./styles.scss');
+}
 
 const styles = theme => ({
   root: {
@@ -23,7 +25,6 @@ const styles = theme => ({
     color: theme.palette.text.secondary
   },
   mainTitleContainer: {
-    height: '70%',
     display: 'flex',
     'align-items': 'center',
     'justify-content': 'center',
@@ -31,7 +32,8 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     background: '#C93756',
     color: 'white',
-    'text-transform': 'uppercase'
+    'text-transform': 'uppercase',
+    margin: '10px'
   },
   mainTitle: {
     color: 'white',
@@ -50,21 +52,25 @@ const styles = theme => ({
   },
   contactTitle: {
     'font-size': '1.5rem',
-    'text-transform': 'uppercase'
+    'text-transform': 'uppercase',
+    '@media screen and (max-width: 767px)': {
+      'font-size': '1rem'
+    }
   },
   serviceTitle: {
     'text-align': 'center',
     'text-transform': 'uppercase',
     'font-size': '1.5rem',
-    margin: '20px'
+    margin: '20px',
+    '@media screen and (max-width: 767px)': {
+      'font-size': '1rem'
+    }
   }
 });
 
 class Home extends React.Component {
   render() {
-    const { classes } = this.props;
-    const { ifMobile } = this.props;
-
+    const { classes, ifMobile } = this.props;
     return (
       <React.Fragment>
         <Head />
@@ -77,8 +83,8 @@ class Home extends React.Component {
             </Paper>
           </Grid>
           {/* CHECK IF WE ARE ON MOBILE DEVICES
-              IF WE ARE ON THE BOTTOM DISMISS. SCROLL UP AND APPEARS
-           */}
+       IF WE ARE ON THE BOTTOM DISMISS. SCROLL UP AND APPEARS
+    */}
           <Grid item xs={12} className={ifMobile ? classes.navigationMenuMobile : ''}>
             <BottomNavigation
               routes={[

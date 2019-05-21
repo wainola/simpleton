@@ -56758,7 +56758,7 @@ var _jsxFileName = "/home/nicolas/Documents/node/simpleton/client/pages/Head.jsx
     __self: this
   }, "Natalia Scheuer Abogada"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("meta", {
     name: "viewport",
-    content: "width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no",
+    content: "width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 8
@@ -56833,7 +56833,9 @@ var _jsxFileName = "/home/nicolas/Documents/node/simpleton/client/pages/Home.jsx
 
 
 
-__webpack_require__(/*! ./styles.scss */ "./pages/styles.scss");
+if (true) {
+  __webpack_require__(/*! ./styles.scss */ "./pages/styles.scss");
+}
 
 var styles = function styles(theme) {
   return {
@@ -56846,7 +56848,6 @@ var styles = function styles(theme) {
       color: theme.palette.text.secondary
     },
     mainTitleContainer: {
-      height: '70%',
       display: 'flex',
       'align-items': 'center',
       'justify-content': 'center',
@@ -56854,7 +56855,8 @@ var styles = function styles(theme) {
       padding: theme.spacing.unit * 2,
       background: '#C93756',
       color: 'white',
-      'text-transform': 'uppercase'
+      'text-transform': 'uppercase',
+      margin: '10px'
     },
     mainTitle: {
       color: 'white',
@@ -56873,13 +56875,19 @@ var styles = function styles(theme) {
     },
     contactTitle: {
       'font-size': '1.5rem',
-      'text-transform': 'uppercase'
+      'text-transform': 'uppercase',
+      '@media screen and (max-width: 767px)': {
+        'font-size': '1rem'
+      }
     },
     serviceTitle: {
       'text-align': 'center',
       'text-transform': 'uppercase',
       'font-size': '1.5rem',
-      margin: '20px'
+      margin: '20px',
+      '@media screen and (max-width: 767px)': {
+        'font-size': '1rem'
+      }
     }
   };
 };
@@ -56898,18 +56906,19 @@ function (_React$Component) {
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Home, [{
     key: "render",
     value: function render() {
-      var classes = this.props.classes;
-      var ifMobile = this.props.ifMobile;
+      var _this$props = this.props,
+          classes = _this$props.classes,
+          ifMobile = _this$props.ifMobile;
       return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 69
+          lineNumber: 75
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Head__WEBPACK_IMPORTED_MODULE_11__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 70
+          lineNumber: 76
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Grid"], {
@@ -56917,7 +56926,7 @@ function (_React$Component) {
         spacing: 24,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 71
+          lineNumber: 77
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Grid"], {
@@ -56925,14 +56934,14 @@ function (_React$Component) {
         xs: 12,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 72
+          lineNumber: 78
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Paper"], {
         className: classes.mainTitleContainer,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 73
+          lineNumber: 79
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Typography"], {
@@ -56942,7 +56951,7 @@ function (_React$Component) {
         className: classes.mainTitle,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 74
+          lineNumber: 80
         },
         __self: this
       }, "Natalia Scheuer Abogada"))), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Grid"], {
@@ -56951,7 +56960,7 @@ function (_React$Component) {
         className: ifMobile ? classes.navigationMenuMobile : '',
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 82
+          lineNumber: 88
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_components_BottomNavigation__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -56970,7 +56979,7 @@ function (_React$Component) {
         }],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 83
+          lineNumber: 89
         },
         __self: this
       })), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Grid"], {
@@ -56980,14 +56989,14 @@ function (_React$Component) {
         lg: 6,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 91
+          lineNumber: 97
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Paper"], {
         className: classes.paper,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 92
+          lineNumber: 98
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Typography"], {
@@ -56997,13 +57006,13 @@ function (_React$Component) {
         className: classes.serviceTitle,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 93
+          lineNumber: 99
         },
         __self: this
       }, "Servicios"), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_components_Services__WEBPACK_IMPORTED_MODULE_13__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 96
+          lineNumber: 102
         },
         __self: this
       }))), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Grid"], {
@@ -57014,14 +57023,14 @@ function (_React$Component) {
         className: classes.contactContainer,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 99
+          lineNumber: 105
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Paper"], {
         className: classes.paper,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 100
+          lineNumber: 106
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["Typography"], {
@@ -57031,13 +57040,13 @@ function (_React$Component) {
         className: classes.contactTitle,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 101
+          lineNumber: 107
         },
         __self: this
       }, "Contacto"), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_components_Contact__WEBPACK_IMPORTED_MODULE_14__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 104
+          lineNumber: 110
         },
         __self: this
       })))));
@@ -57557,7 +57566,10 @@ var styles = function styles(theme) {
     },
     headline: {
       'margin-left': '10px',
-      'margin-top': '-1px'
+      'margin-top': '-1px',
+      '@media screen and (max-width: 767px)': {
+        'font-size': '1rem'
+      }
     }
   };
 };
@@ -57568,166 +57580,166 @@ function SimpleExpansionPanel(props) {
     className: classes.root,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 30
+      lineNumber: 33
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_2___default.a, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 31
+      lineNumber: 34
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_3___default.a, {
     expandIcon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_6___default.a, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 32
+        lineNumber: 35
       },
       __self: this
     }),
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 32
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5___default.a, {
-    className: classes.heading,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 33
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 34
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_People__WEBPACK_IMPORTED_MODULE_7___default.a, {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 35
     },
     __self: this
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: classes.headline,
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    className: classes.heading,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 36
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 37
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_People__WEBPACK_IMPORTED_MODULE_7___default.a, {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 38
     },
     __self: this
-  }, "Divorcios"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_4___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: classes.headline,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 41
     },
     __self: this
+  }, "Divorcios"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 44
+    },
+    __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5___default.a, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 42
+      lineNumber: 45
     },
     __self: this
   }, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 48
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_3___default.a, {
-    expandIcon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_6___default.a, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 49
-      },
-      __self: this
-    }),
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 49
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5___default.a, {
-    className: classes.heading,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 50
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 51
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Mood__WEBPACK_IMPORTED_MODULE_8___default.a, {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 52
-    },
-    __self: this
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: classes.headline,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 54
-    },
-    __self: this
-  }, "Separaci\xF3n judicial"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_4___default.a, {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 57
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5___default.a, {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 58
-    },
-    __self: this
-  }, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 64
-    },
-    __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_3___default.a, {
     expandIcon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_6___default.a, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 65
+        lineNumber: 52
       },
       __self: this
     }),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65
+      lineNumber: 52
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5___default.a, {
     className: classes.heading,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 66
+      lineNumber: 53
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 67
+      lineNumber: 54
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_WorkOutline__WEBPACK_IMPORTED_MODULE_9___default.a, {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Mood__WEBPACK_IMPORTED_MODULE_8___default.a, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68
+      lineNumber: 55
     },
     __self: this
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: classes.headline,
     __source: {
       fileName: _jsxFileName,
+      lineNumber: 57
+    },
+    __self: this
+  }, "Separaci\xF3n judicial"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 60
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 61
+    },
+    __self: this
+  }, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 67
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_3___default.a, {
+    expandIcon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_6___default.a, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 68
+      },
+      __self: this
+    }),
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 68
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    className: classes.heading,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 69
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    __source: {
+      fileName: _jsxFileName,
       lineNumber: 70
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_WorkOutline__WEBPACK_IMPORTED_MODULE_9___default.a, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 71
+    },
+    __self: this
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: classes.headline,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 73
     },
     __self: this
   }, "Otros")))));
@@ -57784,7 +57796,7 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             req = _ref.req;
-            userAgent = req.headers['user-agent'];
+            userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
             ifMobile = Object(_Services_checkIfMobile__WEBPACK_IMPORTED_MODULE_4__["default"])(userAgent);
             return _context.abrupt("return", {
               ifMobile: ifMobile
@@ -57807,7 +57819,7 @@ function () {
 
 /***/ }),
 
-/***/ 0:
+/***/ 6:
 /*!**********************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2Fhome%2Fnicolas%2FDocuments%2Fnode%2Fsimpleton%2Fclient%2Fpages%2Findex.jsx ***!
   \**********************************************************************************************************************************************/
@@ -57830,5 +57842,5 @@ module.exports = dll_7aff549c98b978433226;
 
 /***/ })
 
-},[[0,"static/runtime/webpack.js","styles"]]]);
+},[[6,"static/runtime/webpack.js","styles"]]]);
 //# sourceMappingURL=index.js.map

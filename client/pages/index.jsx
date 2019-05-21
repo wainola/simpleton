@@ -8,7 +8,7 @@ const EntryPoint = props => {
 };
 
 EntryPoint.getInitialProps = async ({ req }) => {
-  const userAgent = req.headers['user-agent'];
+  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
   const ifMobile = checkMobile(userAgent);
   return { ifMobile };
 };

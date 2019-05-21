@@ -20,7 +20,10 @@ const styles = theme => ({
   },
   headline: {
     'margin-left': '10px',
-    'margin-top': '-1px'
+    'margin-top': '-1px',
+    '@media screen and (max-width: 767px)': {
+      'font-size': '1rem'
+    }
   }
 });
 
