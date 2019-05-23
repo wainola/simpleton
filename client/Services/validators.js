@@ -1,15 +1,3 @@
-const validations = fields => {
-  const data = Object.entries(fields).filter(e => e[0] !== 'email');
-
-  const { email } = fields;
-
-  const validEmail = emailValidation(email);
-
-  const validData = validateOtherData(data);
-
-  return [...validData, validEmail];
-};
-
 const emailValidation = email => {
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -27,5 +15,17 @@ const validateOtherData = data =>
     }
     return { key: item[0], isValid: item[1].length > 10 };
   });
+
+const validations = fields => {
+  const data = Object.entries(fields).filter(e => e[0] !== 'email');
+
+  const { email } = fields;
+
+  const validEmail = emailValidation(email);
+
+  const validData = validateOtherData(data);
+
+  return [...validData, validEmail];
+};
 
 export default validations;

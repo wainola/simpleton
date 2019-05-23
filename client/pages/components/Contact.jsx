@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, FormControl, TextField, Button } from '@material-ui/core';
+import validations from '../../Services/validators';
+import Api from '../Api';
 
 import LoadComplete from './LoadComplete';
 
@@ -27,7 +29,6 @@ const styles = theme => ({
 });
 
 function Contact(props) {
-  const [open, setOpen] = React.useState(false);
   const [formChecked, setFormChecked] = React.useState({
     nombre: false,
     apellido: false,
@@ -36,122 +37,157 @@ function Contact(props) {
     razon: false,
     direccion: false
   });
+  const [formValues, setFormValues] = React.useState({
+    nombre: '',
+    apellido: '',
+    email: '',
+    telefono: '',
+    razon: '',
+    direccion: ''
+  });
   const [allChecked, setAllChecked] = React.useState(false);
   const [isComplete, setComplete] = React.useState(false);
 
-  function handleClickOpen() {
-    setOpen(true);
-  }
-
-  function handleClose() {
-    setOpen(false);
-  }
-
   function handleBlur(evt) {
-    console.log('handleBlur', evt.target);
-    if (evt.target.name !== 'direccion') {
-      return setFormChecked({
+    if (evt.target.value !== '') {
+      setFormChecked({
         ...formChecked,
         [evt.target.name]: !formChecked[evt.target.name]
       });
     }
-
-    setFormChecked({
-      ...formChecked,
-      [evt.target.name]: !formChecked[evt.target.name]
-    });
   }
 
   function handleFocus(evt) {
-    return setFormChecked({
-      ...formChecked,
-      [evt.target.name]: !formChecked[evt.target.name]
+    console.log(':::', evt.target.value);
+    if (evt.target.value !== '') {
+      setFormChecked({
+        ...formChecked,
+        [evt.target.name]: !formChecked[evt.target.name]
+      });
+    }
+  }
+
+  function handleChange(evt) {
+    evt.preventDefault();
+    if (evt.target.name === 'direccion' && formChecked[evt.target.name]) {
+      setAllChecked(!allChecked);
+    }
+    setFormValues({
+      ...formValues,
+      [evt.target.name]: evt.target.value
     });
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    console.log('formValues', formValues);
+    console.log(
+      'validations',
+      validations(formValues),
+      validations(formValues).every(item => !!item.isValid)
+    );
+
+    const validData = validations(formValues);
+    const areAllValid = validData.every(item => !!item.isValid);
+
+    if (areAllValid) {
+    }
   }
 
   const { classes } = props;
 
-  console.log('props', props);
+  // console.log('props', props);
+  console.log('props', formChecked.direccion, formValues.direccion);
 
   return (
     <div>
       <Grid container>
         <Grid item xs={12} sm={12} md={12} lg={12} className={classes.formContainer}>
-          <FormControl className={classes.formFields}>
-            <div className={classes.inlineFields}>
-              <LoadComplete isComplete={formChecked.nombre} name="nombre" />
-              <TextField
-                id="input-with-icon-textfield"
-                label="Nombre"
-                onBlur={!formChecked.nombre ? handleBlur : () => {}}
-                onFocus={handleFocus}
-                name="nombre"
-              />
-            </div>
-          </FormControl>
-          <FormControl className={classes.formFields}>
-            <div className={classes.inlineFields}>
-              <LoadComplete isComplete={formChecked.apellido} name="apellido" />
-              <TextField
-                id="input-with-icon-textfield"
-                label="Apellido"
-                name="apellido"
-                onBlur={!formChecked.apellido ? handleBlur : () => {}}
-                onFocus={handleFocus}
-              />
-            </div>
-          </FormControl>
-          <FormControl className={classes.formFields}>
-            <div className={classes.inlineFields}>
-              <LoadComplete isComplete={formChecked.email} name="email" />
-              <TextField
-                id="input-with-icon-textfield"
-                label="Email"
-                name="email"
-                onBlur={!formChecked.email ? handleBlur : () => {}}
-                onFocus={handleFocus}
-              />
-            </div>
-          </FormControl>
-          <FormControl className={classes.formFields}>
-            <div className={classes.inlineFields}>
-              <LoadComplete isComplete={formChecked.telefono} name="telefono" />
-              <TextField
-                id="input-with-icon-textfield"
-                label="Teléfono"
-                name="telefono"
-                onBlur={!formChecked.telefono ? handleBlur : () => {}}
-                onFocus={handleFocus}
-              />
-            </div>
-          </FormControl>
-          <FormControl className={classes.formFields}>
-            <div className={classes.inlineFields}>
-              <LoadComplete isComplete={formChecked.razon} name="razon" />
-              <TextField
-                id="input-with-icon-textfield"
-                label="Motivo de consulta"
-                name="razon"
-                onBlur={!formChecked.razon ? handleBlur : () => {}}
-                onFocus={handleFocus}
-              />
-            </div>
-          </FormControl>
-          <FormControl className={classes.formFields}>
-            <div className={classes.inlineFields}>
-              <LoadComplete isComplete={formChecked.direccion} name="direccion" />
-              <TextField
-                id="input-with-icon-textfield"
-                label="Dirección"
-                name="direccion"
-                onBlur={!formChecked.direccion ? handleBlur : () => {}}
-                onFocus={handleFocus}
-              />
-            </div>
-          </FormControl>
-          <FormControl className={classes.formFields}>
-            <Button color="primary">Guardar</Button>
-          </FormControl>
+          <form onSubmit={handleSubmit}>
+            <FormControl className={classes.formFields}>
+              <div className={classes.inlineFields}>
+                <LoadComplete isComplete={formChecked.nombre} name="nombre" />
+                <TextField
+                  id="input-with-icon-textfield"
+                  label="Nombre"
+                  onBlur={!formChecked.nombre ? handleBlur : () => {}}
+                  onFocus={handleFocus}
+                  name="nombre"
+                  onChange={handleChange}
+                />
+              </div>
+            </FormControl>
+            <FormControl className={classes.formFields}>
+              <div className={classes.inlineFields}>
+                <LoadComplete isComplete={formChecked.apellido} name="apellido" />
+                <TextField
+                  id="input-with-icon-textfield"
+                  label="Apellido"
+                  name="apellido"
+                  onBlur={!formChecked.apellido ? handleBlur : () => {}}
+                  onFocus={handleFocus}
+                  onChange={handleChange}
+                />
+              </div>
+            </FormControl>
+            <FormControl className={classes.formFields}>
+              <div className={classes.inlineFields}>
+                <LoadComplete isComplete={formChecked.email} name="email" />
+                <TextField
+                  id="input-with-icon-textfield"
+                  label="Email"
+                  name="email"
+                  onBlur={!formChecked.email ? handleBlur : () => {}}
+                  onFocus={handleFocus}
+                  onChange={handleChange}
+                />
+              </div>
+            </FormControl>
+            <FormControl className={classes.formFields}>
+              <div className={classes.inlineFields}>
+                <LoadComplete isComplete={formChecked.telefono} name="telefono" />
+                <TextField
+                  id="input-with-icon-textfield"
+                  label="Teléfono"
+                  name="telefono"
+                  onBlur={!formChecked.telefono ? handleBlur : () => {}}
+                  onFocus={handleFocus}
+                  onChange={handleChange}
+                />
+              </div>
+            </FormControl>
+            <FormControl className={classes.formFields}>
+              <div className={classes.inlineFields}>
+                <LoadComplete isComplete={formChecked.razon} name="razon" />
+                <TextField
+                  id="input-with-icon-textfield"
+                  label="Motivo de consulta"
+                  name="razon"
+                  onBlur={!formChecked.razon ? handleBlur : () => {}}
+                  onFocus={handleFocus}
+                  onChange={handleChange}
+                />
+              </div>
+            </FormControl>
+            <FormControl className={classes.formFields}>
+              <div className={classes.inlineFields}>
+                <LoadComplete isComplete={formChecked.direccion} name="direccion" />
+                <TextField
+                  id="input-with-icon-textfield"
+                  label="Dirección"
+                  name="direccion"
+                  onBlur={!formChecked.direccion ? handleBlur : () => {}}
+                  onFocus={handleFocus}
+                  onChange={handleChange}
+                />
+              </div>
+            </FormControl>
+            <FormControl className={classes.formFields}>
+              <Button color="primary" type="submit">
+                Guardar
+              </Button>
+            </FormControl>
+          </form>
         </Grid>
       </Grid>
     </div>
