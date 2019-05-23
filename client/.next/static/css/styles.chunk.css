@@ -60,8 +60,12 @@
   border-color: #5cb85c;
   transition: border 500ms ease-out; }
 
+html {
+  overflow-x: hidden; }
+
 body {
-  background: #e0e0e0; }
+  background: #e0e0e0;
+  overflow-x: hidden; }
 
 
 /*# sourceMappingURL=styles.chunk.css.map*/
