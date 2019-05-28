@@ -56955,21 +56955,20 @@ function () {
       var _sendClientData = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
       _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-        var datasend;
         return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return fetch("".concat(API_URL, "/client"), {
+                return _context.abrupt("return", fetch("".concat(API_URL, "/client"), {
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
                   method: 'POST',
                   body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(data)
-                });
+                }));
 
-              case 2:
-                datasend = _context.sent;
-
-              case 3:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -57486,6 +57485,11 @@ function Contact(props) {
       isComplete = _React$useState8[0],
       setComplete = _React$useState8[1];
 
+  var _React$useState9 = react__WEBPACK_IMPORTED_MODULE_3___default.a.useState(null),
+      _React$useState10 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_React$useState9, 2),
+      nodeForm = _React$useState10[0],
+      setNodeForm = _React$useState10[1];
+
   function handleBlur(evt) {
     if (evt.target.value !== '') {
       setFormChecked(Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, formChecked, Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, evt.target.name, !formChecked[evt.target.name])));
@@ -57493,8 +57497,7 @@ function Contact(props) {
   }
 
   function handleFocus(evt) {
-    console.log(':::', evt.target.value);
-
+    // console.log(':::', evt.target.value);
     if (evt.target.value !== '') {
       setFormChecked(Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, formChecked, Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, evt.target.name, !formChecked[evt.target.name])));
     }
@@ -57521,7 +57524,26 @@ function Contact(props) {
       return !!item.isValid;
     });
 
-    if (areAllValid) {}
+    if (areAllValid) {
+      console.log('areValid', areAllValid, validData);
+      _Api__WEBPACK_IMPORTED_MODULE_7__["default"].sendClientData(formValues).then(function (response) {
+        if (response.status === 200) {
+          nodeForm.reset();
+          setFormChecked({
+            nombre: false,
+            apellido: false,
+            email: false,
+            telefono: false,
+            razon: false,
+            direccion: false
+          });
+        }
+      });
+    }
+  }
+
+  function getNode(node) {
+    setNodeForm(node);
   }
 
   var classes = props.classes; // console.log('props', props);
@@ -57530,14 +57552,14 @@ function Contact(props) {
   return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 103
+      lineNumber: 117
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Grid"], {
     container: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 104
+      lineNumber: 118
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Grid"], {
@@ -57549,28 +57571,30 @@ function Contact(props) {
     className: classes.formContainer,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 105
+      lineNumber: 119
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
     onSubmit: handleSubmit,
+    name: "contact-form",
+    ref: getNode,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 106
+      lineNumber: 120
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["FormControl"], {
     className: classes.formFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 107
+      lineNumber: 121
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: classes.inlineFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 108
+      lineNumber: 122
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_LoadComplete__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -57578,7 +57602,7 @@ function Contact(props) {
     name: "nombre",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 109
+      lineNumber: 123
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
@@ -57590,21 +57614,21 @@ function Contact(props) {
     onChange: handleChange,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 110
+      lineNumber: 124
     },
     __self: this
   }))), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["FormControl"], {
     className: classes.formFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 120
+      lineNumber: 134
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: classes.inlineFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 121
+      lineNumber: 135
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_LoadComplete__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -57612,7 +57636,7 @@ function Contact(props) {
     name: "apellido",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122
+      lineNumber: 136
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
@@ -57624,21 +57648,21 @@ function Contact(props) {
     onChange: handleChange,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 123
+      lineNumber: 137
     },
     __self: this
   }))), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["FormControl"], {
     className: classes.formFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 133
+      lineNumber: 147
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: classes.inlineFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 134
+      lineNumber: 148
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_LoadComplete__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -57646,7 +57670,7 @@ function Contact(props) {
     name: "email",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 135
+      lineNumber: 149
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
@@ -57658,21 +57682,21 @@ function Contact(props) {
     onChange: handleChange,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 136
+      lineNumber: 150
     },
     __self: this
   }))), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["FormControl"], {
     className: classes.formFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 146
+      lineNumber: 160
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: classes.inlineFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 147
+      lineNumber: 161
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_LoadComplete__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -57680,7 +57704,7 @@ function Contact(props) {
     name: "telefono",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 148
+      lineNumber: 162
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
@@ -57692,21 +57716,21 @@ function Contact(props) {
     onChange: handleChange,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 149
+      lineNumber: 163
     },
     __self: this
   }))), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["FormControl"], {
     className: classes.formFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 159
+      lineNumber: 173
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: classes.inlineFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 160
+      lineNumber: 174
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_LoadComplete__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -57714,7 +57738,7 @@ function Contact(props) {
     name: "razon",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 161
+      lineNumber: 175
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
@@ -57726,21 +57750,21 @@ function Contact(props) {
     onChange: handleChange,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 162
+      lineNumber: 176
     },
     __self: this
   }))), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["FormControl"], {
     className: classes.formFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 172
+      lineNumber: 186
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: classes.inlineFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 173
+      lineNumber: 187
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_LoadComplete__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -57748,7 +57772,7 @@ function Contact(props) {
     name: "direccion",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 174
+      lineNumber: 188
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
@@ -57760,14 +57784,14 @@ function Contact(props) {
     onChange: handleChange,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 175
+      lineNumber: 189
     },
     __self: this
   }))), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["FormControl"], {
     className: classes.formFields,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 185
+      lineNumber: 199
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
@@ -57775,7 +57799,7 @@ function Contact(props) {
     type: "submit",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 186
+      lineNumber: 200
     },
     __self: this
   }, "Guardar"))))));

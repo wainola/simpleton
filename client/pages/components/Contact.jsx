@@ -47,6 +47,7 @@ function Contact(props) {
   });
   const [allChecked, setAllChecked] = React.useState(false);
   const [isComplete, setComplete] = React.useState(false);
+  const [nodeForm, setNodeForm] = React.useState(null)
 
   function handleBlur(evt) {
     if (evt.target.value !== '') {
@@ -58,7 +59,7 @@ function Contact(props) {
   }
 
   function handleFocus(evt) {
-    console.log(':::', evt.target.value);
+    // console.log(':::', evt.target.value);
     if (evt.target.value !== '') {
       setFormChecked({
         ...formChecked,
@@ -91,7 +92,20 @@ function Contact(props) {
     const areAllValid = validData.every(item => !!item.isValid);
 
     if (areAllValid) {
+      console.log('areValid', areAllValid, validData);
+      Api.sendClientData(formValues).then(response => {
+        if(response.status === 200){
+          nodeForm.reset()
+          setFormChecked({
+            nombre: false, apellido: false, email: false, telefono: false, razon: false, direccion: false
+          })
+        }
+      })
     }
+  }
+
+  function getNode(node){
+    setNodeForm(node)
   }
 
   const { classes } = props;
@@ -103,7 +117,7 @@ function Contact(props) {
     <div>
       <Grid container>
         <Grid item xs={12} sm={12} md={12} lg={12} className={classes.formContainer}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} name='contact-form' ref={getNode}>
             <FormControl className={classes.formFields}>
               <div className={classes.inlineFields}>
                 <LoadComplete isComplete={formChecked.nombre} name="nombre" />
