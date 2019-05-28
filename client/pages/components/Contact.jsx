@@ -5,6 +5,7 @@ import validations from '../../Services/validators';
 import Api from '../Api';
 
 import LoadComplete from './LoadComplete';
+import ResponsiveDialog from './Dialog';
 
 const styles = theme => ({
   paper: {
@@ -47,7 +48,17 @@ function Contact(props) {
   });
   const [allChecked, setAllChecked] = React.useState(false);
   const [isComplete, setComplete] = React.useState(false);
-  const [nodeForm, setNodeForm] = React.useState(null)
+  const [nodeForm, setNodeForm] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+
+  function handleClose() {
+    setOpen(false);
+  }
+
+  function handleOpen() {
+    console.log('openDialog');
+    setOpen(true);
+  }
 
   function handleBlur(evt) {
     if (evt.target.value !== '') {
@@ -94,30 +105,33 @@ function Contact(props) {
     if (areAllValid) {
       console.log('areValid', areAllValid, validData);
       Api.sendClientData(formValues).then(response => {
-        if(response.status === 200){
-          nodeForm.reset()
+        if (response.status === 200) {
+          handleOpen();
+          nodeForm.reset();
           setFormChecked({
-            nombre: false, apellido: false, email: false, telefono: false, razon: false, direccion: false
-          })
+            nombre: false,
+            apellido: false,
+            email: false,
+            telefono: false,
+            razon: false,
+            direccion: false
+          });
         }
-      })
+      });
     }
   }
 
-  function getNode(node){
-    setNodeForm(node)
+  function getNode(node) {
+    setNodeForm(node);
   }
 
   const { classes } = props;
-
-  // console.log('props', props);
-  console.log('props', formChecked.direccion, formValues.direccion);
 
   return (
     <div>
       <Grid container>
         <Grid item xs={12} sm={12} md={12} lg={12} className={classes.formContainer}>
-          <form onSubmit={handleSubmit} name='contact-form' ref={getNode}>
+          <form onSubmit={handleSubmit} name="contact-form" ref={getNode}>
             <FormControl className={classes.formFields}>
               <div className={classes.inlineFields}>
                 <LoadComplete isComplete={formChecked.nombre} name="nombre" />
@@ -201,6 +215,7 @@ function Contact(props) {
                 Guardar
               </Button>
             </FormControl>
+            <ResponsiveDialog open={open} handleClose={handleClose} />
           </form>
         </Grid>
       </Grid>
