@@ -13,7 +13,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({});
 
 const ResponsiveDialog = props => {
-  console.log('dialog', props);
   const { open, handleClose } = props;
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
@@ -26,7 +25,7 @@ const ResponsiveDialog = props => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary" autoFocus>
+        <Button onClick={handleClose} color="primary" autoFocus name="close-dialog">
           Cerrar
         </Button>
       </DialogActions>
